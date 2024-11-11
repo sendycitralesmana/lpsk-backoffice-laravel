@@ -18,10 +18,9 @@ class GetAllResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'category_id' => $this->application_category_id,
-            'category' => $this->applicationCategory,
+            'application_category_id' => $this->application_category_id,
+            'application_category' => $this->applicationCategory,
             'title' => $this->title,
-            'description' => $this->description,
             'url' => $this->url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

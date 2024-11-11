@@ -12,8 +12,12 @@ class ApplicationCategoryRepository
         try {
             $applicationCategories = ApplicationCategory::orderBy('created_at', 'desc');
 
-            if ($request->name) {
-                $applicationCategories->where('name', 'like', '%' . $request->name . '%');
+            if ($request->search) {
+                $applicationCategories->where('name', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->slug) {
+                $applicationCategories->where('slug', 'like', '%' . $request->slug . '%');
             }
 
             $per_page = $request->per_page;
@@ -54,6 +58,7 @@ class ApplicationCategoryRepository
     {
         try {
             $applicationCategory = new ApplicationCategory();
+            $applicationCategory->slug = $data->slug;
             $applicationCategory->name = $data->name;
             $applicationCategory->save();
             return $applicationCategory;
@@ -68,16 +73,17 @@ class ApplicationCategoryRepository
             $applicationCategories = ApplicationCategory::where('id', '!=', $id)->get();
             $applicationCategory = ApplicationCategory::find($id);
             $applicationCategory->name = $data->name;
-
-            foreach ($applicationCategories as $key => $value) {
-                if ($value->name == $applicationCategory->name) {
-                    return redirect()->back()->with('error', 'Kategori ' . $applicationCategory->name . ' sudah ada');
-                }
-            }
-            $applicationCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            $applicationCategory->slug = $data->slug;
             $applicationCategory->save();
-            // redirect()->back()->with('success', 'Kategori aplikasi telah diperbarui');
-            return redirect()->back()->with('success', 'Kategori aplikasi telah diperbarui');
+            return $applicationCategory;
+            // foreach ($applicationCategories as $key => $value) {
+            //     if ($value->name == $applicationCategory->name) {
+            //         return redirect()->back()->with('error', 'Kategori ' . $applicationCategory->name . ' sudah ada');
+            //     }
+            // }
+            // $applicationCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            // $applicationCategory->save();
+            // return redirect()->back()->with('success', 'Kategori aplikasi telah diperbarui');
         } catch (\Throwable $th) {
             throw $th;
         }

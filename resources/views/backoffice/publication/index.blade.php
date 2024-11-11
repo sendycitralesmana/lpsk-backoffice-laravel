@@ -97,7 +97,15 @@
                                         </a>
                                     @endif
                                 </td>
-                                <td>{{ $publication->status }}</td>
+                                <td>
+                                    @if ($publication->status == "DINAIKAN")
+                                        <p class="badge badge-success">{{ $publication->status }}</p>
+                                    @elseif ($publication->status == "DIAJUKAN")
+                                        <p class="badge badge-warning">{{ $publication->status }}</p>
+                                    @else
+                                        <p class="badge badge-danger">{{ $publication->status }}</p>
+                                    @endif
+                                </td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $publication->id }}" title="Ubah">
                                         <i class="fa fa-edit"></i> Ubah

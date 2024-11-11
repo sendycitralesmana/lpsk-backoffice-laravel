@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\Application;
+use App\Models\ApplicationCategory;
 use Illuminate\Support\Facades\Storage;
 
 class ApplicationRepository
@@ -11,11 +12,26 @@ class ApplicationRepository
     public function getAllApi($request)
     {
         try {
-            $application = Application::orderBy('created_at', 'desc');
+            $application = Application::with('applicationCategory')->orderBy('created_at', 'desc');
 
-            if ($request->title) {
-                $application->where('title', 'like', '%' . $request->title . '%');
+            if ($request->search) {
+                $application->where('title', 'like', '%' . $request->search . '%');
             }
+
+            if ($request->slug) {
+                $application->where('slug', 'like', '%' . $request->slug . '%');
+            }
+
+            if ($request->category_id) {
+                $application->where('application_category_id', $request->category_id);
+            }
+
+            if ($request->category_slug) {   
+                $application->whereHas('applicationCategory', function ($query) use ($request) {
+                    $query->where('slug', $request->category_slug);
+                });
+            }
+
 
             $per_page = $request->per_page;
             if ($per_page) {
@@ -59,10 +75,10 @@ class ApplicationRepository
             $application->title = $data->title;
             if ($data->file('cover')) {
                 $file = $data->file('cover');
-                $path = Storage::disk('s3')->put('application', $file);
+                $path = Storage::disk('s3')->put('/application', $file);
                 $application->cover = $path;
+                $application->url = $path;
             }
-            $application->url = $data->url;
             $application->save();
             return $application;
         } catch (\Throwable $th) {
@@ -87,11 +103,11 @@ class ApplicationRepository
                     Storage::disk('s3')->delete($application->cover);
                 }
                 $file = $data->file('cover');
-                $path = Storage::disk('s3')->put('application', $file);
+                $path = Storage::disk('s3')->put('/application', $file);
                 $application->cover = $path;
+                $application->url = $path;
             }
             $application->slug = str_replace(' ', '-', strtolower($data->title));
-            $application->url = $data->url;
             $application->save();
             return $application;
         } catch (\Throwable $th) {

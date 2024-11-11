@@ -77,7 +77,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Kategori</th>
-                                {{-- <th>Berita</th> --}}
+                                <th>Slug</th>
+                                <th>Berita</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -87,7 +88,8 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $newsCategory->name }}</td>
-                                {{-- <td>{{ $newsCategory->news->count() }} Berita</td> --}}
+                                <td>{{ $newsCategory->slug }}</td>
+                                <td>{{ $newsCategory->news->count() }} Berita</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $newsCategory->id }}" title="Ubah">
                                         <i class="fa fa-edit"></i> Ubah

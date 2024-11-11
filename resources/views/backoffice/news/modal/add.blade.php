@@ -1,4 +1,4 @@
-<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form role="form" method="POST" action="/backoffice/news/create" enctype="multipart/form-data">
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Konten <span class="text-danger">*</span></label>
-                                        <textarea name="content"
+                                        <textarea name="content" 
                                             class="form-control @if($errors->has('content')) is-invalid @endif"
                                             placeholder="Konten"></textarea>
                                         @if($errors->has('content'))
@@ -124,53 +124,6 @@
 
                                 </div>
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label>Kategori Berita <span class="text-danger">*</span></label>
-                                <select name="news_category_id"
-                                    class="form-control select2 @if($errors->has('news_category_id')) is-invalid @endif"
-                                    required oninvalid="this.setCustomValidity('Kategori harus diisi')"
-                                    oninput="this.setCustomValidity('')">
-                                    <option value="">-- Pilih Kategori Berita --</option>
-                                    @foreach ($newsCategories as $newsCategory)
-                                    <option value="{{ $newsCategory->id }}">{{ $newsCategory->name }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('news_category_id'))
-                                <small class="help-block" style="color: red">{{ $errors->first('news_category_id')
-                                    }}</small>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label>Judul <span class="text-danger">*</span></label>
-                                <input type="text" name="title"
-                                    class="form-control @if($errors->has('title')) is-invalid @endif"
-                                    placeholder="Judul" value="{{ old('title') }}" required
-                                    oninvalid="this.setCustomValidity('Kategori harus diisi')"
-                                    oninput="this.setCustomValidity('')">
-                                @if($errors->has('title'))
-                                <small class="help-block" style="color: red">{{ $errors->first('title') }}</small>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label>Konten <span class="text-danger">*</span></label>
-                                <textarea name="content"
-                                    class="form-control @if($errors->has('content')) is-invalid @endif"
-                                    placeholder="Konten"></textarea>
-                                @if($errors->has('content'))
-                                <small class="help-block" style="color: red">{{ $errors->first('content') }}</small>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label>Sampul</label>
-                                <img class="reviewCover img-fluid mb-3 col-sm-5">
-                                <input type="file" accept="image/*" name="cover"
-                                    class="form-control @if($errors->has('cover')) is-invalid @endif" id="reviewCover"
-                                    onchange="previewCover()">
-                                @if($errors->has('title'))
-                                <small class="help-block" style="color: red">{{ $errors->first('cover') }}</small>
-                                @endif
-                            </div> --}}
                         </div>
                     </div>
 
@@ -183,4 +136,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}

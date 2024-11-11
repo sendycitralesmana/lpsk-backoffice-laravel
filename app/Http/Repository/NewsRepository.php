@@ -2,11 +2,11 @@
 
 namespace App\Http\Repository;
 
-use App\Models\Image;
 use App\Models\News;
 use App\Models\NewsDocument;
 use App\Models\NewsImage;
 use App\Models\NewsVideo;
+use DOMDocument;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -17,10 +17,28 @@ class NewsRepository
     public function getAllApi($request)
     {
         try {
-            $news = News::orderBy('created_at', 'desc');
+            $news = News::orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
 
-            if ($request->title) {
-                $news->where('title', 'like', '%' . $request->title . '%');
+            if ($request->search) {
+                $news->where('title', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->category_id) {
+                $news->where('news_category_id', $request->category_id);
+            }
+
+            if ($request->user_id) {
+                $news->where('user_id', $request->user_id);
+            }
+
+            if ($request->status) {
+                $news->where('status', $request->status);
+            }
+
+            if ($request->category_slug) {   
+                $news->whereHas('newsCategory', function ($query) use ($request) {
+                    $query->where('slug', $request->category_slug);
+                });
             }
 
             $per_page = $request->per_page;
@@ -39,10 +57,34 @@ class NewsRepository
         }
     }
 
-    public function getAll()
+    public function getAll($data)
     {
         try {
-            return News::orderBy('created_at', 'desc')->get();
+
+            $news = News::orderBy('created_at', 'desc');
+
+            if ($data->search) {
+                $news->where('title', 'like', '%' . $data->search . '%');
+            }
+
+            if ($data->category_id) {
+                $news->where('news_category_id', $data->category_id);
+            }
+
+            if ($data->user_id) {
+                $news->where('user_id', $data->user_id);
+            }
+
+            if ($data->status) {
+                $news->where('status', $data->status);
+            }
+
+            if (Auth::user()->role_id == 1) {
+                return $news->get();
+            } else {
+                return $news->where('user_id', Auth::user()->id)->get();
+            }
+
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -67,13 +109,71 @@ class NewsRepository
             $news->user_id = Auth::user()->id;
             $news->news_category_id = $data->news_category_id;
             $news->title = $data->title;
-            $news->content = $data->content;
+            // $news->content = $data->content;
+
+            $content = $data->content;
+            $dom = new \DomDocument();
+            $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $imageFile = $dom->getElementsByTagName('img');
+
+            foreach ($imageFile as $item => $image) {
+                $dataImg = $image->getAttribute('src');
+                list($type, $dataImg) = explode(';', $dataImg);
+                list(, $dataImg)      = explode(',', $dataImg);
+                $imgeDataImg = base64_decode($dataImg);
+
+                // get image extension
+                $image_info = getimagesizefromstring($imgeDataImg);
+                $image_extension = image_type_to_extension($image_info[2]);
+
+                $image_name= "news/description/" . time().$item.$image_extension;
+
+                Storage::disk('s3')->put($image_name, $imgeDataImg, 'public');
+
+                // $path = public_path() . $image_name;
+                // file_put_contents($path, $imgeDataImg);
+
+                $image->removeAttribute('src');
+
+                $image->setAttribute('src', 'https://bucket.trikalte.my.id/lpsk/'.  $image_name);
+            }
+
+            $content = $dom->saveHTML();
+            $news->content = $content;
+
+
+            // $content = $data->content;
+            // $dom = new DOMDocument();
+            // $dom->loadHtml($content, 9);
+
+            // $images = $dom->getElementsByTagName('img');
+            // foreach ($images as $key => $image) {
+
+            //     $data = base64_decode(explode(',', explode(';', $image->getAttribute('src'))[1])[1]);
+            //     $image_name = "image-" . time() . $key . ".png";
+            //     file_put_contents(public_path().$image_name, $data);
+
+            //     $image->removeAttribute('src');
+            //     $image->setAttribute('src', $image_name);
+
+            //     $src = $image->getAttribute('src');
+            //     $store = Storage::disk('s3')->put('/news/images', $src);
+            //     $image->setAttribute('src', $store);
+            // }
+            // $news->content = $content;
+
             if ($data->file('cover')) {
                 $file = $data->file('cover');
-                $path = Storage::disk('s3')->put('news/cover', $file);
+                $path = Storage::disk('s3')->put('/news/cover', $file);
                 $news->cover = $path;
             }
-            $news->status = "DIAJUKAN";
+
+            if (Auth::user()->role_id == 1) {
+                $news->status = "DINAIKAN";
+            } else {
+                $news->status = "DIAJUKAN";
+            }
+
             $news->save();
 
             // insert image
@@ -83,7 +183,7 @@ class NewsRepository
                     $extension = $data->file('image')[$key]->getClientOriginalExtension();
                     $size = $data->file('image')[$key]->getSize();
                     $url = $data->file('image')[$key];
-                    $store = Storage::disk('s3')->put('news/images', $url);
+                    $store = Storage::disk('s3')->put('/news/images', $url);
 
                     $newsImage = array(
                         'news_id' => $news->id,
@@ -103,7 +203,7 @@ class NewsRepository
                     $extension = $data->file('video')[$key]->getClientOriginalExtension();
                     $size = $data->file('video')[$key]->getSize();
                     $url = $data->file('video')[$key];
-                    $store = Storage::disk('s3')->put('news/videos', $url);
+                    $store = Storage::disk('s3')->put('/news/videos', $url);
 
                     $newsVideo = array(
                         'news_id' => $news->id,
@@ -123,7 +223,7 @@ class NewsRepository
                     $extension = $data->file('document')[$key]->getClientOriginalExtension();
                     $size = $data->file('document')[$key]->getSize();
                     $url = $data->file('document')[$key];
-                    $store = Storage::disk('s3')->put('news/documents', $url);
+                    $store = Storage::disk('s3')->put('/news/documents', $url);
 
                     $newsDocument = array(
                         'news_id' => $news->id,
@@ -163,7 +263,7 @@ class NewsRepository
                 $filename = $data->file('cover')->getClientOriginalName();
                 $news->document_name = $filename;
                 $file = $data->file('cover');
-                $path = Storage::disk('s3')->put('news', $file);
+                $path = Storage::disk('s3')->put('/news/cover', $file);
                 $news->cover = $path;
             }
             $news->slug = str_replace(' ', '-', strtolower($data->document_name));
@@ -197,6 +297,47 @@ class NewsRepository
             if ($news->cover) {
                 Storage::disk('s3')->delete($news->cover);
             }
+
+            // delete image from description summernote
+            // $content = $news->content;
+            // $dom = new \DomDocument();
+            // $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            // $imageFile = $dom->getElementsByTagName('img');
+
+            // foreach ($imageFile as $item => $image) {
+            //     $dataImg = $image->getAttribute('src');
+            //     if (Storage::disk('s3')->exists($dataImg)) {
+            //         Storage::disk('s3')->delete($dataImg);
+            //     }
+            // } 
+
+            // delete image
+            // $newsImages = NewsImage::where('news_id', $id)->get();
+            // foreach ($newsImages as $newsImage) {
+            //     if ($newsImage->url) {
+            //         Storage::disk('s3')->delete($newsImage->url);
+            //     }
+            //     $newsImage->delete();
+            // }
+
+            // delete video
+            // $newsVideos = NewsVideo::where('news_id', $id)->get();
+            // foreach ($newsVideos as $newsVideo) {
+            //     if ($newsVideo->url) {
+            //         Storage::disk('s3')->delete($newsVideo->url);
+            //     }
+            //     $newsVideo->delete();
+            // }
+
+            // delete document
+            // $newsDocuments = NewsDocument::where('news_id', $id)->get();
+            // foreach ($newsDocuments as $newsDocument) {
+            //     if ($newsDocument->url) {
+            //         Storage::disk('s3')->delete($newsDocument->url);
+            //     }
+            //     $newsDocument->delete();
+            // }
+
             $news->delete();
         } catch (\Throwable $th) {
             throw $th;
@@ -213,7 +354,7 @@ class NewsRepository
                     $extension = $data->file('image')[$key]->getClientOriginalExtension();
                     $size = $data->file('image')[$key]->getSize();
                     $url = $data->file('image')[$key];
-                    $store = Storage::disk('s3')->put('news/images', $url);
+                    $store = Storage::disk('s3')->put('/news/images', $url);
 
                     $newsImage = array(
                         'news_id' => $news->id,
@@ -261,7 +402,7 @@ class NewsRepository
                 $news->extension = $extension;
                 $news->size = $size;
                 $file = $data->file('image');
-                $path = Storage::disk('s3')->put('news/images', $file);
+                $path = Storage::disk('s3')->put('/news/images', $file);
                 $news->url = $path;
             }
             $news->save();
@@ -281,7 +422,7 @@ class NewsRepository
                     $extension = $data->file('video')[$key]->getClientOriginalExtension();
                     $size = $data->file('video')[$key]->getSize();
                     $url = $data->file('video')[$key];
-                    $store = Storage::disk('s3')->put('news/videos', $url);
+                    $store = Storage::disk('s3')->put('/news/videos', $url);
 
                     $newsVideo = array(
                         'news_id' => $news->id,
@@ -329,7 +470,7 @@ class NewsRepository
                 $newsVideo->extension = $extension;
                 $newsVideo->size = $size;
                 $file = $data->file('video');
-                $path = Storage::disk('s3')->put('news/videos', $file);
+                $path = Storage::disk('s3')->put('/news/videos', $file);
                 $newsVideo->url = $path;
             }
             $newsVideo->save();
@@ -364,7 +505,7 @@ class NewsRepository
                     $extension = $data->file('document')[$key]->getClientOriginalExtension();
                     $size = $data->file('document')[$key]->getSize();
                     $url = $data->file('document')[$key];
-                    $store = Storage::disk('s3')->put('news/documents', $url);
+                    $store = Storage::disk('s3')->put('/news/documents', $url);
 
                     $newsDocument = array(
                         'news_id' => $news->id,
@@ -412,7 +553,7 @@ class NewsRepository
                 $newsDocument->extension = $extension;
                 $newsDocument->size = $size;
                 $file = $data->file('document');
-                $path = Storage::disk('s3')->put('news/documents', $file);
+                $path = Storage::disk('s3')->put('/news/documents', $file);
                 $newsDocument->url = $path;
             }
             $newsDocument->save();

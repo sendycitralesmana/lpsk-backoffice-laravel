@@ -19,7 +19,7 @@
                                 <select name="role" id="role" class="form-control {{ $errors->has('role') ? 'is-invalid' : '' }} select2">
                                     <option value="">-- Pilih --</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->role }}</option>
+                                        <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('role'))

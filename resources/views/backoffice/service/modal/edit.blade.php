@@ -45,8 +45,8 @@
                                 <select name="status" class="form-control @if($errors->has('status')) is-invalid @endif" 
                                     required oninvalid="this.setCustomValidity('Status harus diisi')" oninput="this.setCustomValidity('')">
                                     <option value="DIAJUKAN" {{ $service->status == 'DIAJUKAN' ? 'selected' : '' }}>DIAJUKAN</option>
-                                    <option value="DISETUJUI" {{ $service->status == 'DISETUJUI' ? 'selected' : '' }}>DISETUJUI</option>
-                                    <option value="DITOLAK" {{ $service->status == 'DITOLAK' ? 'selected' : '' }}>DITOLAK</option>
+                                    <option value="DINAIKAN" {{ $service->status == 'DINAIKAN' ? 'selected' : '' }}>DINAIKAN</option>
+                                    <option value="DITURUNKAN" {{ $service->status == 'DITURUNKAN' ? 'selected' : '' }}>DITURUNKAN</option>
                                 </select>
                                 @if($errors->has('status'))
                                 <small class="help-block" style="color: red">{{ $errors->first('status') }}</small>

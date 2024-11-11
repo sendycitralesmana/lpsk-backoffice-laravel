@@ -22,6 +22,14 @@
                                 <small class="help-block" style="color: red">{{ $errors->first('name') }}</small>
                                 @endif
                             </div>
+                            <div class="form-group">
+                                <label>Slug <span class="text-danger">*</span></label>
+                                <input type="text"  name="slug" class="form-control @if($errors->has('slug')) is-invalid @endif" value="{{ $publicationCategory->slug }}"
+                                required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Slug harus diisi')">
+                                @if($errors->has('slug'))
+                                <small class="help-block" style="color: red">{{ $errors->first('slug') }}</small>
+                                @endif
+                            </div>
                         </div>
                     </div>
 

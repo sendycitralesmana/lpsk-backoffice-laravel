@@ -33,7 +33,8 @@ class ServiceCategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            return $this->serviceCategoryRepository->update($request, $id);
+            $serviceCategory = $this->serviceCategoryRepository->update($request, $id);
+            return redirect()->back()->with('success', 'Kategori aplikasi telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }

@@ -40,18 +40,20 @@
                                     <small class="help-block" style="color: red">{{ $errors->first('document_url') }}</small>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <label>Status <span class="text-danger">*</span></label>
-                                <select name="status" class="form-control @if($errors->has('status')) is-invalid @endif" 
-                                    required oninvalid="this.setCustomValidity('Status harus diisi')" oninput="this.setCustomValidity('')">
-                                    <option value="DIAJUKAN" {{ $publication->status == 'DIAJUKAN' ? 'selected' : '' }}>DIAJUKAN</option>
-                                    <option value="DISETUJUI" {{ $publication->status == 'DISETUJUI' ? 'selected' : '' }}>DISETUJUI</option>
-                                    <option value="DITOLAK" {{ $publication->status == 'DITOLAK' ? 'selected' : '' }}>DITOLAK</option>
-                                </select>
-                                @if($errors->has('status'))
-                                <small class="help-block" style="color: red">{{ $errors->first('status') }}</small>
-                                @endif
-                            </div>
+                            @if (auth()->user()->id == 1)
+                                <div class="form-group">
+                                    <label>Status <span class="text-danger">*</span></label>
+                                    <select name="status" class="form-control @if($errors->has('status')) is-invalid @endif" 
+                                        required oninvalid="this.setCustomValidity('Status harus diisi')" oninput="this.setCustomValidity('')">
+                                        <option value="DIAJUKAN" {{ $publication->status == 'DIAJUKAN' ? 'selected' : '' }}>DIAJUKAN</option>
+                                        <option value="DISETUJUI" {{ $publication->status == 'DISETUJUI' ? 'selected' : '' }}>DISETUJUI</option>
+                                        <option value="DITOLAK" {{ $publication->status == 'DITOLAK' ? 'selected' : '' }}>DITOLAK</option>
+                                    </select>
+                                    @if($errors->has('status'))
+                                    <small class="help-block" style="color: red">{{ $errors->first('status') }}</small>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
 

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('publication_category_id')->nullable();
             $table->foreign('publication_category_id')->references('id')->onDelete('set null')->on('publication_categories');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('slug');
             $table->string('document_name')->nullable();
             $table->string('document_url')->nullable();

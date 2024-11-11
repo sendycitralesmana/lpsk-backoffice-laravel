@@ -77,6 +77,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Kategori</th>
+                                <th>Slug</th>
                                 <th>Publikasi</th>
                                 <th>Aksi</th>
                             </tr>
@@ -87,6 +88,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $publicationCategory->name }}</td>
+                                <td>{{ $publicationCategory->slug }}</td>
                                 <td>{{ $publicationCategory->publications->count() }} Publikasi</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $publicationCategory->id }}" title="Ubah">

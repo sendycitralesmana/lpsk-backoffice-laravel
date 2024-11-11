@@ -77,6 +77,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Kategori</th>
+                                <th>Slug</th>
                                 <th>Layanan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -87,6 +88,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $serviceCategory->name }}</td>
+                                <td>{{ $serviceCategory->slug }}</td>
                                 <td>{{ $serviceCategory->services->count() }} Layanan</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $serviceCategory->id }}" title="Ubah">

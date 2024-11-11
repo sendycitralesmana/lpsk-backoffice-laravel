@@ -12,8 +12,12 @@ class ProfileCategoryRepository
         try {
             $profileCategories = ProfileCategory::orderBy('created_at', 'desc');
 
-            if ($request->name) {
-                $profileCategories->where('name', 'like', '%' . $request->name . '%');
+            if ($request->search) {
+                $profileCategories->where('name', 'like', '%' . $request->search . '%');
+            }
+            
+            if ($request->slug) {
+                $profileCategories->where('slug', 'like', '%' . $request->slug . '%');
             }
 
             $per_page = $request->per_page;
@@ -54,6 +58,7 @@ class ProfileCategoryRepository
     {
         try {
             $profileCategory = new ProfileCategory();
+            $profileCategory->slug = $data->slug;
             $profileCategory->name = $data->name;
             $profileCategory->save();
             return $profileCategory;
@@ -67,16 +72,19 @@ class ProfileCategoryRepository
         try {
             $serviceCategories = ProfileCategory::where('id', '!=', $id)->get();
             $profileCategory = ProfileCategory::find($id);
-            $profileCategory->name = $data->name;
-
-            foreach ($serviceCategories as $key => $value) {
-                if ($value->name == $profileCategory->name) {
-                    return redirect()->back()->with('error', 'Kategori ' . $profileCategory->name . ' sudah ada');
-                }
-            }
-            $profileCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            $profileCategory->name = $data->name;    
+            $profileCategory->slug = $data->slug;
             $profileCategory->save();
-            return redirect()->back()->with('success', 'Kategori profil telah diperbarui');
+
+            return $profileCategory;
+            // foreach ($serviceCategories as $key => $value) {
+            //     if ($value->name == $profileCategory->name) {
+            //         return redirect()->back()->with('error', 'Kategori ' . $profileCategory->name . ' sudah ada');
+            //     }
+            // }
+            // $profileCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            // $profileCategory->save();
+            // return redirect()->back()->with('success', 'Kategori profil telah diperbarui');
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -4,27 +4,58 @@ namespace App\Http\Controllers;
 
 use App\Http\Repository\NewsCategoryRepository;
 use App\Http\Repository\NewsRepository;
+use App\Http\Repository\UserRepository;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
     private $newsRepository;
     private $newsCategoryRepository;
+    private $userRepository;
 
-    public function __construct(NewsRepository $newsRepository, NewsCategoryRepository $newsCategoryRepository)
+    public function __construct(NewsRepository $newsRepository, NewsCategoryRepository $newsCategoryRepository, UserRepository $userRepository)
     {
         $this->newsRepository = $newsRepository;
         $this->newsCategoryRepository = $newsCategoryRepository;
+        $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $newsCategories = $this->newsCategoryRepository->getAll();
-        $newss = $this->newsRepository->getAll(); 
-        return view('backoffice.news.index', compact(['newsCategories', 'newss']));
+        $newss = $this->newsRepository->getAll($request); 
+        $users = $this->userRepository->getAll();
+        $search = $request->search;
+        $category_id = $request->category_id;
+        if ($category_id == null) {
+            $newsCategory = null;
+        } else {
+            $newsCategory = $this->newsCategoryRepository->getById($category_id);
+        }
+        $status = $request->status;
+        $user_id = $request->user_id;
+        if ($user_id == null) {
+            $user = null;
+        } else {
+            $user = $this->userRepository->getById($user_id);
+        }
+        return view('backoffice.news.index', compact(['newsCategories', 'newss', 'newsCategory', 'user',  'users', 'search', 'category_id', 'status', 'user_id']));
     }
 
-    public function detail($id)
+    public function add()
+    {
+        $newsCategories = $this->newsCategoryRepository->getAll();
+        return view('backoffice.news.add', compact('newsCategories'));
+    }
+
+    public function edit($id)
+    {
+        $news = $this->newsRepository->getById($id);
+        $newsCategories = $this->newsCategoryRepository->getAll();
+        return view('backoffice.news.edit', compact(['news', 'newsCategories']));
+    }
+
+    public function detail(Request $request, $id)
     {
         $news = $this->newsRepository->getById($id);
         $newsCategories = $this->newsCategoryRepository->getAll();
@@ -33,9 +64,11 @@ class NewsController extends Controller
 
     public function create(Request $request)
     {
+        
         try {
             $news = $this->newsRepository->store($request);
-            return redirect()->back()->with('success', 'Kategori berita telah ditambahkan');
+            return redirect('/backoffice/news')->with('success', 'Kategori berita telah ditambahkan');
+            // return redirect()->back()->with('success', 'Kategori berita telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -45,7 +78,8 @@ class NewsController extends Controller
     {
         try {
             $news = $this->newsRepository->update($request, $id);
-            return redirect()->back()->with('success', 'Kategori berita telah diperbarui');
+            return redirect('/backoffice/news')->with('success', 'Kategori berita telah diperbarui');
+            // return redirect()->back()->with('success', 'Kategori berita telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }

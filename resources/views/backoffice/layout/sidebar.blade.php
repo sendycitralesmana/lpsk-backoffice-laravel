@@ -38,53 +38,95 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/backoffice/application"
-                        class="nav-link {{ request()->is('backoffice/application', 'backoffice/application/*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-desktop"></i>
-                        <p>
-                            Aplikasi
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/backoffice/service"
-                        class="nav-link {{ request()->is('backoffice/service', 'backoffice/service/*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-handshake"></i>
-                        <p>
-                            Layanan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/backoffice/profile"
-                        class="nav-link {{ request()->is('backoffice/profile', 'backoffice/profile/*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-user"></i>
-                        <p>
-                            Profil
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/backoffice/publication"
-                        class="nav-link {{ request()->is('backoffice/publication', 'backoffice/publication/*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-edit"></i>
-                        <p>
-                            Publikasi
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/backoffice/news"
-                        class="nav-link {{ request()->is('backoffice/news', 'backoffice/news/*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-newspaper"></i>
-                        <p>
-                            Berita
-                        </p>
-                    </a>
-                </li>
 
-                {{-- @if (auth()->user()->role_id == 1) --}}
+                @if (auth()->user()->role_id == 1)
+                    <li class="nav-item">
+                        <a href="/backoffice/application"
+                            class="nav-link {{ request()->is('backoffice/application', 'backoffice/application/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-desktop"></i>
+                            <p>
+                                Aplikasi
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/service"
+                            class="nav-link {{ request()->is('backoffice/service', 'backoffice/service/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-handshake"></i>
+                            <p>
+                                Layanan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/profile"
+                            class="nav-link {{ request()->is('backoffice/profile', 'backoffice/profile/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                Profil
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/roadmap"
+                            class="nav-link {{ request()->is('backoffice/roadmap', 'backoffice/roadmap/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-road"></i>
+                            <p>
+                                Peta Jalan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/highlight"
+                            class="nav-link {{ request()->is('backoffice/highlight', 'backoffice/highlight/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-chalkboard"></i>
+                            <p>
+                                Sorot
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/report"
+                            class="nav-link {{ request()->is('backoffice/report', 'backoffice/report/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-clipboard"></i>
+                            <p>
+                                Laporan
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
+                    <li class="nav-item">
+                        <a href="/backoffice/publication"
+                            class="nav-link {{ request()->is('backoffice/publication', 'backoffice/publication/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-edit"></i>
+                            <p>
+                                Publikasi
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/news"
+                            class="nav-link {{ request()->is('backoffice/news', 'backoffice/news/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-newspaper"></i>
+                            <p>
+                                Berita
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/information"
+                            class="nav-link {{ request()->is('backoffice/information', 'backoffice/information/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-circle-info"></i>
+                            <p>
+                                Informasi
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                @if (auth()->user()->role_id == 1)
                     <li class="nav-header">DATA MASTER</li>
                     <li class="nav-item has-treeview {{ request()->is('backoffice/user-data/*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->is('backoffice/user-data/*') ? 'active' : '' }}">
@@ -155,9 +197,23 @@
                                     <p>Berita</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/backoffice/category-data/information"
+                                    class="nav-link {{ request()->is('backoffice/category-data/information', 'backoffice/category-data/information/*') ? 'active' : '' }}">
+                                    <i class="fa fa-circle fa-regular nav-icon"></i>
+                                    <p>Informasi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/backoffice/category-data/highlight"
+                                    class="nav-link {{ request()->is('backoffice/category-data/highlight', 'backoffice/category-data/highlight/*') ? 'active' : '' }}">
+                                    <i class="fa fa-circle fa-regular nav-icon"></i>
+                                    <p>Sorot</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
-                {{-- @endif --}}
+                @endif
 
             </ul>
         </nav>

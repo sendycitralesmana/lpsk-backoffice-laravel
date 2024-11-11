@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PublicationCategory extends Model
 {
-    use Sluggable;
+    // use Sluggable;
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
+    // public function sluggable(): array
+    // {
+    //     return [
+    //         'slug' => [
+    //             'source' => 'name'
+    //         ]
+    //     ];
+    // }
 
     public function publications(): HasMany
     {
-        return $this->hasMany(Publication::class, '', 'local_key');
+        return $this->hasMany(Publication::class, 'publication_category_id', 'id');
     }
 
     // set createdAt to format

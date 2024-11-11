@@ -77,6 +77,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Kategori</th>
+                                <th>Slug</th>
                                 <th>Aplikasi</th>
                                 <th>Aksi</th>
                             </tr>
@@ -87,6 +88,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $applicationCategory->name }}</td>
+                                <td>{{ $applicationCategory->slug }}</td>
                                 <td>{{ $applicationCategory->applications->count() }} Aplikasi</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $applicationCategory->id }}" title="Ubah">

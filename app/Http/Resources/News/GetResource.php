@@ -20,7 +20,7 @@ class GetResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'user' => $this->user,
-            'category_id' => $this->news_category_id,
+            'news_category_id' => $this->news_category_id,
             'category' => $this->newsCategory,
             'title' => $this->title,
             'content' => $this->content,
@@ -28,6 +28,7 @@ class GetResource extends JsonResource
             'documents' => $this->documents,
             'videos' => $this->videos,
             'images' => $this->images,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

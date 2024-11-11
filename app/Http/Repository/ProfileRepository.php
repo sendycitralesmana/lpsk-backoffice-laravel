@@ -13,8 +13,18 @@ class ProfileRepository
         try {
             $profile = Profile::orderBy('created_at', 'desc');
 
-            if ($request->name) {
-                $profile->where('name', 'like', '%' . $request->name . '%');
+            if ($request->search) {
+                $profile->where('name', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->category_id) {
+                $profile->where('profile_category_id', $request->category_id);
+            }
+
+            if ($request->category_slug) {   
+                $profile->whereHas('profileCategory', function ($query) use ($request) {
+                    $query->where('slug', $request->category_slug);
+                });
             }
 
             $per_page = $request->per_page;
@@ -60,7 +70,7 @@ class ProfileRepository
             $profile->description = $data->description;
             if ($data->file('foto')) {
                 $file = $data->file('foto');
-                $path = Storage::disk('s3')->put('profile', $file);
+                $path = Storage::disk('s3')->put('/profile', $file);
                 $profile->foto = $path;
             }
             $profile->save();
@@ -88,7 +98,7 @@ class ProfileRepository
                     Storage::disk('s3')->delete($profile->foto);
                 }
                 $file = $data->file('foto');
-                $path = Storage::disk('s3')->put('profile', $file);
+                $path = Storage::disk('s3')->put('/profile', $file);
                 $profile->foto = $path;
             }
             $profile->slug = str_replace(' ', '-', strtolower($data->name));

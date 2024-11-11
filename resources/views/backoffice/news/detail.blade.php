@@ -90,6 +90,13 @@
                             style="width: 40%; height: 240px">
                     </div>
                     @endif
+                    @if ( $news->status == "DINAIKAN" )
+                        <p class="badge badge-success">{{ $news->status }}</p>
+                    @elseif ( $news->status == "DIAJUKAN" )
+                        <p class="badge badge-warning">{{ $news->status }}</p>
+                    @else
+                        <p class="badge badge-danger">{{ $news->status }}</p>
+                    @endif
                     <h4 class="mt-2">
                         <b>{{ $news->title }}</b>
                     </h4>

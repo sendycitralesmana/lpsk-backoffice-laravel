@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ApplicationCategory extends Model
 {
-    use Sluggable;
+    // use Sluggable;
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
+    // public function sluggable(): array
+    // {
+    //     return [
+    //         'slug' => [
+    //             'source' => 'name'
+    //         ]
+    //     ];
+    // }
     
     public function applications(): HasMany
     {

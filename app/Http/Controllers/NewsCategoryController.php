@@ -33,7 +33,8 @@ class NewsCategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            return $this->newsCategoryRepository->update($request, $id);
+            $newsCategory = $this->newsCategoryRepository->update($request, $id);
+            return redirect()->back()->with('success', 'Kategori aplikasi telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }

@@ -33,7 +33,8 @@ class ProfileCategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            return $this->profileCategoryRepository->update($request, $id);
+            $profileCategory = $this->profileCategoryRepository->update($request, $id);
+            return redirect()->back()->with('success', 'Kategori profil telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }

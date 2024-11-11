@@ -2,12 +2,18 @@
 
 use App\Http\Controllers\Api\ApplicationCategoryController;
 use App\Http\Controllers\Api\ApplicationController;
+use App\Http\Controllers\Api\HighlightCategoryController;
+use App\Http\Controllers\Api\HighlightController;
+use App\Http\Controllers\Api\InformationCategoryController;
+use App\Http\Controllers\Api\InformationController;
 use App\Http\Controllers\Api\NewsCategoryController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\ProfileCategoryController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\PublicationCategoryController;
 use App\Http\Controllers\Api\PublicationController;
+use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\RoadMapController;
 use App\Http\Controllers\Api\ServiceCategoryController;
 use App\Http\Controllers\Api\ServiceController;
 use Illuminate\Http\Request;
@@ -18,7 +24,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // grup application category
-Route::group(['prefix' => 'application-category'], function () {
+Route::group(['prefix' => 'application_category'], function () {
     Route::get('/', [ApplicationCategoryController::class, 'getAllApi']);
     
     // grup application category_id
@@ -38,7 +44,7 @@ Route::group(['prefix' => 'application'], function () {
 });
 
 // grup service category
-Route::group(['prefix' => 'service-category'], function () {
+Route::group(['prefix' => 'service_category'], function () {
     Route::get('/', [ServiceCategoryController::class, 'getAllApi']);
     
     // grup service category_id
@@ -58,7 +64,7 @@ Route::group(['prefix' => 'service'], function () {
 });
 
 // grup profile category
-Route::group(['prefix' => 'profile-category'], function () {
+Route::group(['prefix' => 'profile_category'], function () {
     Route::get('/', [ProfileCategoryController::class, 'getAllApi']);
     
     // grup profile category_id
@@ -78,7 +84,7 @@ Route::group(['prefix' => 'profile'], function () {
 });
 
 // grup publication category
-Route::group(['prefix' => 'publication-category'], function () {
+Route::group(['prefix' => 'publication_category'], function () {
     Route::get('/', [PublicationCategoryController::class, 'getAllApi']);
     
     // grup publication category_id
@@ -98,7 +104,7 @@ Route::group(['prefix' => 'publication'], function () {
 });
 
 // grup news category
-Route::group(['prefix' => 'news-category'], function () {
+Route::group(['prefix' => 'news_category'], function () {
     Route::get('/', [NewsCategoryController::class, 'getAllApi']);
     
     // grup news category_id
@@ -114,5 +120,66 @@ Route::group(['prefix' => 'news'], function () {
     // grup news_id
     Route::group(['prefix' => '{news_id}'], function () {
         Route::get('/', [NewsController::class, 'getApi']);
+    });
+});
+
+// grup information category
+Route::group(['prefix' => 'information_category'], function () {
+    Route::get('/', [InformationCategoryController::class, 'getAllApi']);
+    
+    // grup information category_id
+    Route::group(['prefix' => '{information_category_id}'], function () {
+        Route::get('/', [InformationCategoryController::class, 'getApi']);
+    });
+});
+
+// grup information
+Route::group(['prefix' => 'information'], function () {
+    Route::get('/', [InformationController::class, 'getAllApi']);
+    
+    // grup information_id
+    Route::group(['prefix' => '{information_id}'], function () {
+        Route::get('/', [InformationController::class, 'getApi']);
+    });
+});
+
+// grup highlight category
+Route::group(['prefix' => 'highlight_category'], function () {
+    Route::get('/', [HighlightCategoryController::class, 'getAllApi']);
+    
+    // grup highlight category_id
+    Route::group(['prefix' => '{highlight_category_id}'], function () {
+        Route::get('/', [HighlightCategoryController::class, 'getApi']);
+    });
+});
+
+// grup highlight
+Route::group(['prefix' => 'highlight'], function () {
+    Route::get('/', [HighlightController::class, 'getAllApi']);
+    
+    // grup highlight_id
+    Route::group(['prefix' => '{highlight_id}'], function () {
+        Route::get('/', [HighlightController::class, 'getApi']);
+    });
+});
+
+// grup roadmap
+Route::group(['prefix' => 'roadmap'], function () {
+    Route::get('/', [RoadMapController::class, 'getAllApi']);
+    
+    // grup roadmap_id
+    Route::group(['prefix' => '{roadmap_id}'], function () {
+        Route::get('/', [RoadMapController::class, 'getApi']);
+    });
+});
+
+// grup report
+Route::group(['prefix' => 'report'], function () {
+    Route::get('/', [ReportController::class, 'getAllApi']);
+    Route::post('/create', [ReportController::class, 'storeApi']);
+    
+    // grup report_id
+    Route::group(['prefix' => '{report_id}'], function () {
+        Route::get('/', [ReportController::class, 'getApi']);
     });
 });

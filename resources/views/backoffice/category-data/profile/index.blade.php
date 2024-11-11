@@ -77,6 +77,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Kategori</th>
+                                <th>Slug</th>
                                 <th>Profil</th>
                                 <th>Aksi</th>
                             </tr>
@@ -87,6 +88,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $profileCategory->name }}</td>
+                                <td>{{ $profileCategory->slug }}</td>
                                 <td>{{ $profileCategory->profiles->count() }} Profil</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $profileCategory->id }}" title="Ubah">

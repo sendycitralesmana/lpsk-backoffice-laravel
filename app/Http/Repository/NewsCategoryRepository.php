@@ -12,8 +12,12 @@ class NewsCategoryRepository
         try {
             $news = NewsCategory::orderBy('created_at', 'desc');
 
-            if ($request->name) {
-                $news->where('name', 'like', '%' . $request->name . '%');
+            if ($request->search) {
+                $news->where('name', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->slug) {
+                $news->where('slug', 'like', '%' . $request->slug . '%');
             }
 
             $per_page = $request->per_page;
@@ -55,6 +59,7 @@ class NewsCategoryRepository
         try {
             $newsCategory = new NewsCategory();
             $newsCategory->name = $data->name;
+            $newsCategory->slug = $data->slug;
             $newsCategory->save();
             return $newsCategory;
         } catch (\Throwable $th) {
@@ -68,15 +73,18 @@ class NewsCategoryRepository
             $newsCategories = NewsCategory::where('id', '!=', $id)->get();
             $newsCategory = NewsCategory::find($id);
             $newsCategory->name = $data->name;
-
-            foreach ($newsCategories as $key => $value) {
-                if ($value->name == $newsCategory->name) {
-                    return redirect()->back()->with('error', 'Kategori ' . $newsCategory->name . ' sudah ada');
-                }
-            }
-            $newsCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            $newsCategory->slug = $data->slug;
             $newsCategory->save();
-            return redirect()->back()->with('success', 'Kategori berita telah diperbarui');
+
+            return $newsCategory;
+            // foreach ($newsCategories as $key => $value) {
+            //     if ($value->name == $newsCategory->name) {
+            //         return redirect()->back()->with('error', 'Kategori ' . $newsCategory->name . ' sudah ada');
+            //     }
+            // }
+            // $newsCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            // $newsCategory->save();
+            // return redirect()->back()->with('success', 'Kategori berita telah diperbarui');
         } catch (\Throwable $th) {
             throw $th;
         }

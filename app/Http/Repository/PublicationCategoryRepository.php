@@ -12,8 +12,12 @@ class PublicationCategoryRepository
         try {
             $publicationCategories = PublicationCategory::orderBy('created_at', 'desc');
 
-            if ($request->name) {
-                $publicationCategories->where('name', 'like', '%' . $request->name . '%');
+            if ($request->search) {
+                $publicationCategories->where('name', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->slug) {
+                $publicationCategories->where('slug', 'like', '%' . $request->slug . '%');
             }
 
             $per_page = $request->per_page;
@@ -54,6 +58,7 @@ class PublicationCategoryRepository
     {
         try {
             $publicationCategory = new PublicationCategory();
+            $publicationCategory->slug = $data->slug;
             $publicationCategory->name = $data->name;
             $publicationCategory->save();
             return $publicationCategory;
@@ -68,15 +73,18 @@ class PublicationCategoryRepository
             $publicationCategories = PublicationCategory::where('id', '!=', $id)->get();
             $publicationCategory = PublicationCategory::find($id);
             $publicationCategory->name = $data->name;
-
-            foreach ($publicationCategories as $key => $value) {
-                if ($value->name == $publicationCategory->name) {
-                    return redirect()->back()->with('error', 'Kategori ' . $publicationCategory->name . ' sudah ada');
-                }
-            }
-            $publicationCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            $publicationCategory->slug = $data->slug;
             $publicationCategory->save();
-            return redirect()->back()->with('success', 'Kategori publikasi telah diperbarui');
+
+            return $publicationCategory;
+            // foreach ($publicationCategories as $key => $value) {
+            //     if ($value->name == $publicationCategory->name) {
+            //         return redirect()->back()->with('error', 'Kategori ' . $publicationCategory->name . ' sudah ada');
+            //     }
+            // }
+            // $publicationCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            // $publicationCategory->save();
+            // return redirect()->back()->with('success', 'Kategori publikasi telah diperbarui');
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -12,8 +12,8 @@ class ServiceCategoryRepository
         try {
             $serviceCategories = ServiceCategory::orderBy('created_at', 'desc');
 
-            if ($request->name) {
-                $serviceCategories->where('name', 'like', '%' . $request->name . '%');
+            if ($request->search) {
+                $serviceCategories->where('name', 'like', '%' . $request->search . '%');
             }
 
             $per_page = $request->per_page;
@@ -54,6 +54,7 @@ class ServiceCategoryRepository
     {
         try {
             $serviceCategory = new ServiceCategory();
+            $serviceCategory->slug = $data->slug;
             $serviceCategory->name = $data->name;
             $serviceCategory->save();
             return $serviceCategory;
@@ -68,15 +69,18 @@ class ServiceCategoryRepository
             $serviceCategories = ServiceCategory::where('id', '!=', $id)->get();
             $serviceCategory = ServiceCategory::find($id);
             $serviceCategory->name = $data->name;
-
-            foreach ($serviceCategories as $key => $value) {
-                if ($value->name == $serviceCategory->name) {
-                    return redirect()->back()->with('error', 'Kategori ' . $serviceCategory->name . ' sudah ada');
-                }
-            }
-            $serviceCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            $serviceCategory->slug = $data->slug;
             $serviceCategory->save();
-            return redirect()->back()->with('success', 'Kategori layanan telah diperbarui');
+
+            return $serviceCategory;
+            // foreach ($serviceCategories as $key => $value) {
+            //     if ($value->name == $serviceCategory->name) {
+            //         return redirect()->back()->with('error', 'Kategori ' . $serviceCategory->name . ' sudah ada');
+            //     }
+            // }
+            // $serviceCategory->slug = str_replace(' ', '-', strtolower($data->name));
+            // $serviceCategory->save();
+            // return redirect()->back()->with('success', 'Kategori layanan telah diperbarui');
         } catch (\Throwable $th) {
             throw $th;
         }

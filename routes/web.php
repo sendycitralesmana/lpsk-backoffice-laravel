@@ -4,12 +4,18 @@ use App\Http\Controllers\ApplicationCategoryController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HighlightCategoryController;
+use App\Http\Controllers\HighlightController;
+use App\Http\Controllers\InformationCategoryController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicationCategoryController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RoadMapController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
@@ -105,14 +111,41 @@ Route::group(['middleware' => 'auth'], function () {
 
         });
 
+        // grup highlight
+        Route::group(['prefix' => 'highlight'], function () {
+            Route::get('/', [HighlightController::class, 'index']);
+            Route::post('/create', [HighlightController::class, 'create']);
+
+            // grup highlight_id
+            Route::group(['prefix' => '{highlight_id}'], function () {
+                Route::put('/update', [HighlightController::class, 'update']);
+                Route::get('/delete', [HighlightController::class, 'delete']);
+            });
+
+        });
+
+        // grup report
+        Route::group(['prefix' => 'report'], function () {
+            Route::get('/', [ReportController::class, 'index']);
+            Route::post('/create', [ReportController::class, 'create']);
+
+            // grup report_id
+            Route::group(['prefix' => '{report_id}'], function () {
+                Route::put('/update', [ReportController::class, 'update']);
+                Route::get('/delete', [ReportController::class, 'delete']);
+            });
+        });
+
         // grup news
         Route::group(['prefix' => 'news'], function () {
             Route::get('/', [NewsController::class, 'index']);
+            Route::get('/add', [NewsController::class, 'add']);
             Route::post('/create', [NewsController::class, 'create']);
 
             // grup news_id
             Route::group(['prefix' => '{news_id}'], function () {
                 Route::get('/detail', [NewsController::class, 'detail']);
+                Route::get('/edit', [NewsController::class, 'edit']);
                 Route::put('/update', [NewsController::class, 'update']);
                 Route::get('/delete', [NewsController::class, 'delete']);
                 Route::get('/preview', [NewsController::class, 'preview']);
@@ -157,6 +190,111 @@ Route::group(['middleware' => 'auth'], function () {
 
         });
 
+        // grup information
+        Route::group(['prefix' => 'information'], function () {
+            Route::get('/', [InformationController::class, 'index']);
+            Route::post('/create', [InformationController::class, 'create']);
+
+            // grup information_id
+            Route::group(['prefix' => '{information_id}'], function () {
+                Route::get('/detail', [InformationController::class, 'detail']);
+                Route::put('/update', [InformationController::class, 'update']);
+                Route::get('/delete', [InformationController::class, 'delete']);
+                Route::get('/preview', [InformationController::class, 'preview']);
+
+                // grup information_image
+                Route::group(['prefix' => 'image'], function () {
+                    Route::post('/create', [InformationController::class, 'createImage']);
+                    Route::get('/delete-all', [InformationController::class, 'deleteAllImage']);
+                    
+                    // grup information_image_id
+                    Route::group(['prefix' => '{information_image_id}'], function () {
+                        Route::get('/delete', [InformationController::class, 'deleteImage']);
+                        Route::put('/update', [InformationController::class, 'updateImage']);
+                    });
+                });
+
+                // grup information_video
+                Route::group(['prefix' => 'video'], function () {
+                    Route::post('/create', [InformationController::class, 'createVideo']);
+                    Route::get('/delete-all', [InformationController::class, 'deleteAllVideo']);
+
+                    // grup information_video_id
+                    Route::group(['prefix' => '{information_video_id}'], function () {
+                        Route::get('/delete', [InformationController::class, 'deleteVideo']);
+                        Route::put('/update', [InformationController::class, 'updateVideo']);
+                    });
+                });
+
+                // grup information_document
+                Route::group(['prefix' => 'document'], function () {
+                    Route::post('/create', [InformationController::class, 'createDocument']);
+                    Route::get('/delete-all', [InformationController::class, 'deleteAllDocument']);
+
+                    // grup information_document_id
+                    Route::group(['prefix' => '{information_document_id}'], function () {
+                        Route::get('/delete', [InformationController::class, 'deleteDocument']);
+                        Route::put('/update', [InformationController::class, 'updateDocument']);
+                    });
+                });
+
+            });
+
+        });
+
+        // grup roadmap
+        Route::group(['prefix' => 'roadmap'], function () {
+            Route::get('/', [RoadMapController::class, 'index']);
+            Route::post('/create', [RoadmapController::class, 'create']);
+
+            // grup roadmap_id
+            Route::group(['prefix' => '{roadmap_id}'], function () {
+                Route::get('/detail', [RoadmapController::class, 'detail']);
+                Route::put('/update', [RoadmapController::class, 'update']);
+                Route::get('/delete', [RoadmapController::class, 'delete']);
+                Route::get('/preview', [RoadmapController::class, 'preview']);
+
+                // grup roadmap_image
+                Route::group(['prefix' => 'image'], function () {
+                    Route::post('/create', [RoadmapController::class, 'createImage']);
+                    Route::get('/delete-all', [RoadmapController::class, 'deleteAllImage']);
+                    
+                    // grup roadmap_image_id
+                    Route::group(['prefix' => '{roadmap_image_id}'], function () {
+                        Route::get('/delete', [RoadmapController::class, 'deleteImage']);
+                        Route::put('/update', [RoadmapController::class, 'updateImage']);
+                    });
+                });
+
+                // grup roadmap_video
+                Route::group(['prefix' => 'video'], function () {
+                    Route::post('/create', [RoadmapController::class, 'createVideo']);
+                    Route::get('/delete-all', [RoadmapController::class, 'deleteAllVideo']);
+
+                    // grup roadmap_video_id
+                    Route::group(['prefix' => '{roadmap_video_id}'], function () {
+                        Route::get('/delete', [RoadmapController::class, 'deleteVideo']);
+                        Route::put('/update', [RoadmapController::class, 'updateVideo']);
+                    });
+                });
+
+                // grup roadmap_document
+                Route::group(['prefix' => 'document'], function () {
+                    Route::post('/create', [RoadmapController::class, 'createDocument']);
+                    Route::get('/delete-all', [RoadmapController::class, 'deleteAllDocument']);
+
+                    // grup roadmap_document_id
+                    Route::group(['prefix' => '{roadmap_document_id}'], function () {
+                        Route::get('/delete', [RoadmapController::class, 'deleteDocument']);
+                        Route::put('/update', [RoadmapController::class, 'updateDocument']);
+                    });
+                
+                }); 
+            
+            });
+        
+        });
+
         // grup user data
         Route::group(['prefix' => 'user-data'], function () {
             
@@ -176,8 +314,7 @@ Route::group(['middleware' => 'auth'], function () {
             // grup user
             Route::group(['prefix' => 'user'], function () {
                 Route::get('/', [UserController::class, 'index']);
-                Route::get('/create', [UserController::class, 'create']);
-                Route::post('/create', [UserController::class, 'createAction']);
+                Route::post('/create', [UserController::class, 'create']);
     
                 // grup user_id
                 Route::group(['prefix' => '{user_id}'], function () {
@@ -258,6 +395,32 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::group(['prefix' => '{news_id}'], function () {
                     Route::put('/update', [NewsCategoryController::class, 'update']);
                     Route::get('/delete', [NewsCategoryController::class, 'delete']);
+                });
+
+            });
+
+            // grup information
+            Route::group(['prefix' => 'information'], function () {
+                Route::get('/', [InformationCategoryController::class, 'index']);
+                Route::post('/create', [InformationCategoryController::class, 'create']);
+
+                // grup information_id
+                Route::group(['prefix' => '{information_id}'], function () {
+                    Route::put('/update', [InformationCategoryController::class, 'update']);
+                    Route::get('/delete', [InformationCategoryController::class, 'delete']);
+                });
+
+            });
+
+            // grup highlight
+            Route::group(['prefix' => 'highlight'], function () {
+                Route::get('/', [HighlightCategoryController::class, 'index']);
+                Route::post('/create', [HighlightCategoryController::class, 'create']);
+
+                // grup highlight_id
+                Route::group(['prefix' => '{highlight_id}'], function () {
+                    Route::put('/update', [HighlightCategoryController::class, 'update']);
+                    Route::get('/delete', [HighlightCategoryController::class, 'delete']);
                 });
 
             });

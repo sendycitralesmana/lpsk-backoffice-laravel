@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('role_id')->after('remember_token')->nullable();
             $table->foreign('role_id')->references('id')->onDelete('set null')->on('roles');
             $table->text('address')->after('role_id')->nullable();
-            $table->enum('gender', ['male', 'female'])->after('address')->nullable();
+            $table->string('gender')->after('address')->nullable();
             $table->string('religion')->after('gender')->nullable();
             $table->string('foto')->after('religion')->nullable();
             $table->string('no_hp')->nullable();

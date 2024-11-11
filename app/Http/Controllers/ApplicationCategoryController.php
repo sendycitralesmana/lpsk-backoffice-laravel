@@ -34,7 +34,8 @@ class ApplicationCategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            return $this->applicationCategoryRepository->update($request, $id);
+            $applicationCategory = $this->applicationCategoryRepository->update($request, $id);
+            return redirect()->back()->with('success', 'Kategori aplikasi telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }

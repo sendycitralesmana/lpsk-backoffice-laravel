@@ -33,7 +33,8 @@ class PublicationCategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            return $this->publicationCategoryRepository->update($request, $id);
+            $publicationCategory = $this->publicationCategoryRepository->update($request, $id);
+            return redirect()->back()->with('success', 'Kategori profil telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }

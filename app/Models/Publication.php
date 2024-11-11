@@ -19,6 +19,11 @@ class Publication extends Model
         ];
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function publicationCategory(): BelongsTo
     {
         return $this->belongsTo(PublicationCategory::class, 'publication_category_id', 'id');

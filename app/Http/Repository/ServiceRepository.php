@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceRepository
@@ -13,8 +14,18 @@ class ServiceRepository
         try {
             $service = Service::orderBy('created_at', 'desc');
 
-            if ($request->document_name) {
-                $service->where('document_name', 'like', '%' . $request->document_name . '%');
+            if ($request->search) {
+                $service->where('document_name', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->category_id) {
+                $service->where('service_category_id', $request->category_id);
+            }
+
+            if ($request->category_slug) {   
+                $service->whereHas('serviceCategory', function ($query) use ($request) {
+                    $query->where('slug', $request->category_slug);
+                });
             }
 
             $per_page = $request->per_page;
@@ -60,10 +71,14 @@ class ServiceRepository
                 $filename = $data->file('document_url')->getClientOriginalName();
                 $service->document_name = $filename;
                 $file = $data->file('document_url');
-                $path = Storage::disk('s3')->put('service', $file);
+                $path = Storage::disk('s3')->put('/service', $file);
                 $service->document_url = $path;
             }
-            $service->status = "DIAJUKAN";
+            if (Auth::user()->role_id == 1) {
+                $service->status = "DINAIKAN";
+            } else {
+                $service->status = "DIAJUKAN";
+            }
             $service->save();
             return $service;
         } catch (\Throwable $th) {
@@ -89,7 +104,7 @@ class ServiceRepository
                 $filename = $data->file('document_url')->getClientOriginalName();
                 $service->document_name = $filename;
                 $file = $data->file('document_url');
-                $path = Storage::disk('s3')->put('service', $file);
+                $path = Storage::disk('s3')->put('/service', $file);
                 $service->document_url = $path;
             }
             $service->slug = str_replace(' ', '-', strtolower($data->document_name));
