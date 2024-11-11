@@ -12,7 +12,7 @@ RUN a2enmod rewrite
 
 # Install PHP extensions
 # RUN docker-php-ext-install pdo pdo_pgsql zip
-RUN docker-php-ext pdo pdo_pgsql zip ftp 
+RUN docker-php-ext-install pdo pdo_pgsql zip ftp sodium
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
