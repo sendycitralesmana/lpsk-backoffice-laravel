@@ -95,9 +95,19 @@
                                         <a href="/backoffice/service/{{ $service->id }}/preview" class="btn btn-primary btn-sm" target="_blank">
                                             <i class="fa fa-file"></i> Lihat
                                         </a>
+                                        {{-- preview file --}}
+                                        
                                     @endif
                                 </td>
-                                <td>{{ $service->status }}</td>
+                                <td>
+                                    @if ($service->status == "DINAIKAN")
+                                        <span class="badge badge-success">DINAIKAN</span>
+                                    @elseif ($service->status == "DIAJUKAN")
+                                        <span class="badge badge-warning">DIAJUKAN</span>
+                                    @else
+                                        <span class="badge badge-danger">DITURUNKAN</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $service->id }}" title="Ubah">
                                         <i class="fa fa-edit"></i> Ubah

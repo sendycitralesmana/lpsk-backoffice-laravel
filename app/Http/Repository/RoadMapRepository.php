@@ -42,10 +42,28 @@ class RoadMapRepository
         }
     }
 
-    public function getAll()
+    public function getAll($data)
     {
         try {
-            return RoadMap::orderBy('created_at', 'desc')->get();
+            $roadmap = RoadMap::orderBy('created_at', 'desc');
+
+            if ($data->search) {
+                $roadmap->where('title', 'like', '%' . $data->search . '%');
+            }
+
+            if ($data->user_id) {
+                $roadmap->where('user_id', $data->user_id);
+            }
+
+            if ($data->status) {
+                $roadmap->where('status', $data->status);
+            }
+
+            if (Auth::user()->role_id == 1) {
+                return $roadmap->get();
+            } else {
+                return $roadmap->where('user_id', Auth::user()->id)->get();
+            }
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -68,7 +86,42 @@ class RoadMapRepository
             $roadmap = new RoadMap();
             $roadmap->user_id = Auth::user()->id;
             $roadmap->title = $data->title;
-            $roadmap->content = $data->content;
+            if (Auth::user()->role_id == 1) {
+                $roadmap->status = "DINAIKAN";
+            } else {
+                $roadmap->status = "DIAJUKAN";
+            }
+            // $roadmap->content = $data->content;
+
+            $content = $data->content;
+            $dom = new \DomDocument();
+            $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $imageFile = $dom->getElementsByTagName('img');
+
+            foreach ($imageFile as $item => $image) {
+                $dataImg = $image->getAttribute('src');
+                list($type, $dataImg) = explode(';', $dataImg);
+                list(, $dataImg)      = explode(',', $dataImg);
+                $imgeDataImg = base64_decode($dataImg);
+
+                // get image extension
+                $image_info = getimagesizefromstring($imgeDataImg);
+                $image_extension = image_type_to_extension($image_info[2]);
+
+                $image_name= "roadmap/description/" . time().$item.$image_extension;
+
+                Storage::disk('s3')->put($image_name, $imgeDataImg, 'public');
+
+                // $path = public_path() . $image_name;
+                // file_put_contents($path, $imgeDataImg);
+
+                $image->removeAttribute('src');
+
+                $image->setAttribute('src', 'https://bucket.mareca.my.id/lpsk/'.  $image_name);
+            }
+
+            $content = $dom->saveHTML();
+            $roadmap->content = $content;
             if ($data->file('cover')) {
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/roadmap/cover', $file);
@@ -157,6 +210,7 @@ class RoadMapRepository
             // }
             $roadmap->title = $data->title;
             $roadmap->content = $data->content;
+            $roadmap->status = $data->status;
             if ($data->file('cover')) {
                 if ($roadmap->cover) {
                     Storage::disk('s3')->delete($roadmap->cover);

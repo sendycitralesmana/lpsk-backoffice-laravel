@@ -3,21 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repository\RoadMapRepository;
+use App\Http\Repository\UserRepository;
+use App\Models\RoadMapDocuments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RoadMapController extends Controller
 {
     private $roadmapRepository;
+    private $userRepository;
 
-    public function __construct(RoadMapRepository $roadmapRepository)
+    public function __construct(RoadMapRepository $roadmapRepository, UserRepository $userRepository)
     {
         $this->roadmapRepository = $roadmapRepository;
+        $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $roadmaps = $this->roadmapRepository->getAll(); 
-        return view('backoffice.roadmap.index', compact(['roadmaps']));
+        // $roadmaps = $this->roadmapRepository->getAll($request); 
+
+        $roadmaps = $this->roadmapRepository->getAll($request); 
+        $users = $this->userRepository->getAll();
+        $search = $request->search;
+        $status = $request->status;
+        $user_id = $request->user_id;
+        if ($user_id == null) {
+            $user = null;
+        } else {
+            $user = $this->userRepository->getById($user_id);
+        }
+
+        return view('backoffice.roadmap.index', compact(['roadmaps', 'user', 'users', 'search', 'status', 'user_id']));
+    }
+
+    public function add()
+    {
+        return view('backoffice.roadmap.add');
     }
 
     public function detail($id)
@@ -26,11 +48,29 @@ class RoadMapController extends Controller
         return view('backoffice.roadmap.detail', compact(['roadmap']));
     }
 
+    public function edit($id)
+    {
+        $roadmap = $this->roadmapRepository->getById($id);
+        return view('backoffice.roadmap.edit', compact(['roadmap']));
+    }
+
+    public function previewDocument($id, $document_id)
+    {
+        try {
+            $roadmapDocument = RoadMapDocuments::find($document_id);
+            $file = Storage::disk('s3')->get($roadmapDocument->url);
+            return response($file)->header('Content-Type', 'application/pdf');
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
     public function create(Request $request)
     {
         try {
             $roadmap = $this->roadmapRepository->store($request);
-            return redirect()->back()->with('success', 'Kategori peta jalan telah ditambahkan');
+            // return redirect()->back()->with('success', 'Kategori peta jalan telah ditambahkan');
+            return redirect('/backoffice/roadmap')->with('success', 'Kategori peta jalan telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -40,7 +80,8 @@ class RoadMapController extends Controller
     {
         try {
             $roadmap = $this->roadmapRepository->update($request, $id);
-            return redirect()->back()->with('success', 'Kategori peta jalan telah diperbarui');
+            // return redirect()->back()->with('success', 'Kategori peta jalan telah diperbarui');
+            return redirect('/backoffice/roadmap')->with('success', 'Kategori peta jalan telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }

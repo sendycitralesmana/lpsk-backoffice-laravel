@@ -94,6 +94,15 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/backoffice/setting"
+                            class="nav-link {{ request()->is('backoffice/setting', 'backoffice/setting/*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-gear"></i>
+                            <p>
+                                Peraturan
+                            </p>
+                        </a>
+                    </li>
                 @endif
 
                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
@@ -209,6 +218,13 @@
                                     class="nav-link {{ request()->is('backoffice/category-data/highlight', 'backoffice/category-data/highlight/*') ? 'active' : '' }}">
                                     <i class="fa fa-circle fa-regular nav-icon"></i>
                                     <p>Sorot</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/backoffice/category-data/setting"
+                                    class="nav-link {{ request()->is('backoffice/category-data/setting', 'backoffice/category-data/setting/*') ? 'active' : '' }}">
+                                    <i class="fa fa-circle fa-regular nav-icon"></i>
+                                    <p>Peraturan</p>
                                 </a>
                             </li>
                         </ul>

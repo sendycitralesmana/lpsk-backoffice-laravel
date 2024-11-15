@@ -28,7 +28,7 @@ class ProfileController extends Controller
     {
         try {
             $profile = $this->profileRepository->store($request);
-            return redirect()->back()->with('success', 'Kategori profil telah ditambahkan');
+            return redirect()->back()->with('success', 'Profil telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -38,7 +38,7 @@ class ProfileController extends Controller
     {
         try {
             $profile = $this->profileRepository->update($request, $id);
-            return redirect()->back()->with('success', 'Kategori profil telah diperbarui');
+            return redirect()->back()->with('success', 'Profil telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -48,7 +48,7 @@ class ProfileController extends Controller
     {
         try {
             $profile = $this->profileRepository->delete($id);
-            return redirect()->back()->with('success', 'Kategori profil telah dihapus');
+            return redirect()->back()->with('success', 'Profil telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }

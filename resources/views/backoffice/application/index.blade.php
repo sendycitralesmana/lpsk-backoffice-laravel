@@ -78,7 +78,7 @@
                                 <th>#</th>
                                 <th>Kategori</th>
                                 <th>Judul</th>
-                                <th>Cover</th>
+                                <th>Sampul</th>
                                 <th>Url</th>
                                 <th>Aksi</th>
                             </tr>

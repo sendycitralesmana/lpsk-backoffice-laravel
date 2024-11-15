@@ -1,4 +1,4 @@
-<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <form role="form" method="POST" action="/backoffice/roadmap/create" enctype="multipart/form-data">
@@ -108,53 +108,6 @@
 
                                 </div>
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label>Kategori Peta Jalan <span class="text-danger">*</span></label>
-                                <select name="roadmap_category_id"
-                                    class="form-control select2 @if($errors->has('roadmap_category_id')) is-invalid @endif"
-                                    required oninvalid="this.setCustomValidity('Kategori harus diisi')"
-                                    oninput="this.setCustomValidity('')">
-                                    <option value="">-- Pilih Kategori Peta Jalan --</option>
-                                    @foreach ($roadmapCategories as $roadmapCategory)
-                                    <option value="{{ $roadmapCategory->id }}">{{ $roadmapCategory->name }}</option>
-                                    @endforeach
-                                </select>
-                                @if($errors->has('roadmap_category_id'))
-                                <small class="help-block" style="color: red">{{ $errors->first('roadmap_category_id')
-                                    }}</small>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label>Judul <span class="text-danger">*</span></label>
-                                <input type="text" name="title"
-                                    class="form-control @if($errors->has('title')) is-invalid @endif"
-                                    placeholder="Judul" value="{{ old('title') }}" required
-                                    oninvalid="this.setCustomValidity('Kategori harus diisi')"
-                                    oninput="this.setCustomValidity('')">
-                                @if($errors->has('title'))
-                                <small class="help-block" style="color: red">{{ $errors->first('title') }}</small>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label>Konten <span class="text-danger">*</span></label>
-                                <textarea name="content"
-                                    class="form-control @if($errors->has('content')) is-invalid @endif"
-                                    placeholder="Konten"></textarea>
-                                @if($errors->has('content'))
-                                <small class="help-block" style="color: red">{{ $errors->first('content') }}</small>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label>Sampul</label>
-                                <img class="reviewCover img-fluid mb-3 col-sm-5">
-                                <input type="file" accept="image/*" name="cover"
-                                    class="form-control @if($errors->has('cover')) is-invalid @endif" id="reviewCover"
-                                    onchange="previewCover()">
-                                @if($errors->has('title'))
-                                <small class="help-block" style="color: red">{{ $errors->first('cover') }}</small>
-                                @endif
-                            </div> --}}
                         </div>
                     </div>
 
@@ -167,4 +120,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}

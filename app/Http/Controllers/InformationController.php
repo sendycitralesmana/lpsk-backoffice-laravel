@@ -43,6 +43,19 @@ class InformationController extends Controller
         return view('backoffice.information.index', compact(['informationCategories', 'informations', 'informationCategory', 'user', 'users', 'search', 'category_id', 'status', 'user_id']));
     }
 
+    public function add()
+    {
+        $informationCategories = $this->informationCategoryRepository->getAll();
+        return view('backoffice.information.add', compact('informationCategories'));
+    }
+
+    public function edit($id)
+    {
+        $information = $this->informationRepository->getById($id);
+        $informationCategories = $this->informationCategoryRepository->getAll();
+        return view('backoffice.information.edit', compact(['information', 'informationCategories']));
+    }
+
     public function detail($id)
     {
         $information = $this->informationRepository->getById($id);
@@ -54,7 +67,8 @@ class InformationController extends Controller
     {
         try {
             $information = $this->informationRepository->store($request);
-            return redirect()->back()->with('success', 'Kategori informasi telah ditambahkan');
+            // return redirect()->back()->with('success', 'Kategori informasi telah ditambahkan');
+            return redirect('/backoffice/information')->with('success', 'Informasi telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -64,7 +78,8 @@ class InformationController extends Controller
     {
         try {
             $information = $this->informationRepository->update($request, $id);
-            return redirect()->back()->with('success', 'Kategori informasi telah diperbarui');
+            // return redirect()->back()->with('success', 'Kategori informasi telah diperbarui');
+            return redirect('/backoffice/information')->with('success', 'Informasi telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -74,7 +89,7 @@ class InformationController extends Controller
     {
         try {
             $information = $this->informationRepository->delete($id);
-            return redirect()->back()->with('success', 'Kategori informasi telah dihapus');
+            return redirect()->back()->with('success', 'Informasi telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }

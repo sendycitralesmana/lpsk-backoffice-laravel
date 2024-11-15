@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Repository\ServiceCategoryRepository;
 use App\Http\Repository\ServiceRepository;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -28,7 +30,7 @@ class ServiceController extends Controller
     {
         try {
             $service = $this->serviceRepository->store($request);
-            return redirect()->back()->with('success', 'Kategori layanan telah ditambahkan');
+            return redirect()->back()->with('success', 'Layanan telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -38,7 +40,7 @@ class ServiceController extends Controller
     {
         try {
             $service = $this->serviceRepository->update($request, $id);
-            return redirect()->back()->with('success', 'Kategori layanan telah diperbarui');
+            return redirect()->back()->with('success', 'Layanan telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -48,7 +50,7 @@ class ServiceController extends Controller
     {
         try {
             $service = $this->serviceRepository->delete($id);
-            return redirect()->back()->with('success', 'Kategori layanan telah dihapus');
+            return redirect()->back()->with('success', 'Layanan telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -57,12 +59,9 @@ class ServiceController extends Controller
     public function preview($id)
     {
         try {
-            
             $service = $this->serviceRepository->getById($id);
-
-            // $file = public_path($service->document_url);
-            // return response()->file($file);
-
+            $file = Storage::disk('s3')->get($service->document_url);
+            return response($file)->header('Content-Type', 'application/pdf');
         } catch (\Throwable $th) {
             return $th;
         }

@@ -135,7 +135,7 @@ class NewsRepository
 
                 $image->removeAttribute('src');
 
-                $image->setAttribute('src', 'https://bucket.trikalte.my.id/lpsk/'.  $image_name);
+                $image->setAttribute('src', 'https://bucket.mareca.my.id/lpsk/'.  $image_name);
             }
 
             $content = $dom->saveHTML();

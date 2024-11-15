@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\RoadMapController;
 use App\Http\Controllers\Api\ServiceCategoryController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\SettingCategoryController;
+use App\Http\Controllers\Api\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -150,6 +152,26 @@ Route::group(['prefix' => 'highlight_category'], function () {
     // grup highlight category_id
     Route::group(['prefix' => '{highlight_category_id}'], function () {
         Route::get('/', [HighlightCategoryController::class, 'getApi']);
+    });
+});
+
+// grup setting category
+Route::group(['prefix' => 'setting_category'], function () {
+    Route::get('/', [SettingCategoryController::class, 'getAllApi']);
+    
+    // grup setting category_id
+    Route::group(['prefix' => '{setting_category_id}'], function () {
+        Route::get('/', [SettingCategoryController::class, 'getApi']);
+    });
+});
+
+// grup setting
+Route::group(['prefix' => 'setting'], function () {
+    Route::get('/', [SettingController::class, 'getAllApi']);
+    
+    // grup setting_id
+    Route::group(['prefix' => '{setting_id}'], function () {
+        Route::get('/', [SettingController::class, 'getApi']);
     });
 });
 

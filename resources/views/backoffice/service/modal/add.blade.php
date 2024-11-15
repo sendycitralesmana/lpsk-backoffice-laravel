@@ -28,8 +28,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Berkas</label>
-                                <img class="reviewCover img-fluid mb-3 col-sm-5">
-                                <input type="file" accept="image/*" name="document_url" class="form-control @if($errors->has('document_url')) is-invalid @endif" id="reviewCover" onchange="previewCover()">
+                                <img class=" img-fluid mb-3 col-sm-5">
+                                <input type="file" accept="" name="document_url" class="form-control @if($errors->has('document_url')) is-invalid @endif" id="reviewCover" onchange="previewCover()">
                                 @if($errors->has('title'))
                                 <small class="help-block" style="color: red">{{ $errors->first('document_url') }}</small>
                                 @endif

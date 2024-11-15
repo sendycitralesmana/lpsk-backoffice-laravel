@@ -47,11 +47,14 @@
                                 });
                         </script>
                         @endif --}}
-                        <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                        {{-- <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                             data-target="#edit-{{ $information->id }}" title="Ubah">
                             <span><i class="fa fa-edit"></i></span>
                         </button>
-                        @include('backoffice.information.modal.edit')
+                        @include('backoffice.information.modal.edit') --}}
+                        <a href="/backoffice/information/{{ $information->id }}/edit" class="btn btn-tool btn-sm">
+                            <span><i class="fa fa-edit"></i></span>
+                        </a>
                         <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                             data-target="#delete-{{ $information->id }}" title="Hapus">
                             <span><i class="fa fa-trash"></i></span>

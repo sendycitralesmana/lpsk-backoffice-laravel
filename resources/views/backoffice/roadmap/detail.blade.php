@@ -47,11 +47,14 @@
                                 });
                         </script>
                         @endif --}}
-                        <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                        {{-- <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                             data-target="#edit-{{ $roadmap->id }}" title="Ubah">
                             <span><i class="fa fa-edit"></i></span>
                         </button>
-                        @include('backoffice.roadmap.modal.edit')
+                        @include('backoffice.roadmap.modal.edit') --}}
+                        <a href="/backoffice/roadmap/{{ $roadmap->id }}/edit" class="btn btn-tool btn-sm">
+                            <span><i class="fa fa-edit"></i></span>
+                        </a>
                         <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                             data-target="#delete-{{ $roadmap->id }}" title="Hapus">
                             <span><i class="fa fa-trash"></i></span>
@@ -90,6 +93,13 @@
                             style="width: 40%; height: 240px">
                     </div>
                     @endif
+                    @if ( $roadmap->status == "DINAIKAN" )
+                                        <p class="badge badge-success">{{ $roadmap->status }}</p>
+                                    @elseif ( $roadmap->status == "DIAJUKAN" )
+                                        <p class="badge badge-warning">{{ $roadmap->status }}</p>
+                                    @else
+                                        <p class="badge badge-danger">{{ $roadmap->status }}</p>
+                                    @endif
                     <h4 class="mt-2">
                         <b>{{ $roadmap->title }}</b>
                     </h4>
@@ -148,15 +158,22 @@
                         @if ( $roadmap->documents->count() > 0 )
                             @foreach ($roadmap->documents as $document)
                             <div class="text-center pb-3 pt-3 rounded" style="border: 1px solid #dee2e6">
-                                <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
-                                    data-target="#edit-document-{{ $document->id }}" title="Tambah">
-                                    <span><i class="fa fa-edit"></i></span>
-                                </button>
-                                <i class="fa fa-file fa-3x"></i>
-                                <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
-                                    data-target="#document-delete-{{ $document->id }}" title="Hapus">
-                                    <span><i class="fa fa-trash"></i></span>
-                                </button>
+                                <div>
+                                    <i class="fa fa-file fa-3x"></i>
+                                </div>
+                                <div>
+                                    <a href="/backoffice/roadmap/{{ $roadmap->id }}/document/{{ $document->id }}/preview" class="btn btn-tool" target="_blank">
+                                        <span><i class="fa fa-eye"></i></span>
+                                    </a>
+                                    <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                                        data-target="#edit-document-{{ $document->id }}" title="Tambah">
+                                        <span><i class="fa fa-edit"></i></span>
+                                    </button>
+                                    <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                                        data-target="#document-delete-{{ $document->id }}" title="Hapus">
+                                        <span><i class="fa fa-trash"></i></span>
+                                    </button>
+                                </div>
                             </div>
                             @endforeach
                         @endif

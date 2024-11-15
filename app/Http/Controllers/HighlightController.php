@@ -24,10 +24,10 @@ class HighlightController extends Controller
         $this->newsRepository = $newsRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $highlightCategories = $this->highlightCategoryRepository->getAll();
-        $newss = $this->newsRepository->getAll();
+        $newss = $this->newsRepository->getAll($request);
         $highlights = $this->highlightRepository->getAll(); 
         return view('backoffice.highlight.index', compact(['highlightCategories', 'highlights', 'newss']));
     }

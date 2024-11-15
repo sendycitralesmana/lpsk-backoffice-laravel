@@ -25,32 +25,80 @@
             <!-- Default box -->
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Peta Jalan</h3>
+                    <div class="row flex justify-content-between mt-2">
+                        <form action="" class="form-inline">
+                            <div class="pr-4" style="border-right: 3px solid #0d6efd">
+                                <h3 class="card-title">
+                                    <b>Berita</b>
+                                </h3>
+                            </div>
+    
+                            <div class="pl-4">
+    
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <label for="">Cari: </label>
+                                <input type="text" name="search" class="form-control ml-2" placeholder="Judul ..." value="{{ $search }}">
+                                @if (auth()->user()->id ==1)
+                                    <label for="" class="ml-2">Penulis: </label>
+                                    <select name="user_id" class="form-control ml-2">
+                                        <option value="">-- Penulis --</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" {{ $user_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                                <label for="" class="ml-2">Status: </label>
+                                <select name="status" class="form-control ml-2">
+                                    <option value="">-- Status --</option>
+                                    <option value="DINAIKAN" @if ($status == 'DINAIKAN') selected @endif>DINAIKAN</option>
+                                    <option value="DIAJUKAN" @if ($status == 'DIAJUKAN') selected @endif>DIAJUKAN</option>
+                                    <option value="DITURUNKAN" @if ($status == 'DITURUNKAN') selected @endif>DITURUNKAN</option>
+                                </select>
+                            </div>
+                            <div class="input-group ml-2">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+    
+                            @if ($search || $user_id || $status)
+                                <div class="input-group ml-2">
+                                    <a href="/backoffice/roadmap" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </a>
+                                </div>
+                            @endif
+    
+                        </form>
+                        <div class="card-tools">
+                            {{-- <button title="Tambah" type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                                data-target="#tambah">
+                                <span class="fa fa-plus"></span> Tambah
+                            </button> --}}
+                            <a href="/backoffice/roadmap/add" class="btn btn-success btn-sm">
+                                <span class="fa fa-plus"></span> Tambah
+                            </a>
+                            {{-- @include('backoffice.roadmap.modal.add') --}}
+    
+                            <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse"
+                                data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i></button>
+                        </div>
+                    </div>
+                    {{-- <h3 class="card-title">Peta Jalan</h3>
 
                     <div class="card-tools">
-                        {{-- <a href="/backoffice/roadmap/tambah" class="btn btn-success btn-sm" title="Tambah">
+                        <a href="/backoffice/roadmap/add" class="btn btn-success btn-sm" title="Tambah">
                             <i class="fas fa-plus"></i> Tambah
-                        </a> --}}
-                        <button title="Tambah" type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                            data-target="#tambah">
-                            <span class="fa fa-plus"></span> Tambah
-                        </button>
-
-                        {{-- @if ($errors->any())
-                        <script>
-                            jQuery(function() {
-                                    $('#tambah').modal('show');
-                                });
-                        </script>
-                        @endif --}}
-
-                        {{-- Modal --}}
+                        </a>
                         @include('backoffice.roadmap.modal.add')
 
                         <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse"
                             data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                    </div>
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div> --}}
 
                 </div>
                 <div class="card-body">
@@ -71,6 +119,24 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    @endif
+
+                    @if ($search || $user_id || $status)
+                        <div class="search">
+                            <div class="text-center">
+                                <span class="fa fa-search"></span> Hasil Pencarian dari:
+                                    @if ($search )
+                                        <br> Judul: <b>{{ $search }}</b> 
+                                    @endif
+                                    @if ($user_id )
+                                        <br> Penulis: <b>{{ $user->name }}</b>
+                                    @endif
+                                    @if ($status )
+                                        <br> Status: <b>{{ $status }}</b>
+                                    @endif
+                            </div>
+                            <hr>
+                        </div>
                     @endif
 
                     <div class="row">
@@ -95,11 +161,14 @@
                                         <a href="/backoffice/roadmap/{{ $roadmap->id }}/detail" class="btn btn-tool btn-sm" title="Detail">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                                        <a href="/backoffice/roadmap/{{ $roadmap->id }}/edit" class="btn btn-tool btn-sm" title="Ubah">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        {{-- <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                                             data-target="#edit-{{ $roadmap->id }}" title="Ubah">
                                             <span><i class="fa fa-edit"></i></span>
                                         </button>
-                                        @include('backoffice.roadmap.modal.edit')
+                                        @include('backoffice.roadmap.modal.edit') --}}
                                         <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                                             data-target="#delete-{{ $roadmap->id }}" title="Hapus">
                                             <span><i class="fa fa-trash"></i></span>
@@ -117,6 +186,13 @@
                                             class="img-fluid rounded" alt="" style="width: 40%; height: 240px">
                                     </div>
                                     @endif
+                                    @if ( $roadmap->status == "DINAIKAN" )
+                                        <p class="badge badge-success">{{ $roadmap->status }}</p>
+                                    @elseif ( $roadmap->status == "DIAJUKAN" )
+                                        <p class="badge badge-warning">{{ $roadmap->status }}</p>
+                                    @else
+                                        <p class="badge badge-danger">{{ $roadmap->status }}</p>
+                                    @endif
                                     <h4 class="mt-2">
                                         <b>{{ $roadmap->title }}</b>
                                     </h4>
@@ -128,7 +204,7 @@
                                         -webkit-line-clamp: 3;
                                         display: -webkit-box;
                                         -webkit-box-orient: vertical;">
-                                        <p> {!! html_entity_decode($roadmap->content) !!} </p>
+                                        {{-- <p> {!! html_entity_decode($roadmap->content) !!} </p> --}}
                                     </div>
                                 </div>
 

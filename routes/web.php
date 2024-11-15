@@ -19,11 +19,13 @@ use App\Http\Controllers\RoadMapController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SettingCategoryController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 // grup auth
@@ -183,6 +185,62 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::group(['prefix' => '{news_document_id}'], function () {
                         Route::get('/delete', [NewsController::class, 'deleteDocument']);
                         Route::put('/update', [NewsController::class, 'updateDocument']);
+                        Route::get('/preview', [NewsController::class, 'previewDocument']);
+                    });
+                });
+
+            });
+
+        });
+
+        // grup setting
+        Route::group(['prefix' => 'setting'], function () {
+            Route::get('/', [SettingController::class, 'index']);
+            Route::get('/add', [SettingController::class, 'add']);
+            Route::post('/create', [SettingController::class, 'create']);
+
+            // grup setting_id
+            Route::group(['prefix' => '{setting_id}'], function () {
+                Route::get('/detail', [SettingController::class, 'detail']);
+                Route::get('/edit', [SettingController::class, 'edit']);
+                Route::put('/update', [SettingController::class, 'update']);
+                Route::get('/delete', [SettingController::class, 'delete']);
+                Route::get('/preview', [SettingController::class, 'preview']);
+
+                // grup setting_image
+                Route::group(['prefix' => 'image'], function () {
+                    Route::post('/create', [SettingController::class, 'createImage']);
+                    Route::get('/delete-all', [SettingController::class, 'deleteAllImage']);
+                    
+                    // grup setting_image_id
+                    Route::group(['prefix' => '{setting_image_id}'], function () {
+                        Route::get('/delete', [SettingController::class, 'deleteImage']);
+                        Route::put('/update', [SettingController::class, 'updateImage']);
+                    });
+                });
+
+                // grup setting_video
+                Route::group(['prefix' => 'video'], function () {
+                    Route::post('/create', [SettingController::class, 'createVideo']);
+                    Route::get('/delete-all', [SettingController::class, 'deleteAllVideo']);
+
+                    // grup setting_video_id
+                    Route::group(['prefix' => '{setting_video_id}'], function () {
+                        Route::get('/delete', [SettingController::class, 'deleteVideo']);
+                        Route::put('/update', [SettingController::class, 'updateVideo']);
+                    });
+                });
+
+                // grup setting_document
+                Route::group(['prefix' => 'document'], function () {
+                    Route::post('/create', [SettingController::class, 'createDocument']);
+                    Route::get('/delete-all', [SettingController::class, 'deleteAllDocument']);
+
+                    // grup setting_document_id
+                    Route::group(['prefix' => '{setting_document_id}'], function () {
+                        Route::get('/delete', [SettingController::class, 'deleteDocument']);
+                        Route::put('/update', [SettingController::class, 'updateDocument']);
+                        Route::get('/preview', [SettingController::class, 'previewDocument']);
                     });
                 });
 
@@ -193,12 +251,14 @@ Route::group(['middleware' => 'auth'], function () {
         // grup information
         Route::group(['prefix' => 'information'], function () {
             Route::get('/', [InformationController::class, 'index']);
+            Route::get('/add', [InformationController::class, 'add']);
             Route::post('/create', [InformationController::class, 'create']);
 
             // grup information_id
             Route::group(['prefix' => '{information_id}'], function () {
                 Route::get('/detail', [InformationController::class, 'detail']);
                 Route::put('/update', [InformationController::class, 'update']);
+                Route::get('/edit', [InformationController::class, 'edit']);
                 Route::get('/delete', [InformationController::class, 'delete']);
                 Route::get('/preview', [InformationController::class, 'preview']);
 
@@ -245,12 +305,14 @@ Route::group(['middleware' => 'auth'], function () {
         // grup roadmap
         Route::group(['prefix' => 'roadmap'], function () {
             Route::get('/', [RoadMapController::class, 'index']);
+            Route::get('/add', [RoadmapController::class, 'add']);
             Route::post('/create', [RoadmapController::class, 'create']);
 
             // grup roadmap_id
             Route::group(['prefix' => '{roadmap_id}'], function () {
                 Route::get('/detail', [RoadmapController::class, 'detail']);
                 Route::put('/update', [RoadmapController::class, 'update']);
+                Route::get('/edit', [RoadmapController::class, 'edit']);
                 Route::get('/delete', [RoadmapController::class, 'delete']);
                 Route::get('/preview', [RoadmapController::class, 'preview']);
 
@@ -287,6 +349,7 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::group(['prefix' => '{roadmap_document_id}'], function () {
                         Route::get('/delete', [RoadmapController::class, 'deleteDocument']);
                         Route::put('/update', [RoadmapController::class, 'updateDocument']);
+                        Route::get('/preview', [RoadmapController::class, 'previewDocument']);
                     });
                 
                 }); 
@@ -421,6 +484,19 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::group(['prefix' => '{highlight_id}'], function () {
                     Route::put('/update', [HighlightCategoryController::class, 'update']);
                     Route::get('/delete', [HighlightCategoryController::class, 'delete']);
+                });
+
+            });
+
+            // grup setting
+            Route::group(['prefix' => 'setting'], function () {
+                Route::get('/', [SettingCategoryController::class, 'index']);
+                Route::post('/create', [SettingCategoryController::class, 'create']);
+
+                // grup setting_id
+                Route::group(['prefix' => '{setting_id}'], function () {
+                    Route::put('/update', [SettingCategoryController::class, 'update']);
+                    Route::get('/delete', [SettingCategoryController::class, 'delete']);
                 });
 
             });

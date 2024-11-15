@@ -47,11 +47,14 @@
                                 });
                         </script>
                         @endif --}}
-                        <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                        {{-- <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                             data-target="#edit-{{ $news->id }}" title="Ubah">
                             <span><i class="fa fa-edit"></i></span>
                         </button>
-                        @include('backoffice.news.modal.edit')
+                        @include('backoffice.news.modal.edit') --}}
+                        <a href="/backoffice/news/{{ $news->id }}/edit" class="btn btn-tool btn-sm">
+                            <span><i class="fa fa-edit"></i></span>
+                        </a>
                         <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                             data-target="#delete-{{ $news->id }}" title="Hapus">
                             <span><i class="fa fa-trash"></i></span>
@@ -154,16 +157,23 @@
 
                         @if ( $news->documents->count() > 0 )
                             @foreach ($news->documents as $document)
-                            <div class="text-center pb-3 pt-3 rounded" style="border: 1px solid #dee2e6">
-                                <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
-                                    data-target="#edit-document-{{ $document->id }}" title="Tambah">
-                                    <span><i class="fa fa-edit"></i></span>
-                                </button>
-                                <i class="fa fa-file fa-3x"></i>
-                                <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
-                                    data-target="#document-delete-{{ $document->id }}" title="Hapus">
-                                    <span><i class="fa fa-trash"></i></span>
-                                </button>
+                            <div class="text-center pb-3 pt-3 rounded" style="border: 1px solid #dee2e6;">
+                                <div>
+                                    <i class="fa fa-file-pdf fa-3x"></i>
+                                </div>
+                                <div>
+                                    <a href="/backoffice/news/{{ $news->id }}/document/{{ $document->id }}/preview" target="_blank" class="btn btn-tool">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                                        data-target="#edit-document-{{ $document->id }}" title="Tambah">
+                                        <span><i class="fa fa-edit"></i></span>
+                                    </button>
+                                    <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                                        data-target="#document-delete-{{ $document->id }}" title="Hapus">
+                                        <span><i class="fa fa-trash"></i></span>
+                                    </button>
+                                </div>
                             </div>
                             @endforeach
                         @endif

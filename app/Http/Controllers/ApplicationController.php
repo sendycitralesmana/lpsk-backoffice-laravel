@@ -28,7 +28,7 @@ class ApplicationController extends Controller
     {
         try {
             $application = $this->applicationRepository->store($request);
-            return redirect()->back()->with('success', 'Kategori aplikasi telah ditambahkan');
+            return redirect()->back()->with('success', 'Aplikasi telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -38,7 +38,7 @@ class ApplicationController extends Controller
     {
         try {
             $application = $this->applicationRepository->update($request, $id);
-            return redirect()->back()->with('success', 'Kategori aplikasi telah diperbarui');
+            return redirect()->back()->with('success', 'Aplikasi telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -48,7 +48,7 @@ class ApplicationController extends Controller
     {
         try {
             $application = $this->applicationRepository->delete($id);
-            return redirect()->back()->with('success', 'Kategori aplikasi telah dihapus');
+            return redirect()->back()->with('success', 'Aplikasi telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }

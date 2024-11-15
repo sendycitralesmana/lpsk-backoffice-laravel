@@ -71,7 +71,7 @@ class ServiceRepository
                 $filename = $data->file('document_url')->getClientOriginalName();
                 $service->document_name = $filename;
                 $file = $data->file('document_url');
-                $path = Storage::disk('s3')->put('/service', $file);
+                $path = Storage::disk('s3')->put('service', $file);
                 $service->document_url = $path;
             }
             if (Auth::user()->role_id == 1) {
@@ -104,7 +104,7 @@ class ServiceRepository
                 $filename = $data->file('document_url')->getClientOriginalName();
                 $service->document_name = $filename;
                 $file = $data->file('document_url');
-                $path = Storage::disk('s3')->put('/service', $file);
+                $path = Storage::disk('s3')->put('service', $file);
                 $service->document_url = $path;
             }
             $service->slug = str_replace(' ', '-', strtolower($data->document_name));

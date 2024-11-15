@@ -55,7 +55,7 @@ class InformationRepository
     public function getAll($data)
     {
         try {
-            $informations = Information::orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
+            $informations = Information::orderBy('created_at', 'desc');
 
             if ($data->search) {
                 $informations->where('title', 'like', '%' . $data->search . '%');

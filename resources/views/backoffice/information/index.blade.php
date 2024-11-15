@@ -79,10 +79,13 @@
     
                         </form>
                         <div class="card-tools">
-                            <button title="Tambah" type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                            <a href="/backoffice/information/add" class="btn btn-success btn-sm">
+                                <span class="fa fa-plus"></span> Tambah
+                            </a>
+                            {{-- <button title="Tambah" type="button" class="btn btn-success btn-sm" data-toggle="modal"
                                 data-target="#tambah">
                                 <span class="fa fa-plus"></span> Tambah
-                            </button>
+                            </button> --}}
     
                             {{-- @if ($errors->any())
                             <script>
@@ -93,7 +96,7 @@
                             @endif --}}
     
                             {{-- Modal --}}
-                            @include('backoffice.information.modal.add')
+                            {{-- @include('backoffice.information.modal.add') --}}
     
                             <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse"
                                 data-toggle="tooltip" title="Collapse">
@@ -164,11 +167,14 @@
                                         <a href="/backoffice/information/{{ $information->id }}/detail" class="btn btn-tool btn-sm" title="Detail">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                                        <a href="/backoffice/information/{{ $information->id }}/edit" class="btn btn-tool btn-sm" title="Ubah">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        {{-- <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                                             data-target="#edit-{{ $information->id }}" title="Ubah">
                                             <span><i class="fa fa-edit"></i></span>
                                         </button>
-                                        @include('backoffice.information.modal.edit')
+                                        @include('backoffice.information.modal.edit') --}}
                                         <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
                                             data-target="#delete-{{ $information->id }}" title="Hapus">
                                             <span><i class="fa fa-trash"></i></span>
@@ -204,7 +210,7 @@
                                         -webkit-line-clamp: 3;
                                         display: -webkit-box;
                                         -webkit-box-orient: vertical;">
-                                        <p> {!! html_entity_decode($information->content) !!} </p>
+                                        {{-- <p> {!! html_entity_decode($information->content) !!} </p> --}}
                                     </div>
                                 </div>
 

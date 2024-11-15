@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Repository\NewsCategoryRepository;
 use App\Http\Repository\NewsRepository;
 use App\Http\Repository\UserRepository;
+use App\Models\NewsDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -67,8 +69,8 @@ class NewsController extends Controller
         
         try {
             $news = $this->newsRepository->store($request);
-            return redirect('/backoffice/news')->with('success', 'Kategori berita telah ditambahkan');
-            // return redirect()->back()->with('success', 'Kategori berita telah ditambahkan');
+            return redirect('/backoffice/news')->with('success', 'Berita telah ditambahkan');
+            // return redirect()->back()->with('success', 'Berita telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -78,8 +80,8 @@ class NewsController extends Controller
     {
         try {
             $news = $this->newsRepository->update($request, $id);
-            return redirect('/backoffice/news')->with('success', 'Kategori berita telah diperbarui');
-            // return redirect()->back()->with('success', 'Kategori berita telah diperbarui');
+            return redirect('/backoffice/news')->with('success', 'Berita telah diperbarui');
+            // return redirect()->back()->with('success', 'Berita telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -89,7 +91,7 @@ class NewsController extends Controller
     {
         try {
             $news = $this->newsRepository->delete($id);
-            return redirect()->back()->with('success', 'Kategori berita telah dihapus');
+            return redirect()->back()->with('success', 'Berita telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -140,6 +142,17 @@ class NewsController extends Controller
         try {
             $news = $this->newsRepository->storeDocument($request, $id);
             return redirect()->back()->with('successDocument', 'Dokumen telah ditambahkan');
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public function previewDocument($id, $document_id)
+    {
+        try {
+            $newsDocument = NewsDocument::find($document_id);
+            $file = Storage::disk('s3')->get($newsDocument->url);
+            return response($file)->header('Content-Type', 'application/pdf');
         } catch (\Throwable $th) {
             return $th;
         }
