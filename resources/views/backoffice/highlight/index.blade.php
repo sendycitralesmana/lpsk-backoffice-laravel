@@ -78,7 +78,6 @@
                                 <th>#</th>
                                 <th>Kategori</th>
                                 <th>Berita</th>
-                                <th>Tipe</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -88,8 +87,11 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $highlight->highlightCategory->name }}</td>
-                                <td>{{ $highlight->news->title }}</td>
-                                <td>{{ $highlight->type }}</td>
+                                <td>
+                                    <a href="/backoffice/news/{{ $highlight->news->id }}/detail" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-eye"></i> {{ $highlight->news->title }}
+                                    </a>
+                                </td>  
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $highlight->id }}" title="Ubah">
                                         <i class="fa fa-edit"></i> Ubah

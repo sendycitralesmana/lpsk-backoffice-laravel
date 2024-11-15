@@ -13,7 +13,7 @@ class HighlightCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('news_categories')->insert([
+        DB::table('highlight_categories')->insert([
             [
                 'name' => 'Carousel',
                 'slug' => 'carousel',

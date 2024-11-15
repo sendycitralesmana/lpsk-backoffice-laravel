@@ -72,7 +72,6 @@ class HighlightRepository
             $highlight = new Highlight();
             $highlight->highlight_category_id = $data->highlight_category_id;
             $highlight->news_id = $data->news_id;
-            $highlight->type = $data->type;
             $highlight->save();
             return $highlight;
         } catch (\Throwable $th) {
@@ -86,7 +85,6 @@ class HighlightRepository
             $highlight = Highlight::find($id);
             $highlight->highlight_category_id = $data->highlight_category_id;
             $highlight->news_id = $data->news_id;
-            $highlight->type = $data->type;
             $highlight->save();
             return $highlight;
         } catch (\Throwable $th) {

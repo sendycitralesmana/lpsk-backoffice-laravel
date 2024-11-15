@@ -39,18 +39,6 @@
                                 <small class="help-block" style="color: red">{{ $errors->first('news_id') }}</small>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <label>Tipe <span class="text-danger">*</span></label>
-                                <input type="text" name="type"
-                                    class="form-control @if($errors->has('type')) is-invalid @endif"
-                                    placeholder="Tipe" value="{{ old('type') }}" required
-                                    oninvalid="this.setCustomValidity('Tipe harus diisi')"
-                                    oninput="this.setCustomValidity('')">
-                                @if($errors->has('type'))
-                                <small class="help-block" style="color: red">{{ $errors->first('type')
-                                    }}</small>
-                                @endif
-                            </div>
                         </div>
                     </div>
 
