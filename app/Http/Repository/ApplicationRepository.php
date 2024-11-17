@@ -77,7 +77,7 @@ class ApplicationRepository
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/application', $file);
                 $application->cover = $path;
-                $application->url = $path;
+                $application->url = '/' . $path;
             }
             $application->save();
             return $application;
@@ -105,7 +105,7 @@ class ApplicationRepository
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/application', $file);
                 $application->cover = $path;
-                $application->url = $path;
+                $application->url = '/' . $path;
             }
             $application->slug = str_replace(' ', '-', strtolower($data->title));
             $application->save();

@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             SettingCategorySeeder::class,
             ProfileCategorySeeder::class,
             ServiceCategorySeeder::class,
-            PublicationCategorySeeder::class
+            PublicationCategorySeeder::class,
+            ApplicationCategorySeeder::class
         ]);
     }
 }

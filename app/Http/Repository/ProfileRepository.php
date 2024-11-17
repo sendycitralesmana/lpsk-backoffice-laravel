@@ -71,7 +71,7 @@ class ProfileRepository
             if ($data->file('foto')) {
                 $file = $data->file('foto');
                 $path = Storage::disk('s3')->put('/profile', $file);
-                $profile->foto = $path;
+                $profile->foto = '/' . $path;
             }
             $profile->save();
             return $profile;
@@ -99,7 +99,7 @@ class ProfileRepository
                 }
                 $file = $data->file('foto');
                 $path = Storage::disk('s3')->put('/profile', $file);
-                $profile->foto = $path;
+                $profile->foto = '/' . $path;
             }
             $profile->slug = str_replace(' ', '-', strtolower($data->name));
             $profile->save();

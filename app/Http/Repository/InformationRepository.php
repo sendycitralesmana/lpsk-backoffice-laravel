@@ -110,7 +110,7 @@ class InformationRepository
             if ($data->file('cover')) {
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/information/cover', $file);
-                $information->cover = $path;
+                $information->cover = '/' . $path;
             }
             $information->save();
 
@@ -128,7 +128,7 @@ class InformationRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     InformationImages::create($informationImage);
                 }
@@ -148,7 +148,7 @@ class InformationRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $url,
+                        'url' => '/' . $url,
                     );
                     InformationVideos::create($informationVideo);
                 }
@@ -168,7 +168,7 @@ class InformationRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $url,
+                        'url' => '/' . $url,
                     );
                     InformationDocuments::create($informationDocument);
                 }
@@ -202,7 +202,7 @@ class InformationRepository
                 }
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/information/covers', $file);
-                $information->cover = $path;
+                $information->cover = '/' . $path;
             }
             $information->slug = str_replace(' ', '-', strtolower($data->document_name));
             $information->status = $data->status;
@@ -258,7 +258,7 @@ class InformationRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     InformationImages::create($informationImage);
                 }
@@ -300,7 +300,7 @@ class InformationRepository
                 $information->size = $size;
                 $file = $data->file('image');
                 $path = Storage::disk('s3')->put('/information/images', $file);
-                $information->url = $path;
+                $information->url = '/' . $path;
             }
             $information->save();
             return $information;
@@ -326,7 +326,7 @@ class InformationRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     InformationVideos::create($informationVideo);
                 }
@@ -368,7 +368,7 @@ class InformationRepository
                 $informationVideo->size = $size;
                 $file = $data->file('video');
                 $path = Storage::disk('s3')->put('/information/videos', $file);
-                $informationVideo->url = $path;
+                $informationVideo->url = '/' . $path;
             }
             $informationVideo->save();
             return $informationVideo;
@@ -409,7 +409,7 @@ class InformationRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     InformationDocuments::create($informationDocument);
                 }
@@ -451,7 +451,7 @@ class InformationRepository
                 $informationDocument->size = $size;
                 $file = $data->file('document');
                 $path = Storage::disk('s3')->put('/information/documents', $file);
-                $informationDocument->url = $path;
+                $informationDocument->url = '/' . $path;
             }
             $informationDocument->save();
             return $informationDocument;

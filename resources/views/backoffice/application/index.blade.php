@@ -79,7 +79,6 @@
                                 <th>Kategori</th>
                                 <th>Judul</th>
                                 <th>Sampul</th>
-                                <th>Url</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -97,7 +96,6 @@
                                     <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded" style="width: 100px; height: 100px">
                                     @endif
                                 </td>
-                                <td>{{ $application->url }}</td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $application->id }}" title="Ubah">
                                         <i class="fa fa-edit"></i> Ubah

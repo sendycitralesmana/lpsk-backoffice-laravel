@@ -22,6 +22,7 @@ class GetAllResource extends JsonResource
             'title' => $this->title,
             'content' => $this->content,
             'cover' => $this->cover,
+            'status' => $this->status,
             'documents' => $this->documents,
             'videos' => $this->videos,
             'images' => $this->images,

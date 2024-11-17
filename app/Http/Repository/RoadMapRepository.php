@@ -16,7 +16,7 @@ class RoadMapRepository
     public function getAllApi($request)
     {
         try {
-            $roadmap = RoadMap::orderBy('created_at', 'desc');
+            $roadmap = RoadMap::with(['user:id,name,email,created_at,updated_at'])->orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
 
             if ($request->search) {
                 $roadmap->where('title', 'like', '%' . $request->search . '%');
@@ -125,7 +125,7 @@ class RoadMapRepository
             if ($data->file('cover')) {
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/roadmap/cover', $file);
-                $roadmap->cover = $path;
+                $roadmap->cover = '/' . $path;
             }
             $roadmap->save();
 
@@ -217,7 +217,7 @@ class RoadMapRepository
                 }
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/roadmap/covers', $file);
-                $roadmap->cover = $path;
+                $roadmap->cover = '/' . $path;
             }
             $roadmap->slug = str_replace(' ', '-', strtolower($data->document_name));
             $roadmap->save();
@@ -272,7 +272,7 @@ class RoadMapRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     RoadMapImages::create($roadmapImage);
                 }
@@ -314,7 +314,7 @@ class RoadMapRepository
                 $roadmap->size = $size;
                 $file = $data->file('image');
                 $path = Storage::disk('s3')->put('/roadmap/images', $file);
-                $roadmap->url = $path;
+                $roadmap->url = '/' . $path;
             }
             $roadmap->save();
             return $roadmap;
@@ -340,7 +340,7 @@ class RoadMapRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     RoadMapVideos::create($roadmapVideo);
                 }
@@ -382,7 +382,7 @@ class RoadMapRepository
                 $roadmapVideo->size = $size;
                 $file = $data->file('video');
                 $path = Storage::disk('s3')->put('/roadmap/videos', $file);
-                $roadmapVideo->url = $path;
+                $roadmapVideo->url = '/' . $path;
             }
             $roadmapVideo->save();
             return $roadmapVideo;
@@ -423,7 +423,7 @@ class RoadMapRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     RoadMapDocuments::create($roadmapDocument);
                 }
@@ -465,7 +465,7 @@ class RoadMapRepository
                 $roadmapDocument->size = $size;
                 $file = $data->file('document');
                 $path = Storage::disk('s3')->put('/roadmap/documents', $file);
-                $roadmapDocument->url = $path;
+                $roadmapDocument->url = '/' . $path;
             }
             $roadmapDocument->save();
             return $roadmapDocument;

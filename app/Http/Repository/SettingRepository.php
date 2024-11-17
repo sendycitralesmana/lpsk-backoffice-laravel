@@ -16,7 +16,7 @@ class SettingRepository
     public function getAllApi($request)
     {
         try {
-            $setting = Setting::orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
+            $setting = Setting::with(['user:id,name,email,created_at,updated_at'])->orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
 
             if ($request->search) {
                 $setting->where('title', 'like', '%' . $request->search . '%');
@@ -134,7 +134,7 @@ class SettingRepository
 
                 $image->removeAttribute('src');
 
-                $image->setAttribute('src', 'https://bucket.trikalte.my.id/lpsk/'.  $image_name);
+                $image->setAttribute('src', 'https://bucket.mareca.my.id/lpsk/'.  $image_name);
             }
 
             $content = $dom->saveHTML();
@@ -164,7 +164,7 @@ class SettingRepository
             if ($data->file('cover')) {
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/setting/cover', $file);
-                $setting->cover = $path;
+                $setting->cover = '/' . $path;
             }
 
             if (Auth::user()->role_id == 1) {
@@ -189,7 +189,7 @@ class SettingRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     SettingImage::create($settingImage);
                 }
@@ -209,7 +209,7 @@ class SettingRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $url,
+                        'url' => '/' . $url,
                     );
                     SettingVideo::create($settingVideo);
                 }
@@ -229,7 +229,7 @@ class SettingRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $url,
+                        'url' => '/' . $url,
                     );
                     SettingDocument::create($settingDocument);
                 }
@@ -263,7 +263,7 @@ class SettingRepository
                 $setting->document_name = $filename;
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/setting/cover', $file);
-                $setting->cover = $path;
+                $setting->cover = '/' . $path;
             }
             $setting->slug = str_replace(' ', '-', strtolower($data->document_name));
             $setting->status = $data->status;
@@ -360,7 +360,7 @@ class SettingRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     SettingImage::create($settingImage);
                 }
@@ -402,7 +402,7 @@ class SettingRepository
                 $setting->size = $size;
                 $file = $data->file('image');
                 $path = Storage::disk('s3')->put('/setting/images', $file);
-                $setting->url = $path;
+                $setting->url = '/' . $path;
             }
             $setting->save();
             return $setting;
@@ -428,7 +428,7 @@ class SettingRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     SettingVideo::create($settingVideo);
                 }
@@ -470,7 +470,7 @@ class SettingRepository
                 $settingVideo->size = $size;
                 $file = $data->file('video');
                 $path = Storage::disk('s3')->put('/setting/videos', $file);
-                $settingVideo->url = $path;
+                $settingVideo->url = '/' . $path;
             }
             $settingVideo->save();
             return $settingVideo;
@@ -511,7 +511,7 @@ class SettingRepository
                         'name' => $filename,
                         'extension' => $extension,
                         'size' => $size,
-                        'url' => $store,
+                        'url' => '/' . $store,
                     );
                     SettingDocument::create($settingDocument);
                 }
@@ -553,7 +553,7 @@ class SettingRepository
                 $settingDocument->size = $size;
                 $file = $data->file('document');
                 $path = Storage::disk('s3')->put('/setting/documents', $file);
-                $settingDocument->url = $path;
+                $settingDocument->url = '/' . $path;
             }
             $settingDocument->save();
             return $settingDocument;

@@ -12,7 +12,7 @@ class ServiceRepository
     public function getAllApi($request)
     {
         try {
-            $service = Service::orderBy('created_at', 'desc');
+            $service = Service::orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
 
             if ($request->search) {
                 $service->where('document_name', 'like', '%' . $request->search . '%');
@@ -72,7 +72,7 @@ class ServiceRepository
                 $service->document_name = $filename;
                 $file = $data->file('document_url');
                 $path = Storage::disk('s3')->put('service', $file);
-                $service->document_url = $path;
+                $service->document_url = '/' . $path;
             }
             if (Auth::user()->role_id == 1) {
                 $service->status = "DINAIKAN";
@@ -105,7 +105,7 @@ class ServiceRepository
                 $service->document_name = $filename;
                 $file = $data->file('document_url');
                 $path = Storage::disk('s3')->put('service', $file);
-                $service->document_url = $path;
+                $service->document_url = '/' . $path;
             }
             $service->slug = str_replace(' ', '-', strtolower($data->document_name));
             $service->status = $data->status;
