@@ -255,6 +255,37 @@ class SettingRepository
             //         return redirect()->back()->with('error', 'Judul ' . $data->title . ' telah digunakan');
             //     }
             // }
+
+            $content = $data->content;
+            $dom = new \DomDocument();
+            libxml_use_internal_errors(true);
+            $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $imageFile = $dom->getElementsByTagName('img');
+
+            foreach ($imageFile as $item => $image) {
+                if (strpos($image->getAttribute('src'), 'data:image') === 0) {
+                    $dataImg = $image->getAttribute('src');
+                    list($type, $dataImg) = explode(';', $dataImg);
+                    list(, $dataImg)      = explode(',', $dataImg);
+                    $imgeDataImg = base64_decode($dataImg);
+    
+                    // get image extension
+                    $image_info = getimagesizefromstring($imgeDataImg);
+                    $image_extension = image_type_to_extension($image_info[2]);
+    
+                    $image_name= "setting/description/" . time().$item.$image_extension;
+    
+                    Storage::disk('s3')->put($image_name, $imgeDataImg, 'public');
+    
+                    $image->removeAttribute('src');
+    
+                    $image->setAttribute('src', 'https://bucket.mareca.my.id/lpsk/'.  $image_name);
+                }
+            }
+
+            $content = $dom->saveHTML();
+            $setting->content = $content;
+
             if ($data->file('cover')) {
                 if ($setting->cover) {
                     Storage::disk('s3')->delete($setting->cover);

@@ -119,7 +119,7 @@
                                     <label>Konten <span class="text-danger">*</span></label>
                                     <textarea name="content" id="description"
                                         class="form-control @if($errors->has('content')) is-invalid @endif"
-                                        placeholder="Konten">{!! $news->content !!}</textarea>
+                                        placeholder="Konten">{{ $news->content }}</textarea>
                                     @if($errors->has('content'))
                                     <small class="help-block" style="color: red">{{ $errors->first('content')
                                         }}</small>

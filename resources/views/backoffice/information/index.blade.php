@@ -191,6 +191,11 @@
                                         <img src="{{ Storage::disk('s3')->url($information->cover) }}"
                                             class="img-fluid rounded" alt="" style="width: 40%; height: 240px">
                                     </div>
+                                    @else
+                                    <div class="text-center">
+                                        <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded"
+                                            alt="" style="width: 40%; height: 240px">
+                                    </div>
                                     @endif
                                     @if ( $information->status == "DINAIKAN" )
                                         <p class="badge badge-success">{{ $information->status }}</p>

@@ -6,7 +6,6 @@ use App\Models\News;
 use App\Models\NewsDocument;
 use App\Models\NewsImage;
 use App\Models\NewsVideo;
-use DOMDocument;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -244,7 +243,36 @@ class NewsRepository
             }
 
             // start content
-            $news->content = $data->content;
+            // $news->content = $data->content;
+            $content = $data->content;
+            $dom = new \DomDocument();
+            libxml_use_internal_errors(true);
+            $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $imageFile = $dom->getElementsByTagName('img');
+
+            foreach ($imageFile as $item => $image) {
+                if (strpos($image->getAttribute('src'), 'data:image') === 0) {
+                    $dataImg = $image->getAttribute('src');
+                    list($type, $dataImg) = explode(';', $dataImg);
+                    list(, $dataImg)      = explode(',', $dataImg);
+                    $imgeDataImg = base64_decode($dataImg);
+    
+                    // get image extension
+                    $image_info = getimagesizefromstring($imgeDataImg);
+                    $image_extension = image_type_to_extension($image_info[2]);
+    
+                    $image_name= "news/description/" . time().$item.$image_extension;
+    
+                    Storage::disk('s3')->put($image_name, $imgeDataImg, 'public');
+    
+                    $image->removeAttribute('src');
+    
+                    $image->setAttribute('src', 'https://bucket.mareca.my.id/lpsk/'.  $image_name);
+                }
+            }
+
+            $content = $dom->saveHTML();
+            $news->content = $content;
             // end content
 
             $news->slug = str_replace(' ', '-', strtolower($data->document_name));
