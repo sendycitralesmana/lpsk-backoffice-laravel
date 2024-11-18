@@ -12,7 +12,7 @@ class PublicationRepository
     public function getAllApi($request)
     {
         try {
-            $publication = Publication::orderBy('created_at', 'desc')->where('status', 'DIAJUKAN');
+            $publication = Publication::orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
 
             if ($request->search) {
                 $publication->where('document_name', 'like', '%' . $request->search . '%');
