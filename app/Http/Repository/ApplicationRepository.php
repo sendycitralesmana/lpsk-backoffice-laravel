@@ -33,14 +33,16 @@ class ApplicationRepository
             }
 
 
-            $per_page = $request->per_page;
-            if ($per_page) {
-                $application->paginate($per_page);
-            } else {
-                $per_page = 10;
-            }
+            // $per_page = $request->per_page;
+            // if ($per_page) {
+            //     $application->paginate($per_page);
+            // } else {
+            //     $per_page = 10;
+            // }
 
-            $application = $application->paginate($per_page);
+            // $application = $application->paginate($per_page);
+
+            $application = $application->get();
 
             return $application;
 
@@ -73,12 +75,13 @@ class ApplicationRepository
             $application = new Application();
             $application->application_category_id = $data->application_category_id;
             $application->title = $data->title;
+            $application->description = $data->description;
             if ($data->file('cover')) {
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/application', $file);
-                $application->cover = $path;
-                $application->url = '/' . $path;
+                $application->cover = '/' . $path;
             }
+            $application->url =  $data->url;
             $application->save();
             return $application;
         } catch (\Throwable $th) {
@@ -93,6 +96,7 @@ class ApplicationRepository
             $application = Application::find($id);
             $application->application_category_id = $data->application_category_id;
             $application->title = $data->title;
+            $application->description = $data->description;
             // foreach ($applications as $application) {
             //     if ($application->title == $data->title) {
             //         return redirect()->back()->with('error', 'Judul ' . $data->title . ' telah digunakan');
@@ -104,9 +108,9 @@ class ApplicationRepository
                 }
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/application', $file);
-                $application->cover = $path;
-                $application->url = '/' . $path;
+                $application->cover = '/' . $path;
             }
+            $application->url = $data->url;
             $application->slug = str_replace(' ', '-', strtolower($data->title));
             $application->save();
             return $application;

@@ -21,6 +21,8 @@ class GetResource extends JsonResource
             'category_id' => $this->application_category_id,
             'category' => $this->applicationCategory,
             'title' => $this->title,
+            'description' => $this->description,
+            'cover' => $this->cover,
             'url' => $this->url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

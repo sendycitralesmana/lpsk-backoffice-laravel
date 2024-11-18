@@ -35,11 +35,27 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label>Deskripsi <span class="text-danger">*</span></label>
+                                <textarea name="description" class="form-control @if($errors->has('description')) is-invalid @endif" 
+                                required oninvalid="this.setCustomValidity('Kategori harus diisi')" oninput="this.setCustomValidity('')" placeholder="Deskripsi" value="{{ old('description') }}"></textarea>
+                                @if($errors->has('title'))
+                                <small class="help-block" style="color: red">{{ $errors->first('title') }}</small>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <label>Sampul</label>
                                 <img class="reviewCover img-fluid mb-3 col-sm-5">
                                 <input type="file" accept="image/*" name="cover" class="form-control @if($errors->has('cover')) is-invalid @endif" id="reviewCover" onchange="previewCover()">
                                 @if($errors->has('title'))
                                 <small class="help-block" style="color: red">{{ $errors->first('cover') }}</small>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>Url Aplikasi <span class="text-danger">*</span></label>
+                                <input type="url"  name="url" class="form-control @if($errors->has('url')) is-invalid @endif" placeholder="Url" value="{{ old('url') }}"
+                                required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Url harus diisi')">
+                                @if($errors->has('url'))
+                                <small class="help-block" style="color: red">{{ $errors->first('url') }}</small>
                                 @endif
                             </div>
                         </div>

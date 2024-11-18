@@ -26,10 +26,10 @@ class ApplicationController extends Controller
             $resource = GetAllResource::collection($applicationCategories);
 
             return response()->json([
-                'total' => $applicationCategories->total(),
-                'current_page' => $applicationCategories->currentPage(),
-                'per_page' => $applicationCategories->perPage(),
-                'last_page' => $applicationCategories->lastPage(),
+                // 'total' => $applicationCategories->total(),
+                // 'current_page' => $applicationCategories->currentPage(),
+                // 'per_page' => $applicationCategories->perPage(),
+                // 'last_page' => $applicationCategories->lastPage(),
                 'data' => $resource,
             ]);
         } catch (\Throwable $th) {
