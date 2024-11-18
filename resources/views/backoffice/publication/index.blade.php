@@ -79,6 +79,7 @@
                                 <th>Kategori</th>
                                 <th>Nama Dokumen</th>
                                 <th>Berkas</th>
+                                <th>Sampul</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -95,6 +96,19 @@
                                         <a href="/backoffice/publication/{{ $publication->id }}/preview" class="btn btn-primary btn-sm" target="_blank">
                                             <i class="fa fa-file"></i> Lihat
                                         </a>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ( $publication->cover != null )
+                                        <div class="text-center">
+                                            <img src="{{ Storage::disk('s3')->url($publication->cover) }}"
+                                                class="img-fluid rounded" alt="" style="width: 40%; height: 100px">
+                                        </div>
+                                        @else
+                                        <div class="text-center">
+                                            <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded"
+                                                alt="" style="width: 40%; height: 100px">
+                                        </div>
                                     @endif
                                 </td>
                                 <td>

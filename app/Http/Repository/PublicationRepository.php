@@ -79,7 +79,12 @@ class PublicationRepository
                 $publication->document_name = $filename;
                 $file = $data->file('document_url');
                 $path = Storage::disk('s3')->put('/publication', $file);
-                $publication->document_url = $path;
+                $publication->document_url = '/' . $path;
+            }
+            if ($data->file('cover')) {
+                $file = $data->file('cover');
+                $path = Storage::disk('s3')->put('/publication', $file);
+                $publication->cover = '/' . $path;
             }
             if (Auth::user()->role_id == 1) {
                 $publication->status = "DINAIKAN";
@@ -112,7 +117,15 @@ class PublicationRepository
                 $publication->document_name = $filename;
                 $file = $data->file('document_url');
                 $path = Storage::disk('s3')->put('/publication', $file);
-                $publication->document_url = $path;
+                $publication->document_url = '/' . $path;
+            }
+            if ($data->file('cover')) {
+                if ($publication->cover) {
+                    Storage::disk('s3')->delete($publication->cover);
+                }
+                $file = $data->file('cover');
+                $path = Storage::disk('s3')->put('/publication', $file);
+                $publication->cover = '/' . $path;
             }
             $publication->slug = str_replace(' ', '-', strtolower($data->document_name));
             $publication->status = $data->status;
@@ -129,6 +142,9 @@ class PublicationRepository
             $publication = Publication::find($id);
             if ($publication->document_url) {
                 Storage::disk('s3')->delete($publication->document_url);
+            }
+            if ($publication->cover) {
+                Storage::disk('s3')->delete($publication->cover);
             }
             $publication->delete();
         } catch (\Throwable $th) {

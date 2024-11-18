@@ -46,11 +46,24 @@
                                     <select name="status" class="form-control @if($errors->has('status')) is-invalid @endif" 
                                         required oninvalid="this.setCustomValidity('Status harus diisi')" oninput="this.setCustomValidity('')">
                                         <option value="DIAJUKAN" {{ $publication->status == 'DIAJUKAN' ? 'selected' : '' }}>DIAJUKAN</option>
-                                        <option value="DISETUJUI" {{ $publication->status == 'DISETUJUI' ? 'selected' : '' }}>DISETUJUI</option>
-                                        <option value="DITOLAK" {{ $publication->status == 'DITOLAK' ? 'selected' : '' }}>DITOLAK</option>
+                                        <option value="DINAIKAN" {{ $publication->status == 'DINAIKAN' ? 'selected' : '' }}>DINAIKAN</option>
+                                        <option value="DITURUNKAN" {{ $publication->status == 'DITURUNKAN' ? 'selected' : '' }}>DITURUNKAN</option>
                                     </select>
                                     @if($errors->has('status'))
                                     <small class="help-block" style="color: red">{{ $errors->first('status') }}</small>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto">Sampul</label>
+                                    @if ($publication->cover)
+                                        <img src="{{ Storage::disk('s3')->url($publication->cover) }}" class="reviewCover rounded img-fluid mb-3 col-sm-5 d-block"
+                                        style="width: 150px; height: 150px">
+                                    @else
+                                        <img class="reviewCover rounded img-fluid mb-3 col-sm-5">
+                                    @endif
+                                        <input type="file" accept="image/*" name="cover" class="form-control @if($errors->has('cover')) is-invalid @endif" id="reviewCover" onchange="previewCover()">
+                                    @if($errors->has('cover'))
+                                        <small class="help-block" style="color: red">{{ $errors->first('foto') }}</small>
                                     @endif
                                 </div>
                             @endif

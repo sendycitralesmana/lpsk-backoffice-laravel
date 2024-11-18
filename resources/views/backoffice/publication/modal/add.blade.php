@@ -34,6 +34,17 @@
                                 <small class="help-block" style="color: red">{{ $errors->first('document_url') }}</small>
                                 @endif
                             </div>
+                            <div class="form-group">
+                                <label>Sampul</label>
+                                <img class="reviewCover img-fluid mb-3 col-sm-5">
+                                <input type="file" accept="image/*" name="cover"
+                                    class="form-control @if($errors->has('cover')) is-invalid @endif"
+                                    id="reviewCover" onchange="previewCover()">
+                                @if($errors->has('cover'))
+                                <small class="help-block" style="color: red">{{ $errors->first('cover')
+                                    }}</small>
+                                @endif
+                            </div>
                         </div>
                     </div>
 

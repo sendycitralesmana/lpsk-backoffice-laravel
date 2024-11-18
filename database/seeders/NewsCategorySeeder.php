@@ -31,6 +31,12 @@ class NewsCategorySeeder extends Seeder
                 'slug' => 'artikel',
                 'created_at' => now(),
                 'updated_at' => now(),
+            ],
+            [
+                'name' => 'Informasi',
+                'slug' => 'informasi',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]
         ]);
     }
