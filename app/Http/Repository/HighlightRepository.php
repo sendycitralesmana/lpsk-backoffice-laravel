@@ -32,14 +32,16 @@ class HighlightRepository
             }
 
 
-            $per_page = $request->per_page;
-            if ($per_page) {
-                $highlight->paginate($per_page);
-            } else {
-                $per_page = 10;
-            }
+            // $per_page = $request->per_page;
+            // if ($per_page) {
+            //     $highlight->paginate($per_page);
+            // } else {
+            //     $per_page = 10;
+            // }
 
-            $highlight = $highlight->paginate($per_page);
+            // $highlight = $highlight->paginate($per_page);
+
+            $highlight = $highlight->get();
 
             return $highlight;
 

@@ -25,10 +25,10 @@ class HighlightController extends Controller
             $resource = GetAllResource::collection($highlightCategories);
 
             return response()->json([
-                'total' => $highlightCategories->total(),
-                'current_page' => $highlightCategories->currentPage(),
-                'per_page' => $highlightCategories->perPage(),
-                'last_page' => $highlightCategories->lastPage(),
+                // 'total' => $highlightCategories->total(),
+                // 'current_page' => $highlightCategories->currentPage(),
+                // 'per_page' => $highlightCategories->perPage(),
+                // 'last_page' => $highlightCategories->lastPage(),
                 'data' => $resource,
             ]);
         } catch (\Throwable $th) {
