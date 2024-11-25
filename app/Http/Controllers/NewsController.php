@@ -79,6 +79,8 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            // dd($request->all());
+
             $news = $this->newsRepository->update($request, $id);
             return redirect('/backoffice/news')->with('success', 'Berita telah diperbarui');
             // return redirect()->back()->with('success', 'Berita telah diperbarui');

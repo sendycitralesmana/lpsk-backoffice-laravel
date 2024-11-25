@@ -291,7 +291,6 @@ class SettingRepository
                     Storage::disk('s3')->delete($setting->cover);
                 }
                 $filename = $data->file('cover')->getClientOriginalName();
-                $setting->document_name = $filename;
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/setting/cover', $file);
                 $setting->cover = '/' . $path;

@@ -236,7 +236,6 @@ class NewsRepository
                     Storage::disk('s3')->delete($news->cover);
                 }
                 $filename = $data->file('cover')->getClientOriginalName();
-                $news->document_name = $filename;
                 $file = $data->file('cover');
                 $path = Storage::disk('s3')->put('/news/cover', $file);
                 $news->cover = '/' . $path;

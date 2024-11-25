@@ -1,5 +1,5 @@
 <div class="modal fade" id="edit-{{ $profile->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form role="form" method="POST" action="/backoffice/profile/{{ $profile->id }}/update" enctype="multipart/form-data">
                 {{ csrf_field() }}
