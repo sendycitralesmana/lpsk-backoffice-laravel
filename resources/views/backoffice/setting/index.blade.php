@@ -152,19 +152,22 @@
                             <div class="card bg-light">
                                 <div class="card-header">
                                     <div class="user-block">
-                                        @if ( $setting->user->foto != null )
-                                        <img src="{{ Storage::disk('s3')->url($setting->user->foto) }}" alt="" class="img-circle rounded">
-                                        @else
-                                        <img src="{{ asset('images/profile-default.jpg') }}" alt="" class="img-circle rounded">
+                                        
+                                        @if ( $setting->user_id != null )
+                                            @if ( $setting->user->foto != null )
+                                                <img src="{{ Storage::disk('s3')->url($setting->user->foto) }}" alt="" class="img-circle rounded">
+                                            @else
+                                                <img src="{{ asset('images/profile-default.jpg') }}" alt="" class="img-circle rounded">
+                                            @endif
+                                            <span class="username">
+                                                <p>{{ $setting->user->name }}</p>
+                                            </span>
                                         @endif
-                                        <span class="username">
-                                            <p>{{ $setting->user->name }}</p>
-                                        </span>
+
                                         <span class="description">Menambahkan Peraturan -
                                             {{ $setting->created_at }}</span>
                                     </div>
                                     <div class="card-tools">
-                                        @if ($setting->user_id == auth()->user()->id)
                                         <a href="/backoffice/setting/{{ $setting->id }}/detail" class="btn btn-tool btn-sm" title="Detail">
                                             <i class="fa fa-eye"></i>
                                         </a>
@@ -181,6 +184,7 @@
                                             <span><i class="fa fa-trash"></i></span>
                                         </button>
                                         @include('backoffice.setting.modal.delete')
+                                        @if ($setting->user_id == auth()->user()->id)
                                         @endif
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
                                                 class="fas fa-minus"></i>
@@ -289,6 +293,9 @@
 
             </div>
 
+        </div>
+        <div class="col-md-12 d-flex justify-content-end">
+            {{ $settings->links() }}
         </div>
     </div>
 

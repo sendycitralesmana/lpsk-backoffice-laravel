@@ -80,9 +80,9 @@ class NewsRepository
             }
 
             if (Auth::user()->role_id == 1) {
-                return $news->get();
+                return $news->paginate(12);
             } else {
-                return $news->where('user_id', Auth::user()->id)->get();
+                return $news->where('user_id', Auth::user()->id)->paginate(12);
             }
 
         } catch (\Throwable $th) {

@@ -307,7 +307,11 @@
             </div>
 
         </div>
+        <div class="col-md-12 d-flex justify-content-end">
+            {{ $newss->links() }}
+        </div>
     </div>
+
 
 </section>
 

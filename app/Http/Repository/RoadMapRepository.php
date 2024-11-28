@@ -61,9 +61,9 @@ class RoadMapRepository
             }
 
             if (Auth::user()->role_id == 1) {
-                return $roadmap->get();
+                return $roadmap->paginate(12);
             } else {
-                return $roadmap->where('user_id', Auth::user()->id)->get();
+                return $roadmap->where('user_id', Auth::user()->id)->paginate(12);
             }
         } catch (\Throwable $th) {
             throw $th;

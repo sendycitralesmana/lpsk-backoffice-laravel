@@ -60,9 +60,9 @@ class PublicationRepository
             }
 
             if (Auth::user()->role_id == 1) {
-                return $publications->get();
+                return $publications->paginate(12);
             }   else {
-                return $publications->where('user_id', Auth::user()->id)->get();
+                return $publications->where('user_id', Auth::user()->id)->paginate(12);
             }
 
         } catch (\Throwable $th) {

@@ -80,9 +80,9 @@ class SettingRepository
             }
 
             if (Auth::user()->role_id == 1) {
-                return $setting->get();
+                return $setting->paginate(12);
             } else {
-                return $setting->where('user_id', Auth::user()->id)->get();
+                return $setting->where('user_id', Auth::user()->id)->paginate(12);
             }
 
         } catch (\Throwable $th) {

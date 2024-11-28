@@ -142,7 +142,7 @@
                     <div class="row">
 
                         @foreach ($roadmaps as $roadmap)
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card bg-light">
                                 <div class="card-header">
                                     <div class="user-block">
@@ -275,6 +275,9 @@
 
             </div>
 
+        </div>
+        <div class="col-md-12 d-flex justify-content-end">
+            {{ $roadmaps->links() }}
         </div>
     </div>
 

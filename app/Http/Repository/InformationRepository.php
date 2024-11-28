@@ -76,9 +76,9 @@ class InformationRepository
             }
 
             if (Auth::user()->role_id == 1) {
-                return $informations->get();
+                return $informations->paginate(12);
             } else {
-                return $informations->where('user_id', Auth::user()->id)->get();
+                return $informations->where('user_id', Auth::user()->id)->paginate(12);
             }
         } catch (\Throwable $th) {
             throw $th;

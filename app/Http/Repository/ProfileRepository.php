@@ -58,7 +58,7 @@ class ProfileRepository
                 $profile->where('profile_category_id', $data->category_id);
             }
 
-            return $profile->get();
+            return $profile->paginate(12);
 
             // return Profile::orderBy('created_at', 'desc')->get();
         } catch (\Throwable $th) {
