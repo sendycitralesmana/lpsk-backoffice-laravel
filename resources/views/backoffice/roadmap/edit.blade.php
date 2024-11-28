@@ -128,7 +128,7 @@
                                     @endif
                                 </div>
                             </div>
-                            @if (auth()->user()->id == 1)
+                            @if (auth()->user()->role_id == 1)
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Status <span class="text-danger">*</span></label>

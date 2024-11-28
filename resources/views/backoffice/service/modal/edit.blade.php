@@ -40,18 +40,20 @@
                                     <small class="help-block" style="color: red">{{ $errors->first('document_url') }}</small>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <label>Status <span class="text-danger">*</span></label>
-                                <select name="status" class="form-control @if($errors->has('status')) is-invalid @endif" 
-                                    required oninvalid="this.setCustomValidity('Status harus diisi')" oninput="this.setCustomValidity('')">
-                                    <option value="DIAJUKAN" {{ $service->status == 'DIAJUKAN' ? 'selected' : '' }}>DIAJUKAN</option>
-                                    <option value="DINAIKAN" {{ $service->status == 'DINAIKAN' ? 'selected' : '' }}>DINAIKAN</option>
-                                    <option value="DITURUNKAN" {{ $service->status == 'DITURUNKAN' ? 'selected' : '' }}>DITURUNKAN</option>
-                                </select>
-                                @if($errors->has('status'))
-                                <small class="help-block" style="color: red">{{ $errors->first('status') }}</small>
-                                @endif
-                            </div>
+                            @if (auth()->user()->role_id == 1)
+                                <div class="form-group">
+                                    <label>Status <span class="text-danger">*</span></label>
+                                    <select name="status" class="form-control @if($errors->has('status')) is-invalid @endif" 
+                                        required oninvalid="this.setCustomValidity('Status harus diisi')" oninput="this.setCustomValidity('')">
+                                        <option value="DIAJUKAN" {{ $service->status == 'DIAJUKAN' ? 'selected' : '' }}>DIAJUKAN</option>
+                                        <option value="DINAIKAN" {{ $service->status == 'DINAIKAN' ? 'selected' : '' }}>DINAIKAN</option>
+                                        <option value="DITURUNKAN" {{ $service->status == 'DITURUNKAN' ? 'selected' : '' }}>DITURUNKAN</option>
+                                    </select>
+                                    @if($errors->has('status'))
+                                    <small class="help-block" style="color: red">{{ $errors->first('status') }}</small>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
 

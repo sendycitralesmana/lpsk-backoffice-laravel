@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::put('/update', [PublicationController::class, 'update']);
                 Route::get('/delete', [PublicationController::class, 'delete']);
                 Route::get('/preview', [PublicationController::class, 'preview']);
+                Route::get('/detail', [PublicationController::class, 'detail']);
             });
 
         });

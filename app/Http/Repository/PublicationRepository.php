@@ -45,14 +45,24 @@ class PublicationRepository
         }
     }
 
-    public function getAll()
+    public function getAll($data)
     {
         try {
 
+            $publications = Publication::orderBy('created_at', 'desc');
+
+            if ($data->search) {
+                $publications->where('title', 'like', '%' . $data->search . '%');
+            }
+
+            if ($data->category_id) {
+                $publications->where('publication_category_id', $data->category_id);
+            }
+
             if (Auth::user()->role_id == 1) {
-                return Publication::orderBy('created_at', 'desc')->get();
-            } else {
-                return Publication::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+                return $publications->get();
+            }   else {
+                return $publications->where('user_id', Auth::user()->id)->get();
             }
 
         } catch (\Throwable $th) {
@@ -75,6 +85,8 @@ class PublicationRepository
             $publication = new Publication();
             $publication->id = Str::uuid();
             $publication->slug = null;
+            $publication->title = $data->title;
+            $publication->description = $data->description;
             $publication->publication_category_id = $data->publication_category_id;
             $publication->user_id = Auth::user()->id;
             if ($data->file('document_url')) {
@@ -107,6 +119,8 @@ class PublicationRepository
             $publications = Publication::where('id', '!=', $id)->get();
             $publication = Publication::find($id);
             $publication->publication_category_id = $data->publication_category_id;
+            $publication->title = $data->title;
+            $publication->description = $data->description;
             // foreach ($publications as $publication) {
             //     if ($publication->title == $data->title) {
             //         return redirect()->back()->with('error', 'Judul ' . $data->title . ' telah digunakan');

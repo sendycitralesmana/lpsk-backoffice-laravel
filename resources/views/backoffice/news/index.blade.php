@@ -46,7 +46,7 @@
                                         <option value="{{ $newsCategory->id }}" {{ $category_id == $newsCategory->id ? 'selected' : '' }}>{{ $newsCategory->name }}</option>
                                     @endforeach
                                 </select>
-                                @if (auth()->user()->id ==1)
+                                @if (auth()->user()->role_id == 1)
                                     <label for="" class="ml-2">Penulis: </label>
                                     <select name="user_id" class="form-control ml-2">
                                         <option value="">-- Penulis --</option>
@@ -148,23 +148,27 @@
                     <div class="row">
 
                         @foreach ($newss as $news)
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card bg-light">
                                 <div class="card-header">
                                     <div class="user-block">
-                                        @if ( $news->user->foto != null )
-                                        <img src="{{ Storage::disk('s3')->url($news->user->foto) }}" alt="" class="img-circle rounded">
-                                        @else
-                                        <img src="{{ asset('images/profile-default.jpg') }}" alt="" class="img-circle rounded">
+
+                                        @if ($news->user_id != null)
+                                            @if ( $news->user->foto != null )
+                                                <img src="{{ Storage::disk('s3')->url($news->user->foto) }}" alt="" class="img-circle rounded">
+                                            @else
+                                                <img src="{{ asset('images/profile-default.jpg') }}" alt="" class="img-circle rounded">
+                                            @endif
+                                            <span class="username">
+                                                <p>{{ $news->user->name }}</p>
+                                            </span>
                                         @endif
-                                        <span class="username">
-                                            <p>{{ $news->user->name }}</p>
-                                        </span>
+
                                         <span class="description">Menambahkan berita -
                                             {{ $news->created_at }}</span>
                                     </div>
                                     <div class="card-tools">
-                                        @if ($news->user_id == auth()->user()->id)
+
                                         <a href="/backoffice/news/{{ $news->id }}/detail" class="btn btn-tool btn-sm" title="Detail">
                                             <i class="fa fa-eye"></i>
                                         </a>
@@ -181,7 +185,20 @@
                                             <span><i class="fa fa-trash"></i></span>
                                         </button>
                                         @include('backoffice.news.modal.delete')
-                                        @endif
+
+                                        {{-- @if ($news->user_id == auth()->user()->id)
+                                            <a href="/backoffice/news/{{ $news->id }}/detail" class="btn btn-tool btn-sm" title="Detail">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="/backoffice/news/{{ $news->id }}/edit" class="btn btn-tool btn-sm" title="Detail">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
+                                                data-target="#delete-{{ $news->id }}" title="Hapus">
+                                                <span><i class="fa fa-trash"></i></span>
+                                            </button>
+                                            @include('backoffice.news.modal.delete')
+                                        @endif --}}
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
                                                 class="fas fa-minus"></i>
                                         </button>
@@ -191,12 +208,12 @@
                                     @if ( $news->cover != null )
                                     <div class="text-center">
                                         <img src="{{ Storage::disk('s3')->url($news->cover) }}"
-                                            class="img-fluid rounded" alt="" style="width: 40%; height: 240px">
+                                            class="img-fluid rounded" alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @else
                                     <div class="text-center">
                                         <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded"
-                                            alt="" style="width: 40%; height: 240px">
+                                            alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @endif
                                     @if ( $news->status == "DINAIKAN" )

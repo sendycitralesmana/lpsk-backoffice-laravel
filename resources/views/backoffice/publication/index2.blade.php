@@ -6,11 +6,11 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Data Profil</h1>
+                <h1>Data Publikasi</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item active">Data Profil</li>
+                    <li class="breadcrumb-item active">Data Publikasi</li>
                 </ol>
             </div>
         </div>
@@ -29,7 +29,7 @@
                         <form action="" class="form-inline">
                             <div class="pr-4" style="border-right: 3px solid #0d6efd">
                                 <h3 class="card-title">
-                                    <b>Profil</b>
+                                    <b>Publikasi</b>
                                 </h3>
                             </div>
     
@@ -42,8 +42,8 @@
                                 <label for="" class="ml-2">Kategori: </label>
                                 <select name="category_id" class="form-control ml-2">
                                     <option value="">-- Kategori --</option>
-                                    @foreach ($profileCategories as $profileCategory)
-                                        <option value="{{ $profileCategory->id }}" {{ $category_id == $profileCategory->id ? 'selected' : '' }}>{{ $profileCategory->name }}</option>
+                                    @foreach ($publicationCategories as $publicationCategory)
+                                        <option value="{{ $publicationCategory->id }}" {{ $category_id == $publicationCategory->id ? 'selected' : '' }}>{{ $publicationCategory->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -55,7 +55,7 @@
     
                             @if ($search || $category_id)
                                 <div class="input-group ml-2">
-                                    <a href="/backoffice/profile" class="btn btn-primary btn-sm">
+                                    <a href="/backoffice/publication" class="btn btn-primary btn-sm">
                                         <i class="fas fa-sync-alt"></i>
                                     </a>
                                 </div>
@@ -67,7 +67,7 @@
                                 <span class="fa fa-plus"></span> Tambah
                             </button>
                             {{-- Modal --}}
-                            @include('backoffice.profile.modal.add')
+                            @include('backoffice.publication.modal.add')
     
                             {{-- @if ($errors->any())
                             <script>
@@ -86,7 +86,7 @@
                 <div class="card-body">
 
                     @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" profile="alert">
+                    <div class="alert alert-success alert-dismissible fade show" publication="alert">
                         <strong>Berhasil </strong>{{ session('success') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -95,7 +95,7 @@
                     @endif
 
                     @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" profile="alert">
+                    <div class="alert alert-danger alert-dismissible fade show" publication="alert">
                         <strong>Gagal </strong>{{ session('error') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -108,10 +108,10 @@
                             <div class="text-center">
                                 <span class="fa fa-search"></span> Hasil Pencarian dari:
                                     @if ($search )
-                                        <br> Nama: <b>{{ $search }}</b> 
+                                        <br> Judul: <b>{{ $search }}</b> 
                                     @endif
                                     @if ($category_id )
-                                        <br> Kategori: <b>{{ $profileCategori->name }}</b>
+                                        <br> Kategori: <b>{{ $publicationCategori->name }}</b>
                                     @endif
                             </div>
                             <hr>
@@ -120,31 +120,31 @@
 
                     <div class="row">
 
-                        @foreach ($profiles as $profile)
+                        @foreach ($publications as $publication)
                         <div class="col-md-4">
                             <div class="card bg-light">
                                 <div class="card-header">
                                     {{-- <div class="user-block">
-                                        @if ( $profile->foto != null )
-                                        <img src="{{ Storage::disk('s3')->url($profile->foto) }}" alt="" class="img-circle rounded">
+                                        @if ( $publication->foto != null )
+                                        <img src="{{ Storage::disk('s3')->url($publication->foto) }}" alt="" class="img-circle rounded">
                                         @else
-                                        <img src="{{ asset('images/profile-default.jpg') }}" alt="" class="img-circle rounded">
+                                        <img src="{{ asset('images/publication-default.jpg') }}" alt="" class="img-circle rounded">
                                         @endif
                                         <span class="username">
-                                            <p>{{ $profile->name }}</p>
+                                            <p>{{ $publication->name }}</p>
                                         </span>
                                         <span class="description">Menambahkan Profil -
-                                            {{ $profile->created_at }}</span>
+                                            {{ $publication->created_at }}</span>
                                     </div> --}}
                                     <div class="card-tools">
-                                        {{-- @if ($profile_id == auth()->user()->id) --}}
-                                        <a href="/backoffice/profile/{{ $profile->id }}/detail" class="btn btn-tool btn-sm" title="Detail">
+                                        {{-- @if ($publication_id == auth()->user()->id) --}}
+                                        <a href="/backoffice/publication/{{ $publication->id }}/detail" class="btn btn-tool btn-sm" title="Detail">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <button class="btn btn-tool" data-toggle="modal" data-target="#edit-{{ $profile->id }}" title="Ubah">
+                                        <button class="btn btn-tool" data-toggle="modal" data-target="#edit-{{ $publication->id }}" title="Ubah">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-tool" data-toggle="modal" data-target="#delete-{{ $profile->id }}" title="Hapus">
+                                        <button class="btn btn-tool" data-toggle="modal" data-target="#delete-{{ $publication->id }}" title="Hapus">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                         {{-- @endif --}}
@@ -154,30 +154,30 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    @if ( $profile->foto != null )
+                                    @if ( $publication->cover != null )
                                     <div class="text-center">
-                                        <img src="{{ Storage::disk('s3')->url($profile->foto) }}"
-                                            class="img-fluid rounded" alt="" style="width: 40%; height: 240px">
+                                        <img src="{{ Storage::disk('s3')->url($publication->cover) }}"
+                                            class="img-fluid rounded" alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @else
                                     <div class="text-center">
-                                        <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded"
-                                            alt="" style="width: 40%; height: 240px">
+                                        <img src="{{ asset('images/default_zz.webp') }}" class="img-fluid rounded"
+                                            alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @endif
                                     <h4 class="mt-2">
-                                        <b>{{ $profile->name }}</b>
+                                        <b>{{ $publication->title }}</b>
                                     </h4>
-                                    @if ( $profile->profile_category_id != null )
-                                    <small> {{ $profile->profileCategory->name }} </small>
+                                    @if ( $publication->publication_category_id != null )
+                                    <small> {{ $publication->publicationCategory->name }} </small>
                                     @endif
                                     <div class="mb-2" style="overflow: hidden;
                                         text-overflow: ellipsis;
                                         -webkit-line-clamp: 3;
                                         display: -webkit-box;
                                         -webkit-box-orient: vertical;">
-                                        {{-- <div> {!! html_entity_decode($profile->content) !!} </div> --}}
-                                        {{-- <div> {!! $profile->content !!} </div> --}}
+                                        {{-- <div> {!! html_entity_decode($publication->content) !!} </div> --}}
+                                        {{-- <div> {!! $publication->content !!} </div> --}}
                                     </div>
                                 </div>
 
@@ -188,9 +188,9 @@
                     </div>
 
                     {{-- modal --}}
-                    @foreach ($profiles as $profile)
-                    @include('backoffice.profile.modal.edit')
-                    @include('backoffice.profile.modal.delete')
+                    @foreach ($publications as $publication)
+                    @include('backoffice.publication.modal.edit')
+                    @include('backoffice.publication.modal.delete')
                     @endforeach
 
                 </div>

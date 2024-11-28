@@ -18,11 +18,18 @@ class PublicationController extends Controller
         $this->publicationCategoryRepository = $publicationCategoryRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $publicationCategories = $this->publicationCategoryRepository->getAll();
-        $publications = $this->publicationRepository->getAll(); 
-        return view('backoffice.publication.index', compact(['publicationCategories', 'publications']));
+        $publications = $this->publicationRepository->getAll($request); 
+        $search = $request->search;
+        $category_id = $request->category_id;
+        if ($category_id == null) {
+            $publicationCategori = null;
+        } else {
+            $publicationCategori = $this->publicationCategoryRepository->getById($category_id);
+        }
+        return view('backoffice.publication.index2', compact(['publicationCategories', 'publications', 'publicationCategori', 'search', 'category_id']));
     }
 
     public function create(Request $request)
@@ -43,6 +50,13 @@ class PublicationController extends Controller
         } catch (\Throwable $th) {
             return $th;
         }
+    }
+
+    public function detail($id)
+    {
+        $publication = $this->publicationRepository->getById($id);
+        $publicationCategories = $this->publicationCategoryRepository->getAll();
+        return view('backoffice.publication.detail', compact(['publication', 'publicationCategories']));
     }
 
     public function delete($id)

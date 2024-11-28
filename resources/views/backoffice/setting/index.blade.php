@@ -148,7 +148,7 @@
                     <div class="row">
 
                         @foreach ($settings as $setting)
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card bg-light">
                                 <div class="card-header">
                                     <div class="user-block">
@@ -191,12 +191,12 @@
                                     @if ( $setting->cover != null )
                                     <div class="text-center">
                                         <img src="{{ Storage::disk('s3')->url($setting->cover) }}"
-                                            class="img-fluid rounded" alt="" style="width: 40%; height: 240px">
+                                            class="img-fluid rounded" alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @else
                                     <div class="text-center">
                                         <img src="{{ asset('images/default_zz.webp') }}" class="img-fluid rounded"
-                                            alt="" style="width: 40%; height: 240px">
+                                            alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @endif
                                     @if ( $setting->status == "DINAIKAN" )

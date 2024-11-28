@@ -1,5 +1,5 @@
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form role="form" method="POST" action="/backoffice/publication/create" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -24,6 +24,25 @@
                                 </select>
                                 @if($errors->has('publication_category_id'))
                                 <small class="help-block" style="color: red">{{ $errors->first('publication_category_id') }}</small>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>Judul <span class="text-danger">*</span></label>
+                                <input type="text" name="title"
+                                    class="form-control @if($errors->has('title')) is-invalid @endif"
+                                    placeholder="Judul" value="{{ old('title') }}" required
+                                    oninvalid="this.setCustomValidity('Kategori harus diisi')"
+                                    oninput="this.setCustomValidity('')">
+                                @if($errors->has('title'))
+                                <small class="help-block" style="color: red">{{ $errors->first('title')
+                                    }}</small>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi</label>
+                                <textarea name="description" rows="10" class="form-control @if($errors->has('description')) is-invalid @endif" placeholder="Deskripsi">{{ old('description') }}</textarea>
+                                @if($errors->has('description'))
+                                <small class="help-block" style="color: red">{{ $errors->first('description') }}</small>
                                 @endif
                             </div>
                             <div class="form-group">

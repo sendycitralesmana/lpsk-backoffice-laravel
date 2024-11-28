@@ -1,5 +1,5 @@
 <div class="modal fade" id="edit-{{ $publication->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form role="form" method="POST" action="/backoffice/publication/{{ $publication->id }}/update" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -27,6 +27,25 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label>Judul <span class="text-danger">*</span></label>
+                                <input type="text" name="title"
+                                    class="form-control @if($errors->has('title')) is-invalid @endif"
+                                    placeholder="Judul" value="{{ $publication->title }}" required
+                                    oninvalid="this.setCustomValidity('Kategori harus diisi')"
+                                    oninput="this.setCustomValidity('')">
+                                @if($errors->has('title'))
+                                <small class="help-block" style="color: red">{{ $errors->first('title')
+                                    }}</small>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi</label>
+                                <textarea name="description" rows="10" class="form-control @if($errors->has('description')) is-invalid @endif" placeholder="Deskripsi">{{ $publication->description }}</textarea>
+                                @if($errors->has('description'))
+                                <small class="help-block" style="color: red">{{ $errors->first('description') }}</small>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <label for="foto">Berkas</label>
                                 {{-- @if ($publication->cover)
                                     <img src="{{ Storage::disk('s3')->url($publication->cover) }}" class="reviewCover rounded img-fluid mb-3 col-sm-5 d-block"
@@ -40,7 +59,7 @@
                                     <small class="help-block" style="color: red">{{ $errors->first('document_url') }}</small>
                                 @endif
                             </div>
-                            @if (auth()->user()->id == 1)
+                            @if (auth()->user()->role_id == 1)
                                 <div class="form-group">
                                     <label>Status <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control @if($errors->has('status')) is-invalid @endif" 
@@ -66,6 +85,7 @@
                                         <small class="help-block" style="color: red">{{ $errors->first('foto') }}</small>
                                     @endif
                                 </div>
+                                
                             @endif
                         </div>
                     </div>

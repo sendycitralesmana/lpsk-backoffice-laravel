@@ -20,6 +20,8 @@ class GetResource extends JsonResource
             'id' => $this->id,
             'publication_category_id' => $this->publication_category_id,
             'publication_category' => $this->publicationCategory,
+            'title' => $this->title,
+            'description' => $this->description,
             'document_name' => $this->document_name,
             'document_url' => $this->document_url,
             'cover' => $this->cover,

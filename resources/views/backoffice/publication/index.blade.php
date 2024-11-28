@@ -106,7 +106,7 @@
                                         </div>
                                         @else
                                         <div class="text-center">
-                                            <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded"
+                                            <img src="{{ asset('images/default_zz.webp') }}" class="img-fluid rounded"
                                                 alt="" style="width: 40%; height: 100px">
                                         </div>
                                     @endif

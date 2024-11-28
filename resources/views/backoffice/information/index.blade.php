@@ -148,7 +148,7 @@
                     <div class="row">
 
                         @foreach ($informations as $information)
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card bg-light">
                                 <div class="card-header">
                                     <div class="user-block">
@@ -189,12 +189,12 @@
                                     @if ( $information->cover != null )
                                     <div class="text-center">
                                         <img src="{{ Storage::disk('s3')->url($information->cover) }}"
-                                            class="img-fluid rounded" alt="" style="width: 40%; height: 240px">
+                                            class="img-fluid rounded" alt="" style="width: 60%; height: 26px">
                                     </div>
                                     @else
                                     <div class="text-center">
                                         <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded"
-                                            alt="" style="width: 40%; height: 240px">
+                                            alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @endif
                                     @if ( $information->status == "DINAIKAN" )
