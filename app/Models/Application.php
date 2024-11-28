@@ -19,6 +19,9 @@ class Application extends Model
         ];
     }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function applicationCategory(): BelongsTo
     {
         return $this->belongsTo(ApplicationCategory::class, 'application_category_id', 'id');

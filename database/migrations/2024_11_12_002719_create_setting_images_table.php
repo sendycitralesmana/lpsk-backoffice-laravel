@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('setting_images', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('setting_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('setting_id')->nullable();
             $table->foreign('setting_id')->references('id')->onDelete('set null')->on('settings');
             $table->string('name');
-            $table->string('size');
-            $table->string('extension');
+            $table->string('size')->nullable();
+            $table->string('extension')->nullable();
             $table->string('url');
             $table->timestamps();
         });

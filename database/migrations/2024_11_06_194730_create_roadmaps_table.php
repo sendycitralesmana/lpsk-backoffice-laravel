@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roadmaps', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->onDelete('set null')->on('users');
             $table->string('slug');
             $table->string('title');

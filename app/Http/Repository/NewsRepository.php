@@ -9,6 +9,7 @@ use App\Models\NewsVideo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class NewsRepository
 {
@@ -105,6 +106,7 @@ class NewsRepository
 
         try {
             $news = new News();
+            $news->id = Str::uuid();
             $news->user_id = Auth::user()->id;
             $news->news_category_id = $data->news_category_id;
             $news->title = $data->title;
@@ -161,6 +163,7 @@ class NewsRepository
                     $store = Storage::disk('s3')->put('/news/images', $url);
 
                     $newsImage = array(
+                        'id' => Str::uuid(),
                         'news_id' => $news->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -181,6 +184,7 @@ class NewsRepository
                     $store = Storage::disk('s3')->put('/news/videos', $url);
 
                     $newsVideo = array(
+                        'id' => Str::uuid(),
                         'news_id' => $news->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -201,6 +205,7 @@ class NewsRepository
                     $store = Storage::disk('s3')->put('/news/documents', $url);
 
                     $newsDocument = array(
+                        'id' => Str::uuid(),
                         'news_id' => $news->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -363,6 +368,7 @@ class NewsRepository
                     $store = Storage::disk('s3')->put('news/images', $url);
 
                     $newsImage = array(
+                        'id' => Str::uuid(),
                         'news_id' => $news->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -431,6 +437,7 @@ class NewsRepository
                     $store = Storage::disk('s3')->put('/news/videos', $url);
 
                     $newsVideo = array(
+                        'id' => Str::uuid(),
                         'news_id' => $news->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -514,6 +521,7 @@ class NewsRepository
                     $store = Storage::disk('s3')->put('/news/documents', $url);
 
                     $newsDocument = array(
+                        'id' => Str::uuid(),
                         'news_id' => $news->id,
                         'name' => $filename,
                         'extension' => $extension,

@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\InformationCategory;
+use Illuminate\Support\Str;
 
 class InformationCategoryRepository
 {
@@ -58,6 +59,7 @@ class InformationCategoryRepository
     {
         try {
             $informationCategory = new InformationCategory();
+            $informationCategory->id = Str::uuid();
             $informationCategory->slug = $data->slug;
             $informationCategory->name = $data->name;
             $informationCategory->save();

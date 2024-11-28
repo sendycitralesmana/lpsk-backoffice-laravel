@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('highlights', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('highlight_category_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('highlight_category_id')->nullable();
             $table->foreign('highlight_category_id')->references('id')->onDelete('set null')->on('highlight_categories');
-            $table->unsignedBigInteger('news_id')->nullable();
+            $table->uuid('news_id')->nullable();
             $table->foreign('news_id')->references('id')->onDelete('set null')->on('news');
             $table->timestamps();
         });

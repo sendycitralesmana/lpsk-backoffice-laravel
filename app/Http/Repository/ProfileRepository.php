@@ -4,6 +4,7 @@ namespace App\Http\Repository;
 
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProfileRepository
 {
@@ -43,10 +44,23 @@ class ProfileRepository
         }
     }
 
-    public function getAll()
+    public function getAll($data)
     {
         try {
-            return Profile::orderBy('created_at', 'desc')->get();
+
+            $profile = Profile::orderBy('created_at', 'desc');
+
+            if ($data->search) {
+                $profile->where('name', 'like', '%' . $data->search . '%');
+            }
+
+            if ($data->category_id) {
+                $profile->where('profile_category_id', $data->category_id);
+            }
+
+            return $profile->get();
+
+            // return Profile::orderBy('created_at', 'desc')->get();
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -65,6 +79,8 @@ class ProfileRepository
     {
         try {
             $profile = new Profile();
+            $profile->id = Str::uuid();
+            $profile->slug = null;
             $profile->profile_category_id = $data->profile_category_id;
             $profile->name = $data->name;
             $profile->description = $data->description;
@@ -101,7 +117,7 @@ class ProfileRepository
                 $path = Storage::disk('s3')->put('/profile', $file);
                 $profile->foto = '/' . $path;
             }
-            $profile->slug = str_replace(' ', '-', strtolower($data->name));
+            // $profile->slug = str_replace(' ', '-', strtolower($data->name));
             $profile->save();
             return $profile;
         } catch (\Throwable $th) {

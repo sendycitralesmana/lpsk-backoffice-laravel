@@ -20,6 +20,9 @@ class News extends Model
         ];
     }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function newsCategory(): BelongsTo
     {
         return $this->belongsTo(NewsCategory::class, 'news_category_id', 'id');

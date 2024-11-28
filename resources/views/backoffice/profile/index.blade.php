@@ -34,6 +34,8 @@
                         <button title="Tambah" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#tambah">
                             <span class="fa fa-plus"></span> Tambah
                         </button>
+                        {{-- Modal --}}
+                        @include('backoffice.profile.modal.add')
 
                         {{-- @if ($errors->any())
                             <script>
@@ -43,8 +45,6 @@
                             </script>
                         @endif --}}
 
-                        {{-- Modal --}}
-                        @include('backoffice.profile.modal.add')
 
                         <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse"
                             data-toggle="tooltip" title="Collapse">

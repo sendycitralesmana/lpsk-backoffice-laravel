@@ -21,6 +21,9 @@ class RoadMap extends Model
         ];
     }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     protected $table = 'roadmaps';
 
     public function user(): BelongsTo

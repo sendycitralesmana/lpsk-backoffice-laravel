@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Deskripsi <span class="text-danger">*</span></label>
-                                <textarea name="description" class="form-control @if($errors->has('description')) is-invalid @endif"
+                                <textarea name="description" rows="10" class="form-control @if($errors->has('description')) is-invalid @endif"
                                 required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Deskripsi harus diisi')">{{ $profile->description }}</textarea>
                                 @if($errors->has('url'))
                                 <small class="help-block" style="color: red">{{ $errors->first('url') }}</small>

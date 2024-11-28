@@ -5,7 +5,7 @@
                 {{ csrf_field() }}
                 @method('PUT')
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ubah Layanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ubah Publikasi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -15,7 +15,7 @@
                     <div class="card card-outline card-primary">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Kategori Layanan <span class="text-danger">*</span></label>
+                                <label>Kategori Publikasi <span class="text-danger">*</span></label>
                                 <select name="publication_category_id" class="form-control select2 @if($errors->has('publication_category_id')) is-invalid @endif" 
                                     required oninvalid="this.setCustomValidity('Kategori harus diisi')" oninput="this.setCustomValidity('')">
                                     @foreach ($publicationCategories as $publicationCategory)

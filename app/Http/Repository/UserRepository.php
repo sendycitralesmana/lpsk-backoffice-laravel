@@ -64,6 +64,7 @@ class UserRepository
             $password = $request->password;
 
             $user = new User();
+            $user->id = Str::uuid();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);

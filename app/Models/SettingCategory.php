@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SettingCategory extends Model
 {
+
+    protected $keyType = 'string';
+    public $incrementing = false;
+    
     public function settings(): HasMany
     {
         return $this->hasMany(Setting::class, 'setting_category_id', 'id');

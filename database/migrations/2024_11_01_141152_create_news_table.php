@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->nullable();
             $table->foreign('user_id')->references('id')->onDelete('set null')->on('users');
-            $table->unsignedBigInteger('news_category_id')->nullable();
+            $table->uuid('news_category_id')->nullable();
             $table->foreign('news_category_id')->references('id')->onDelete('set null')->on('news_categories');
             $table->string('slug');
             $table->string('title');

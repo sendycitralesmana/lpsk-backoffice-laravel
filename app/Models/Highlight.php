@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Highlight extends Model
 {
+
+    protected $keyType = 'string';
+    public $incrementing = false;
     
     public function highlightCategory(): BelongsTo
     {

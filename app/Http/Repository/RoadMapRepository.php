@@ -9,6 +9,7 @@ use App\Models\RoadMapVideos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RoadMapRepository
 {
@@ -84,6 +85,7 @@ class RoadMapRepository
 
         try {
             $roadmap = new RoadMap();
+            $roadmap->id = Str::uuid();
             $roadmap->user_id = Auth::user()->id;
             $roadmap->title = $data->title;
             if (Auth::user()->role_id == 1) {
@@ -139,6 +141,7 @@ class RoadMapRepository
                     $store = Storage::disk('s3')->put('/roadmap/images', $url);
 
                     $roadmapImage = array(
+                        'id' => Str::uuid(),
                         'roadmap_id' => $roadmap->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -159,6 +162,7 @@ class RoadMapRepository
                     $store = Storage::disk('s3')->put('/roadmap/videos', $url);
 
                     $roadmapVideo = array(
+                        'id' => Str::uuid(),
                         'roadmap_id' => $roadmap->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -179,6 +183,7 @@ class RoadMapRepository
                     $store = Storage::disk('s3')->put('/roadmap/documents', $url);
 
                     $roadmapDocument = array(
+                        'id' => Str::uuid(),
                         'roadmap_id' => $roadmap->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -302,6 +307,7 @@ class RoadMapRepository
                     $store = Storage::disk('s3')->put('/roadmap/images', $url);
 
                     $roadmapImage = array(
+                        'id' => Str::uuid(),
                         'roadmap_id' => $roadmap->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -370,6 +376,7 @@ class RoadMapRepository
                     $store = Storage::disk('s3')->put('/roadmap/videos', $url);
 
                     $roadmapVideo = array(
+                        'id' => Str::uuid(),
                         'roadmap_id' => $roadmap->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -453,6 +460,7 @@ class RoadMapRepository
                     $store = Storage::disk('s3')->put('/roadmap/documents', $url);
 
                     $roadmapDocument = array(
+                        'id' => Str::uuid(),
                         'roadmap_id' => $roadmap->id,
                         'name' => $filename,
                         'extension' => $extension,

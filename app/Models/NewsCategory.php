@@ -19,6 +19,9 @@ class NewsCategory extends Model
     //     ];
     // }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function news(): HasMany
     {
         return $this->hasMany(News::class, 'news_category_id', 'id');

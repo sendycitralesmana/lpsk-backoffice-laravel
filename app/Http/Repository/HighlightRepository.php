@@ -4,6 +4,7 @@ namespace App\Http\Repository;
 
 use App\Models\Highlight;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class HighlightRepository
 {
@@ -72,6 +73,7 @@ class HighlightRepository
     {
         try {
             $highlight = new Highlight();
+            $highlight->id = Str::uuid();
             $highlight->highlight_category_id = $data->highlight_category_id;
             $highlight->news_id = $data->news_id;
             $highlight->save();

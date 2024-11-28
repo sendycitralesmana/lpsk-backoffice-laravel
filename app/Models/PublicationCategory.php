@@ -19,6 +19,9 @@ class PublicationCategory extends Model
     //     ];
     // }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function publications(): HasMany
     {
         return $this->hasMany(Publication::class, 'publication_category_id', 'id');

@@ -5,6 +5,7 @@ namespace App\Http\Repository;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ServiceRepository
 {
@@ -66,6 +67,8 @@ class ServiceRepository
     {
         try {
             $service = new Service();
+            $service->id = Str::uuid();
+            $service->slug = null;
             $service->service_category_id = $data->service_category_id;
             if ($data->file('document_url')) {
                 $filename = $data->file('document_url')->getClientOriginalName();
@@ -107,7 +110,7 @@ class ServiceRepository
                 $path = Storage::disk('s3')->put('service', $file);
                 $service->document_url = '/' . $path;
             }
-            $service->slug = str_replace(' ', '-', strtolower($data->document_name));
+            // $service->slug = str_replace(' ', '-', strtolower($data->document_name));
             $service->status = $data->status;
             $service->save();
             return $service;

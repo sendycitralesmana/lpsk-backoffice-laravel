@@ -18,6 +18,9 @@ class ApplicationCategory extends Model
     //         ]
     //     ];
     // }
+
+    protected $keyType = 'string';
+    public $incrementing = false;
     
     public function applications(): HasMany
     {

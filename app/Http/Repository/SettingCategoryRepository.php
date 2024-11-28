@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\SettingCategory;
+use Illuminate\Support\Str;
 
 class SettingCategoryRepository
 {
@@ -58,6 +59,7 @@ class SettingCategoryRepository
     {
         try {
             $settingCategory = new settingCategory();
+            $settingCategory->id = Str::uuid();
             $settingCategory->name = $data->name;
             $settingCategory->slug = $data->slug;
             $settingCategory->save();

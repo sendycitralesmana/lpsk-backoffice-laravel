@@ -17,11 +17,18 @@ class ProfileController extends Controller
         $this->profileCategoryRepository = $profileCategoryRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $profileCategories = $this->profileCategoryRepository->getAll();
-        $profiles = $this->profileRepository->getAll(); 
-        return view('backoffice.profile.index', compact(['profileCategories', 'profiles']));
+        $profiles = $this->profileRepository->getAll($request); 
+        $search = $request->search;
+        $category_id = $request->category_id;
+        if ($category_id == null) {
+            $profileCategori = null;
+        } else {
+            $profileCategori = $this->profileCategoryRepository->getById($category_id);
+        }
+        return view('backoffice.profile.index2', compact(['profileCategories', 'profiles', 'profileCategori', 'search', 'category_id']));
     }
 
     public function create(Request $request)
@@ -42,6 +49,13 @@ class ProfileController extends Controller
         } catch (\Throwable $th) {
             return $th;
         }
+    }
+
+    public function detail(Request $request, $id)
+    {
+        $profile = $this->profileRepository->getById($id);
+        $profileCategories = $this->profileCategoryRepository->getAll();
+        return view('backoffice.profile.detail', compact(['profile', 'profileCategories']));
     }
 
     public function delete($id)

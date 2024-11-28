@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\ProfileCategory;
+use Illuminate\Support\Str;
 
 class ProfileCategoryRepository
 {
@@ -58,6 +59,7 @@ class ProfileCategoryRepository
     {
         try {
             $profileCategory = new ProfileCategory();
+            $profileCategory->id = Str::uuid();
             $profileCategory->slug = $data->slug;
             $profileCategory->name = $data->name;
             $profileCategory->save();

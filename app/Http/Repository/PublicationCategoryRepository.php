@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\PublicationCategory;
+use Illuminate\Support\Str;
 
 class PublicationCategoryRepository
 {
@@ -58,6 +59,7 @@ class PublicationCategoryRepository
     {
         try {
             $publicationCategory = new PublicationCategory();
+            $publicationCategory->id = Str::uuid();
             $publicationCategory->slug = $data->slug;
             $publicationCategory->name = $data->name;
             $publicationCategory->save();

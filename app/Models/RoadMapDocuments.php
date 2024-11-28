@@ -10,6 +10,9 @@ class RoadMapDocuments extends Model
     protected $table = 'roadmap_documents';
     protected $guarded = [];
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
    // set createdAt to format
    public function getCreatedAtAttribute($value)
    {

@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\HighlightCategory;
+use Illuminate\Support\Str;
 
 class HighlightCategoryRepository
 {
@@ -58,6 +59,7 @@ class HighlightCategoryRepository
     {
         try {
             $highlightCategory = new HighlightCategory();
+            $highlightCategory->id = Str::uuid();
             $highlightCategory->slug = $data->slug;
             $highlightCategory->name = $data->name;
             $highlightCategory->save();

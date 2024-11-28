@@ -8,16 +8,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
-    use Sluggable;
+    // use Sluggable;
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'document_name'
-            ]
-        ];
-    }
+    // public function sluggable(): array
+    // {
+    //     return [
+    //         'slug' => [
+    //             'source' => 'document_name'
+    //         ]
+    //     ];
+    // }
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     public function serviceCategory(): BelongsTo
     {

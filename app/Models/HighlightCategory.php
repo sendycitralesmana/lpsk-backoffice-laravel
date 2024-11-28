@@ -19,6 +19,9 @@ class HighlightCategory extends Model
     //     ];
     // }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function highlights(): HasMany
     {
         return $this->hasMany(Highlight::class, 'highlight_category_id', 'id');

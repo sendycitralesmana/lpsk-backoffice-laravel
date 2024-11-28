@@ -9,6 +9,7 @@ use App\Models\SettingVideo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SettingRepository
 {
@@ -105,6 +106,7 @@ class SettingRepository
 
         try {
             $setting = new setting();
+            $setting->id = Str::uuid();
             $setting->user_id = Auth::user()->id;
             $setting->setting_category_id = $data->setting_category_id;
             $setting->title = $data->title;
@@ -185,6 +187,7 @@ class SettingRepository
                     $store = Storage::disk('s3')->put('/setting/images', $url);
 
                     $settingImage = array(
+                        'id' => Str::uuid(),
                         'setting_id' => $setting->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -205,6 +208,7 @@ class SettingRepository
                     $store = Storage::disk('s3')->put('/setting/videos', $url);
 
                     $settingVideo = array(
+                        'id' => Str::uuid(),
                         'setting_id' => $setting->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -225,6 +229,7 @@ class SettingRepository
                     $store = Storage::disk('s3')->put('/setting/documents', $url);
 
                     $settingDocument = array(
+                        'id' => Str::uuid(),
                         'setting_id' => $setting->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -386,6 +391,7 @@ class SettingRepository
                     $store = Storage::disk('s3')->put('/setting/images', $url);
 
                     $settingImage = array(
+                        'id' => Str::uuid(),
                         'setting_id' => $setting->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -454,6 +460,7 @@ class SettingRepository
                     $store = Storage::disk('s3')->put('/setting/videos', $url);
 
                     $settingVideo = array(
+                        'id' => Str::uuid(),
                         'setting_id' => $setting->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -537,6 +544,7 @@ class SettingRepository
                     $store = Storage::disk('s3')->put('/setting/documents', $url);
 
                     $settingDocument = array(
+                        'id' => Str::uuid(),
                         'setting_id' => $setting->id,
                         'name' => $filename,
                         'extension' => $extension,

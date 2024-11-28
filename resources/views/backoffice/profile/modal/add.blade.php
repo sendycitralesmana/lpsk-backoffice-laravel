@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea name="description" class="form-control @if($errors->has('description')) is-invalid @endif" placeholder="Deskripsi">{{ old('description') }}</textarea>
+                                <textarea name="description" rows="10" class="form-control @if($errors->has('description')) is-invalid @endif" placeholder="Deskripsi">{{ old('description') }}</textarea>
                                 @if($errors->has('description'))
                                 <small class="help-block" style="color: red">{{ $errors->first('description') }}</small>
                                 @endif

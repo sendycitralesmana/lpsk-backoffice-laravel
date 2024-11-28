@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\Report;
+use Illuminate\Support\Str;
 
 class ReportRepository
 {
@@ -54,6 +55,7 @@ class ReportRepository
     {
         try {
             $report = new Report();
+            $report->id = Str::uuid();
             $report->name = $data->name;
             $report->identity = $data->identity;
             $report->email = $data->email;

@@ -19,6 +19,9 @@ class ServiceCategory extends Model
     //     ];
     // }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function services(): HasMany
     {
         return $this->hasMany(Service::class, 'service_category_id', 'id');

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('application_category_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('application_category_id')->nullable();
             $table->foreign('application_category_id')->references('id')->onDelete('set null')->on('application_categories');
             $table->string('slug');
             $table->string('title');

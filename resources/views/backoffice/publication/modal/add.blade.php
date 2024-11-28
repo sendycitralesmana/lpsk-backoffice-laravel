@@ -4,7 +4,7 @@
             <form role="form" method="POST" action="/backoffice/publication/create" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori Publikasi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Publikasi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

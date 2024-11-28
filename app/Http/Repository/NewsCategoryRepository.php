@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\NewsCategory;
+use Illuminate\Support\Str;
 
 class NewsCategoryRepository
 {
@@ -58,6 +59,7 @@ class NewsCategoryRepository
     {
         try {
             $newsCategory = new NewsCategory();
+            $newsCategory->id = Str::uuid();
             $newsCategory->name = $data->name;
             $newsCategory->slug = $data->slug;
             $newsCategory->save();

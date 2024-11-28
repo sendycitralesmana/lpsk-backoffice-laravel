@@ -5,6 +5,7 @@ namespace App\Http\Repository;
 use App\Models\Publication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PublicationRepository
 {
@@ -72,6 +73,8 @@ class PublicationRepository
     {
         try {
             $publication = new Publication();
+            $publication->id = Str::uuid();
+            $publication->slug = null;
             $publication->publication_category_id = $data->publication_category_id;
             $publication->user_id = Auth::user()->id;
             if ($data->file('document_url')) {
@@ -127,7 +130,7 @@ class PublicationRepository
                 $path = Storage::disk('s3')->put('/publication', $file);
                 $publication->cover = '/' . $path;
             }
-            $publication->slug = str_replace(' ', '-', strtolower($data->document_name));
+            // $publication->slug = str_replace(' ', '-', strtolower($data->document_name));
             $publication->status = $data->status;
             $publication->save();
             return $publication;

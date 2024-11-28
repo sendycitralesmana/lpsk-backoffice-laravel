@@ -9,6 +9,9 @@ class RoadMapVideos extends Model
     protected $table = 'roadmap_videos';
     protected $guarded = [];
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     // set createdAt to format
     public function getCreatedAtAttribute($value)
     {

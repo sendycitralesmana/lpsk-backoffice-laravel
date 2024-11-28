@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ApplicationCategorySeeder extends Seeder
 {
@@ -15,12 +16,14 @@ class ApplicationCategorySeeder extends Seeder
     {
         DB::table('application_categories')->insert([
             [
+                'id' => Str::uuid(),
                 'name' => 'Internal',
                 'slug' => 'internal',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'id' => Str::uuid(),
                 'name' => 'External',
                 'slug' => 'external',
                 'created_at' => now(),

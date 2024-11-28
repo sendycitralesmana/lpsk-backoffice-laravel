@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\ApplicationCategory;
+use Illuminate\Support\Str;
 
 class ApplicationCategoryRepository
 {
@@ -58,6 +59,7 @@ class ApplicationCategoryRepository
     {
         try {
             $applicationCategory = new ApplicationCategory();
+            $applicationCategory->id = Str::uuid();
             $applicationCategory->slug = $data->slug;
             $applicationCategory->name = $data->name;
             $applicationCategory->save();

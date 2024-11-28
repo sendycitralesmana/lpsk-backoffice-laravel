@@ -10,6 +10,7 @@ use DOMDocument;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class InformationRepository
 {
@@ -99,6 +100,7 @@ class InformationRepository
 
         try {
             $information = new Information();
+            $information->id = Str::uuid();
             $information->information_category_id = $data->information_category_id;
             $information->user_id = Auth::user()->id;
             $information->title = $data->title;
@@ -107,31 +109,37 @@ class InformationRepository
             // $information->content = $data->content;
 
             $content = $data->content;
-            $dom = new \DomDocument();
-            $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $imageFile = $dom->getElementsByTagName('img');
 
-            foreach ($imageFile as $item => $image) {
-                $dataImg = $image->getAttribute('src');
-                list($type, $dataImg) = explode(';', $dataImg);
-                list(, $dataImg)      = explode(',', $dataImg);
-                $imgeDataImg = base64_decode($dataImg);
-
-                // get image extension
-                $image_info = getimagesizefromstring($imgeDataImg);
-                $image_extension = image_type_to_extension($image_info[2]);
-
-                $image_name= "information/description/" . time().$item.$image_extension;
-
-                Storage::disk('s3')->put($image_name, $imgeDataImg, 'public');
-
-                $image->removeAttribute('src');
-
-                $image->setAttribute('src', 'https://bucket.mareca.my.id/lpsk/'.  $image_name);
+            if ($content == null) {
+                $information->content = null;
+            } else {
+                $dom = new \DomDocument();
+                $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+                $imageFile = $dom->getElementsByTagName('img');
+    
+                foreach ($imageFile as $item => $image) {
+                    $dataImg = $image->getAttribute('src');
+                    list($type, $dataImg) = explode(';', $dataImg);
+                    list(, $dataImg)      = explode(',', $dataImg);
+                    $imgeDataImg = base64_decode($dataImg);
+    
+                    // get image extension
+                    $image_info = getimagesizefromstring($imgeDataImg);
+                    $image_extension = image_type_to_extension($image_info[2]);
+    
+                    $image_name= "information/description/" . time().$item.$image_extension;
+    
+                    Storage::disk('s3')->put($image_name, $imgeDataImg, 'public');
+    
+                    $image->removeAttribute('src');
+    
+                    $image->setAttribute('src', 'https://bucket.mareca.my.id/lpsk/'.  $image_name);
+                }
+    
+                $content = $dom->saveHTML();
+                $information->content = $content;
             }
 
-            $content = $dom->saveHTML();
-            $information->content = $content;
 
 
             if (Auth::user()->role_id == 1) {
@@ -156,6 +164,7 @@ class InformationRepository
                     $store = Storage::disk('s3')->put('/information/images', $url);
 
                     $informationImage = array(
+                        'id' => Str::uuid(),
                         'information_id' => $information->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -176,6 +185,7 @@ class InformationRepository
                     $store = Storage::disk('s3')->put('/information/videos', $url);
 
                     $informationVideo = array(
+                        'id' => Str::uuid(),
                         'information_id' => $information->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -196,6 +206,7 @@ class InformationRepository
                     $store = Storage::disk('s3')->put('/information/documents', $url);
 
                     $informationDocument = array(
+                        'id' => Str::uuid(),
                         'information_id' => $information->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -318,6 +329,7 @@ class InformationRepository
                     $store = Storage::disk('s3')->put('/information/images', $url);
 
                     $informationImage = array(
+                        'id' => Str::uuid(),
                         'information_id' => $information->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -386,6 +398,7 @@ class InformationRepository
                     $store = Storage::disk('s3')->put('/information/videos', $url);
 
                     $informationVideo = array(
+                        'id' => Str::uuid(),
                         'information_id' => $information->id,
                         'name' => $filename,
                         'extension' => $extension,
@@ -469,6 +482,7 @@ class InformationRepository
                     $store = Storage::disk('s3')->put('/information/documents', $url);
 
                     $informationDocument = array(
+                        'id' => Str::uuid(),
                         'information_id' => $information->id,
                         'name' => $filename,
                         'extension' => $extension,

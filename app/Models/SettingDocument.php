@@ -8,6 +8,9 @@ class SettingDocument extends Model
 {
     protected $guarded = [];
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     // set createdAt to format
     public function getCreatedAtAttribute($value)
     {

@@ -20,6 +20,9 @@ class Setting extends Model
         ];
     }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function settingCategory(): BelongsTo
     {
         return $this->belongsTo(settingCategory::class, 'setting_category_id', 'id');

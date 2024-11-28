@@ -95,6 +95,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::put('/update', [ProfileController::class, 'update']);
                 Route::get('/delete', [ProfileController::class, 'delete']);
                 Route::get('/preview', [ProfileController::class, 'preview']);
+                Route::get('/detail', [ProfileController::class, 'detail']);
             });
 
         });

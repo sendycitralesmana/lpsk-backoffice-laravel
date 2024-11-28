@@ -19,6 +19,9 @@ class InformationCategory extends Model
     //     ];
     // }
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     public function informations(): HasMany
     {
         return $this->hasMany(Information::class, 'information_category_id', 'id');

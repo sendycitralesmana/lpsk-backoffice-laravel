@@ -9,6 +9,9 @@ class RoadMapImages extends Model
     protected $table = 'roadmap_images';
     protected $guarded = [];
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     // set createdAt to format
     public function getCreatedAtAttribute($value)
     {

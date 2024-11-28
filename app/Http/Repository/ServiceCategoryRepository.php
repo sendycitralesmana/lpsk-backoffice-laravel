@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\ServiceCategory;
+use Illuminate\Support\Str;
 
 class ServiceCategoryRepository
 {
@@ -54,6 +55,7 @@ class ServiceCategoryRepository
     {
         try {
             $serviceCategory = new ServiceCategory();
+            $serviceCategory->id = Str::uuid();
             $serviceCategory->slug = $data->slug;
             $serviceCategory->name = $data->name;
             $serviceCategory->save();

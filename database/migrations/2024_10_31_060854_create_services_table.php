@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('service_category_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('service_category_id')->nullable();
             $table->foreign('service_category_id')->references('id')->onDelete('set null')->on('service_categories');
             $table->string('slug');
             $table->string('document_name')->nullable();

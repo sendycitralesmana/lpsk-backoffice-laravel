@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('profile_category_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->uuid('profile_category_id')->nullable();
             $table->foreign('profile_category_id')->references('id')->onDelete('set null')->on('profile_categories');
             $table->string('slug');
             $table->string('name');
