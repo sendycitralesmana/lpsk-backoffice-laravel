@@ -27,7 +27,7 @@ class HighlightController extends Controller
     public function index(Request $request)
     {
         $highlightCategories = $this->highlightCategoryRepository->getAll();
-        $newss = $this->newsRepository->getAll($request);
+        $newss = $this->newsRepository->getAllNoPaginate($request);
         $highlights = $this->highlightRepository->getAll(); 
         return view('backoffice.highlight.index', compact(['highlightCategories', 'highlights', 'newss']));
     }
@@ -36,7 +36,7 @@ class HighlightController extends Controller
     {
         try {
             $highlight = $this->highlightRepository->store($request);
-            return redirect()->back()->with('success', 'Kategori sorot telah ditambahkan');
+            return redirect()->back()->with('success', 'Sorot telah ditambahkan');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -46,7 +46,7 @@ class HighlightController extends Controller
     {
         try {
             $highlight = $this->highlightRepository->update($request, $id);
-            return redirect()->back()->with('success', 'Kategori sorot telah diperbarui');
+            return redirect()->back()->with('success', 'Sorot telah diperbarui');
         } catch (\Throwable $th) {
             return $th;
         }
@@ -56,7 +56,7 @@ class HighlightController extends Controller
     {
         try {
             $highlight = $this->highlightRepository->delete($id);
-            return redirect()->back()->with('success', 'Kategori sorot telah dihapus');
+            return redirect()->back()->with('success', 'Sorot telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }

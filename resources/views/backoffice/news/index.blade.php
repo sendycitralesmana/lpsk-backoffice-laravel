@@ -325,7 +325,7 @@
                     <div class="form-group">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <input type="file" name="image[]"
+                                <input type="file" name="image[]" accept="image/*"
                                     class="form-control @if ($errors->has('image')) is-invalid @endif"
                                     value="{{ old('image') }}" required
                                     oninvalid="this.setCustomValidity('Gambar harus diisi')"
@@ -387,7 +387,7 @@
                     <div class="form-group">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <input type="file" name="document[]"
+                                <input type="file" name="document[]" accept="pdf/*"
                                     class="form-control @if ($errors->has('document')) is-invalid @endif"
                                     value="{{ old('document') }}" required
                                     oninvalid="this.setCustomValidity('Dokumen harus diisi')"

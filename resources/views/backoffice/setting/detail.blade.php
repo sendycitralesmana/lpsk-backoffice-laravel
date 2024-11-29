@@ -25,14 +25,18 @@
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <div class="user-block">
-                        @if ( $setting->user->foto != null )
-                        <img src="{{ Storage::disk('s3')->url($setting->user->foto) }}" alt="">
-                        @else
-                        <img src="{{ asset('images/profile-default.jpg') }}" alt="">
+
+                        @if ( $setting->user_id )
+                            @if ( $setting->user->foto != null )
+                            <img src="{{ Storage::disk('s3')->url($setting->user->foto) }}" alt="">
+                            @else
+                            <img src="{{ asset('images/profile-default.jpg') }}" alt="">
+                            @endif
+                            <span class="username">
+                                <p>{{ $setting->user->name }}</p>
+                            </span>
                         @endif
-                        <span class="username">
-                            <p>{{ $setting->user->name }}</p>
-                        </span>
+
                         <span class="description">Menambahkan Peraturan -
                             {{ $setting->created_at }}</span>
                     </div>

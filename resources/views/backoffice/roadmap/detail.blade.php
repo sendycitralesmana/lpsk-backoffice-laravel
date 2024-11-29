@@ -7,6 +7,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1>Data Peta Jalan</h1>
+                {{ $roadmap->id }}
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -87,12 +88,15 @@
                     </div>
                     @endif
 
-                    @if ( $roadmap->cover != null )
                     <div class="text-center">
-                        <img src="{{ Storage::disk('s3')->url($roadmap->cover) }}" class="img-fluid rounded" alt=""
-                            style="width: 40%; height: 240px">
+                        @if ( $roadmap->cover != null )
+                            <img src="{{ Storage::disk('s3')->url($roadmap->cover) }}" class="img-fluid rounded" alt=""
+                            style="width: 60%; height: 440px">
+                        @else
+                            <img src="{{ asset('images/default_zz.webp') }}" class="img-fluid rounded" alt=""
+                            style="width: 60%; height: 440px">
+                        @endif
                     </div>
-                    @endif
                     @if ( $roadmap->status == "DINAIKAN" )
                                         <p class="badge badge-success">{{ $roadmap->status }}</p>
                                     @elseif ( $roadmap->status == "DIAJUKAN" )

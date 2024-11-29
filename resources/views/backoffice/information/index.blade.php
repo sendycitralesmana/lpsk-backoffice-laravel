@@ -187,15 +187,15 @@
                                 </div>
                                 <div class="card-body">
                                     @if ( $information->cover != null )
-                                    <div class="text-center">
-                                        <img src="{{ Storage::disk('s3')->url($information->cover) }}"
-                                            class="img-fluid rounded" alt="" style="width: 60%; height: 26px">
-                                    </div>
+                                        <div class="text-center">
+                                            <img src="{{ Storage::disk('s3')->url($information->cover) }}"
+                                                class="img-fluid rounded" alt="" style="width: 60%; height: 320px">
+                                        </div>
                                     @else
-                                    <div class="text-center">
-                                        <img src="{{ asset('images/no-image.jpg') }}" class="img-fluid rounded"
-                                            alt="" style="width: 60%; height: 240px">
-                                    </div>
+                                        <div class="text-center">
+                                            <img src="{{ asset('images/default_zz.webp') }}" class="img-fluid rounded"
+                                                alt="" style="width: 60%; height: 320px">
+                                        </div>
                                     @endif
                                     @if ( $information->status == "DINAIKAN" )
                                         <p class="badge badge-success">{{ $information->status }}</p>

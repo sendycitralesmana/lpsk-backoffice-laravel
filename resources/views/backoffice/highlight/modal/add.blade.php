@@ -1,5 +1,5 @@
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form role="form" method="POST" action="/backoffice/highlight/create" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -19,7 +19,7 @@
                                     required oninvalid="this.setCustomValidity('Kategori harus diisi')" oninput="this.setCustomValidity('')">
                                     <option value="">-- Pilih Kategori Sorot --</option>
                                     @foreach ($highlightCategories as $highlightCategory)
-                                        <option value="{{ $highlightCategory->id }}">{{ $highlightCategory->name }}</option>
+                                        <option value="{{ $highlightCategory->id }}" >{{ $highlightCategory->name }}</option>
                                     @endforeach
                                 </select>
                                 @if($errors->has('highlight_category_id'))

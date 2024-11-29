@@ -17,7 +17,7 @@ class NewsRepository
     public function getAllApi($request)
     {
         try {
-            $news = News::with(['user:id,name,email,created_at,updated_at'])->orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
+            $news = News::with(['user:id,name,email,created_at,updated_at', 'documents', 'images', 'videos'])->orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
 
             if ($request->search) {
                 $news->where('title', 'like', '%' . $request->search . '%');
@@ -51,6 +51,21 @@ class NewsRepository
             $news = $news->paginate($per_page);
 
             return $news;
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getAllNoPaginate($data)
+    {
+        try {
+            
+            if (Auth::user()->role_id == 1) {
+                return News::orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->get();
+            } else {
+                return News::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->where('status', 'DINAIKAN')->get();
+            }
 
         } catch (\Throwable $th) {
             throw $th;

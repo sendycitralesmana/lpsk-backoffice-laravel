@@ -22,7 +22,7 @@
                                 @else
                                     <img class="reviewCover rounded img-fluid mb-3 col-sm-5">
                                 @endif
-                                    <input type="file" accept="document/*" name="document" class="form-control @if($errors->has('document')) is-invalid @endif" id="reviewdocument" onchange="previewdocument()">
+                                    <input type="file" accept="pdf/*" name="document" class="form-control @if($errors->has('document')) is-invalid @endif" id="reviewdocument" onchange="previewdocument()">
                                 @if($errors->has('document'))
                                     <small class="help-block" style="color: red">{{ $errors->first('document') }}</small>
                                 @endif

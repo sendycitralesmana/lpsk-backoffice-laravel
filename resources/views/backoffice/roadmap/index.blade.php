@@ -180,12 +180,15 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    @if ( $roadmap->cover != null )
                                     <div class="text-center">
-                                        <img src="{{ Storage::disk('s3')->url($roadmap->cover) }}"
-                                            class="img-fluid rounded" alt="" style="width: 40%; height: 240px">
+                                        @if ( $roadmap->cover != null )
+                                            <img src="{{ Storage::disk('s3')->url($roadmap->cover) }}"
+                                                class="img-fluid rounded" alt="" style="width: 60%; height: 240px">
+                                        @else
+                                            <img src="{{ asset('images/default_zz.webp') }}"
+                                                class="img-fluid rounded" alt="" style="width: 60%; height: 240px">
+                                        @endif
                                     </div>
-                                    @endif
                                     @if ( $roadmap->status == "DINAIKAN" )
                                         <p class="badge badge-success">{{ $roadmap->status }}</p>
                                     @elseif ( $roadmap->status == "DIAJUKAN" )
