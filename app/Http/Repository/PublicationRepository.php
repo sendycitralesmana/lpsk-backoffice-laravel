@@ -86,7 +86,7 @@ class PublicationRepository
             $publication->id = Str::uuid();
             $publication->slug = null;
             $publication->title = $data->title;
-            $publication->description = $data->description;
+            $publication->content = $data->description;
             $publication->publication_category_id = $data->publication_category_id;
             $publication->user_id = Auth::user()->id;
             if ($data->file('document_url')) {
@@ -106,6 +106,7 @@ class PublicationRepository
             } else {
                 $publication->status = "DIAJUKAN";
             }
+            // dd($publication);
             $publication->save();
             return $publication;
         } catch (\Throwable $th) {
@@ -120,7 +121,7 @@ class PublicationRepository
             $publication = Publication::find($id);
             $publication->publication_category_id = $data->publication_category_id;
             $publication->title = $data->title;
-            $publication->description = $data->description;
+            $publication->content = $data->description;
             // foreach ($publications as $publication) {
             //     if ($publication->title == $data->title) {
             //         return redirect()->back()->with('error', 'Judul ' . $data->title . ' telah digunakan');
