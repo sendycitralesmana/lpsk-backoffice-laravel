@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Repository\PublicationCategoryRepository;
 use App\Http\Resources\PublicationCategory\GetAllResource;
 use App\Http\Resources\PublicationCategory\GetResource;
+use App\Models\PublicationCategory;
 use Illuminate\Http\Request;
 
 class PublicationCategoryController extends Controller
@@ -50,6 +51,22 @@ class PublicationCategoryController extends Controller
             }
 
             return response()->json($resource);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function categoryPublicationApi(Request $request)
+    {
+        try {
+            
+            $categories = PublicationCategory::with(['publications' => function($query) {
+                $query->take(5) // Membatasi hanya 5 publikasi yang diambil
+                ->orderBy('created_at', 'desc'); // Mengurutkan berdasarkan created_at secara menurun
+            }])->get();
+            
+            return response()->json($categories);
+
         } catch (\Throwable $th) {
             throw $th;
         }

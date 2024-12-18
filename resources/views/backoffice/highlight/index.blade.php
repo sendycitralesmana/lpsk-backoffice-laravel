@@ -87,10 +87,11 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $highlight->highlightCategory->name }}</td>
-                                <td>
+                                <td class="text-left">
                                     <a href="/backoffice/news/{{ $highlight->news->id }}/detail" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-eye"></i> {{ $highlight->news->title }}
+                                        <i class="fa fa-eye"></i> 
                                     </a>
+                                    {{ $highlight->news->title }}
                                 </td>  
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $highlight->id }}" title="Ubah">

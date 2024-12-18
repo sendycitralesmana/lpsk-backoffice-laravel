@@ -88,6 +88,7 @@ Route::group(['prefix' => 'profile'], function () {
 // grup publication category
 Route::group(['prefix' => 'publication_category'], function () {
     Route::get('/', [PublicationCategoryController::class, 'getAllApi']);
+    Route::get('/publication', [PublicationCategoryController::class, 'categoryPublicationApi']);
     
     // grup publication category_id
     Route::group(['prefix' => '{publication_category_id}'], function () {
@@ -108,6 +109,7 @@ Route::group(['prefix' => 'publication'], function () {
 // grup news category
 Route::group(['prefix' => 'news_category'], function () {
     Route::get('/', [NewsCategoryController::class, 'getAllApi']);
+    Route::get('/news', [NewsCategoryController::class, 'categoryNewsApi']);
     
     // grup news category_id
     Route::group(['prefix' => '{news_category_id}'], function () {
