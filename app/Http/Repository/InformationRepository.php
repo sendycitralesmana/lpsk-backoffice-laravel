@@ -101,6 +101,7 @@ class InformationRepository
         try {
             $information = new Information();
             $information->id = Str::uuid();
+            $information->slug = null;
             $information->information_category_id = $data->information_category_id;
             $information->user_id = Auth::user()->id;
             $information->title = $data->title;

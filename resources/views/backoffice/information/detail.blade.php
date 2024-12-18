@@ -90,7 +90,7 @@
                     @if ( $information->cover != null )
                     <div class="text-center">
                         <img src="{{ Storage::disk('s3')->url($information->cover) }}" class="img-fluid rounded" alt=""
-                            style="width: 40%; height: 240px">
+                            style="width: 50%; height: 540px">
                     </div>
                     @endif
                     @if ( $information->status == "DINAIKAN" )
