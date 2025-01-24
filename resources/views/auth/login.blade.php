@@ -62,7 +62,7 @@
                     <h4 class="message-head">{{ session('message') }}</h4>
                 </div>
                 @endif
-                <form action="/login" method="POST">
+                <form action="/backoffice/login" method="POST">
                     {{ csrf_field() }}
                     @if($errors->has('email'))
                         <span class="help-block text-danger mb-4">{{ $errors->first('email') }}</span>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="mt-2">
                         <div class=" text-right" >
-                            <a href="/forgot-password" > <i class="fa fa-info-circle"></i> Lupa password</a>
+                            <a href="/backoffice/forgot-password" > <i class="fa fa-info-circle"></i> Lupa password</a>
                         </div>
                     </div>
                 </form>

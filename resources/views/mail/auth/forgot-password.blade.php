@@ -2,7 +2,7 @@
 
 Selamat datang {{ $user->nama }}
 
-@component('mail::button', ['url' => url('/reset-password/'.$user->remember_token)])
+@component('mail::button', ['url' => url('/backoffice/reset-password/'.$user->remember_token)])
 Atur ulang password
 @endcomponent
 

@@ -13,20 +13,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <!-- Font Awesome -->
-  {{-- <link rel="stylesheet" href="{{ asset('assets/adminlte/plugins/fontawesome-free/css/all.min.css') }}"> --}}
+  {{-- <link rel="stylesheet" href="{{ asset('backoffice/assets/adminlte/plugins/fontawesome-free/css/all.min.css') }}"> --}}
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}">
   <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backoffice/assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backoffice/assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset('assets/adminlte/plugins/select2/css/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backoffice/assets/adminlte/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backoffice/assets/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="{{ asset('assets/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backoffice/assets/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('assets/adminlte/dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backoffice/assets/adminlte/dist/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
@@ -105,26 +105,26 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset('assets/adminlte/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('assets/adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{ asset('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('assets/adminlte/dist/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{asset('assets/adminlte/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{ asset('assets/adminlte/dist/js/demo.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/dist/js/demo.js') }}"></script>
 <!-- DataTables -->
-<script src="{{ asset('assets/adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <!-- SweetAlert2 -->
-<script src="{{ asset('assets/adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <!-- Select2 -->
-<script src="{{ asset('assets/adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 
 {{-- Slick --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

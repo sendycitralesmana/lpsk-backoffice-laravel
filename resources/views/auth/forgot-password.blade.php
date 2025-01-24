@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Mareca @yield('title')</title>
+    <title>LPSK Backoffice @yield('title')</title>
 
     {{-- icon web --}}
     <link rel="icon" type="image/png" href="{{ asset('images/logo-bpsdm.png') }}">
@@ -30,7 +30,7 @@
     <div class="login-box">
         <div class="card">
             <div class="text-center">
-                <img src="{{asset('images/mareca-logo.png')}}" class="img-fluid rounded mt-4" alt="" style="height: 100px; width: 180px">
+                <img src="{{asset('images/lpsk.png')}}" class="img-fluid rounded mt-4" alt="" style="height: 100%; width: 180px">
             </div>
             <div class="card-body login-card-body">
                 <h3 class="text-center">
@@ -54,7 +54,7 @@
                 @endif
                 <p class="login-box-msg">
                     Anda lupa password anda? Di sini anda dapat dengan mudah mengambil password baru.</p>
-                <form action="/forgot-password" method="POST">
+                <form action="/backoffice/forgot-password" method="POST">
                     {{ csrf_field() }}
                     @method('POST')
                     @if($errors->has('email'))

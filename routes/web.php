@@ -25,22 +25,27 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/backoffice/login');
 });
 
 // grup auth
-Route::get('/verify/{token}', [AuthController::class, 'verify']);
+Route::get('/backoffice/verify/{token}', [AuthController::class, 'verify']);
 
 // middleware guest
 Route::group(['middleware' => 'guest'], function () {
+
+    // grup backoffice
+    Route::group(['prefix' => 'backoffice'], function () {
     
-    // grup auth
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/login', [AuthController::class, 'loginAction']);
-    Route::get('forgot-password', [AuthController::class, 'forgotPassword']);
-    Route::post('forgot-password', [AuthController::class, 'forgotPasswordAction']);
-    Route::get('reset-password/{token}', [AuthController::class, 'resetPassword']);
-    Route::put('reset-password/{token}/action', [AuthController::class, 'resetPasswordAction']);
+        // grup auth
+        Route::get('/login', [AuthController::class, 'login'])->name('login');
+        Route::post('/login', [AuthController::class, 'loginAction']);
+        Route::get('/forgot-password', [AuthController::class, 'forgotPassword']);
+        Route::post('/forgot-password', [AuthController::class, 'forgotPasswordAction']);
+        Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword']);
+        Route::put('/reset-password/{token}/action', [AuthController::class, 'resetPasswordAction']);
+
+    });
     
 });
 
@@ -48,7 +53,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
 
     // grup auth
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/backoffice/logout', [AuthController::class, 'logout']);
 
     // grup backoffice
     Route::group(['prefix' => 'backoffice'], function () {

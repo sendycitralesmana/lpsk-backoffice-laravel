@@ -59,7 +59,7 @@ class AuthController extends Controller
             // $user->remember_token = null;
             $user->email_verified_at = now();
             $user->save();
-            return redirect('/login')->with('success', 'Akun anda telah diverifikasi. Silahkan masuk');
+            return redirect('/backoffice/login')->with('success', 'Akun anda telah diverifikasi. Silahkan masuk');
         } else {
             abort(404);
         }
@@ -104,7 +104,7 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
             $user->update();
             // return redirect()->back();
-            return redirect('/login')->with('success', 'Password anda telah di atur ulang. Silahkan masuk');
+            return redirect('/backoffice/login')->with('success', 'Password anda telah di atur ulang. Silahkan masuk');
         } else {
             abort(404);
         }

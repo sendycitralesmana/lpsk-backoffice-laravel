@@ -24,7 +24,7 @@
           </a>
           <div class="dropdown-divider"></div>
           
-          <a href="/logout" class=" btn btn-block btn-danger"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+          <a href="/backoffice/logout" class=" btn btn-block btn-danger"><i class="fas fa-sign-out-alt"></i> Keluar</a>
         </div>
       </li>
 

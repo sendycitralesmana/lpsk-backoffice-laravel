@@ -3,7 +3,7 @@
 Selamat datang {{ $user->nama }} <br>
 Password anda adalah {{ $password }}
 
-@component('mail::button', ['url' => url('/verify/'.$user->remember_token)])
+@component('mail::button', ['url' => url('/backoffice/verify/'.$user->remember_token)])
 Verifikasi
 @endcomponent
 
