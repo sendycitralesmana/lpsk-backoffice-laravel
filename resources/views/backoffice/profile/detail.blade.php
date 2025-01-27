@@ -100,7 +100,9 @@
                     <small> {{ $profile->profileCategory->name }} </small>
                     @endif
                     <div class="mb-2">
-                        <p> {!! html_entity_decode($profile->description) !!} </p>
+                        {{-- <p> {!! html_entity_decode($profile->description) !!} </p> --}}
+                        {!! str_replace("\r\n\r\n", '<br><br>', $profile->description) !!}
+
                     </div>
 
                 </div>

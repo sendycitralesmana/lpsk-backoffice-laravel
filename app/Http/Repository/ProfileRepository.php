@@ -12,7 +12,7 @@ class ProfileRepository
     public function getAllApi($request)
     {
         try {
-            $profile = Profile::orderBy('created_at', 'desc');
+            $profile = Profile::orderBy('created_at', 'asc');
 
             if ($request->search) {
                 $profile->where('name', 'like', '%' . $request->search . '%');
@@ -48,7 +48,7 @@ class ProfileRepository
     {
         try {
 
-            $profile = Profile::orderBy('created_at', 'desc');
+            $profile = Profile::orderBy('created_at', 'asc');
 
             if ($data->search) {
                 $profile->where('name', 'like', '%' . $data->search . '%');
