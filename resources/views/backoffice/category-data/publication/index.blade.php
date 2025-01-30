@@ -31,9 +31,9 @@
                         {{-- <a href="/backoffice/applicationCategory/tambah" class="btn btn-success btn-sm" title="Tambah">
                             <i class="fas fa-plus"></i> Tambah
                         </a> --}}
-                        <button title="Tambah" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#tambah">
+                        {{-- <button title="Tambah" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#tambah">
                             <span class="fa fa-plus"></span> Tambah
-                        </button>
+                        </button> --}}
 
                         {{-- @if ($errors->any())
                             <script>
@@ -79,7 +79,7 @@
                                 <th>Kategori</th>
                                 <th>Slug</th>
                                 <th>Publikasi</th>
-                                <th>Aksi</th>
+                                {{-- <th>Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -90,14 +90,14 @@
                                 <td>{{ $publicationCategory->name }}</td>
                                 <td>{{ $publicationCategory->slug }}</td>
                                 <td>{{ $publicationCategory->publications->count() }} Publikasi</td>
-                                <td>
+                                {{-- <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit-{{ $publicationCategory->id }}" title="Ubah">
                                         <i class="fa fa-edit"></i> Ubah
                                     </button>
                                     <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-{{ $publicationCategory->id }}" title="Hapus">
                                         <i class="fa fa-trash"></i> Hapus
                                     </button>
-                                </td>
+                                </td> --}}
                             </tr>
                             @endforeach
                         </tbody>
