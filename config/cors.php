@@ -31,9 +31,9 @@ return [
 
     // 'supports_credentials' => false,
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['/backoffice/api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://localhost:3000'], // Bisa pakai * untuk semua
+    'allowed_origins' => ['*'], // Bisa pakai * untuk semua
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
