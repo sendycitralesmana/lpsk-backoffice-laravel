@@ -123,6 +123,8 @@ Route::get('/user', function (Request $request) {
     // grup news
     Route::group(['prefix' => 'news'], function () {
         Route::get('/', [NewsController::class, 'getAllApi']);
+        Route::get('/latestArtikel', [NewsController::class, 'getLatestArtikelApi']);
+        Route::get('/latestInformasi', [NewsController::class, 'getLatestInformasiApi']);
         
         // grup news_id
         Route::group(['prefix' => '{news_id}'], function () {
@@ -143,6 +145,7 @@ Route::get('/user', function (Request $request) {
     // grup information
     Route::group(['prefix' => 'information'], function () {
         Route::get('/', [InformationController::class, 'getAllApi']);
+        Route::get('/latest', [InformationController::class, 'getLatestApi']);
         
         // grup information_id
         Route::group(['prefix' => '{information_id}'], function () {

@@ -36,6 +36,21 @@ class InformationController extends Controller
         }
     }
 
+    // get 5 latest 
+    public function getLatestApi()
+    {
+        try {
+            $applicationCategories = $this->informationRepository->getLatestApi();
+
+            return response()->json([
+                'data' => $applicationCategories
+            ]);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getApi($id)
     {
         try {

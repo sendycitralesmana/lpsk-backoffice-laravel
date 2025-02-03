@@ -36,6 +36,33 @@ class NewsController extends Controller
         }
     }
 
+    // getLatestApi
+    public function getLatestArtikelApi()
+    {
+        try {
+            $news = $this->newsRepository->getLatestArtikelApi();
+
+            return response()->json([
+                'artikel' => $news
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getLatestInformasiApi()
+    {
+        try {
+            $news = $this->newsRepository->getLatestInformasiApi();
+
+            return response()->json([
+                'informasi' => $news
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getApi($id)
     {
         try {

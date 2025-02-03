@@ -54,6 +54,16 @@ class InformationRepository
         }
     }
 
+    // getLatestApi 5 information
+    public function getLatestApi()
+    {
+        try {
+            return Information::orderBy('created_at', 'desc')->limit(4)->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getAll($data)
     {
         try {

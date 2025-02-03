@@ -16,7 +16,7 @@ class PublicationRepository
             $publication = Publication::orderBy('created_at', 'desc')->where('status', 'DINAIKAN');
 
             if ($request->search) {
-                $publication->where('document_name', 'like', '%' . $request->search . '%');
+                $publication->where('title', 'like', '%' . $request->search . '%');
             }
 
             if ($request->category_id) {
