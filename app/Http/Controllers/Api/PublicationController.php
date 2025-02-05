@@ -36,6 +36,58 @@ class PublicationController extends Controller
         }
     }
 
+    public function getBukuTerbaruApi()
+    {
+        try {
+            $books = $this->publicationRepository->bukuTerbaru();
+
+            return response()->json([
+               'books' => $books
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getLaporanTerbaruApi()
+    {
+        try {
+            $reports = $this->publicationRepository->laporanTerbaru();
+
+            return response()->json([
+               'reports' => $reports
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getJurnalTerbaruApi()
+    {
+        try {
+            $journals = $this->publicationRepository->jurnalTerbaru();
+
+            return response()->json([
+                'journals' => $journals
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getBuletinTerbaruApi()
+    {
+        try {
+            $bulletins = $this->publicationRepository->buletinTerbaru();
+
+            return response()->json([
+                'bulletins' => $bulletins
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getApi($id)
     {
         try {

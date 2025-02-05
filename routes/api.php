@@ -102,6 +102,10 @@ Route::get('/user', function (Request $request) {
     // grup publication
     Route::group(['prefix' => 'publication'], function () {
         Route::get('/', [PublicationController::class, 'getAllApi']);
+        Route::get('/bukuTerbaru', [PublicationController::class, 'getBukuTerbaruApi']);
+        Route::get('/laporanTerbaru', [PublicationController::class, 'getLaporanTerbaruApi']);
+        Route::get('/jurnalTerbaru', [PublicationController::class, 'getJurnalTerbaruApi']);
+        Route::get('/buletinTerbaru', [PublicationController::class, 'getBuletinTerbaruApi']);
         
         // grup publication_id
         Route::group(['prefix' => '{publication_id}'], function () {

@@ -45,6 +45,58 @@ class PublicationRepository
         }
     }
 
+    public function bukuTerbaru()
+    {
+        try {
+            $books = Publication::whereHas('publicationCategory', function ($query) {
+                $query->where('slug', 'buku');
+            })->orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->limit(4)->get();
+
+            return $books;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function laporanTerbaru()
+    {
+        try {
+            $reports = Publication::whereHas('publicationCategory', function ($query) {
+                $query->where('slug', 'laporan');
+            })->orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->limit(4)->get();
+
+            return $reports;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function jurnalTerbaru()
+    {
+        try {
+            $journals = Publication::whereHas('publicationCategory', function ($query) {
+                $query->where('slug', 'jurnal');
+            })->orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->limit(4)->get();
+
+            return $journals;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function buletinTerbaru()
+    {
+        try {
+            $bulletins = Publication::whereHas('publicationCategory', function ($query) {
+                $query->where('slug', 'buletin');
+            })->orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->limit(4)->get();
+
+            return $bulletins;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function getAll($data)
     {
         try {
