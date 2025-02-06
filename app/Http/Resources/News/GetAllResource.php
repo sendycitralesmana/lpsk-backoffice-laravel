@@ -21,6 +21,7 @@ class GetAllResource extends JsonResource
             'user_id' => $this->user_id,
             'user' => $this->user,
             'news_category_id' => $this->news_category_id,
+            'newsCategory' => $this->newsCategory,
             'category' => $this->newsCategory,
             'title' => $this->title,
             'content' => $this->content,

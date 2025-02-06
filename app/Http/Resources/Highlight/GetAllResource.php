@@ -22,6 +22,7 @@ class GetAllResource extends JsonResource
             'highlight_category' => $this->highlightCategory,
             'news_id' => $this->news_id,
             'news' => $this->news,
+            'newsCategory' => $this->news->newsCategory,
             'type' => $this->type,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
