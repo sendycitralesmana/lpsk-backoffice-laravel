@@ -49,7 +49,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="/backoffice/service"
                             class="nav-link {{ request()->is('backoffice/service', 'backoffice/service/*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-handshake"></i>
@@ -57,7 +57,7 @@
                                 Layanan
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="/backoffice/profile"
                             class="nav-link {{ request()->is('backoffice/profile', 'backoffice/profile/*') ? 'active' : '' }}">
@@ -67,7 +67,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="/backoffice/roadmap"
                             class="nav-link {{ request()->is('backoffice/roadmap', 'backoffice/roadmap/*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-road"></i>
@@ -75,7 +75,7 @@
                                 Peta Jalan
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="/backoffice/highlight"
                             class="nav-link {{ request()->is('backoffice/highlight', 'backoffice/highlight/*') ? 'active' : '' }}">
@@ -85,7 +85,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="/backoffice/report"
                             class="nav-link {{ request()->is('backoffice/report', 'backoffice/report/*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-clipboard"></i>
@@ -93,8 +93,8 @@
                                 Laporan
                             </p>
                         </a>
-                    </li>
-                    <li class="nav-item">
+                    </li> --}}
+                    {{-- <li class="nav-item">
                         <a href="/backoffice/setting"
                             class="nav-link {{ request()->is('backoffice/setting', 'backoffice/setting/*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-gear"></i>
@@ -102,7 +102,7 @@
                                 Peraturan
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
 
                 @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
@@ -124,7 +124,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="/backoffice/information"
                             class="nav-link {{ request()->is('backoffice/information', 'backoffice/information/*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-circle-info"></i>
@@ -132,7 +132,7 @@
                                 Informasi
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
 
                 @if (auth()->user()->role_id == 1)
@@ -178,20 +178,20 @@
                                     <p>Aplikasi</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="/backoffice/category-data/service"
                                     class="nav-link {{ request()->is('backoffice/category-data/service', 'backoffice/category-data/service/*') ? 'active' : '' }}">
                                     <i class="fa fa-circle fa-regular nav-icon"></i>
                                     <p>Layanan</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
+                            </li> --}}
+                            {{-- <li class="nav-item">
                                 <a href="/backoffice/category-data/profile"
                                     class="nav-link {{ request()->is('backoffice/category-data/profile', 'backoffice/category-data/profile/*') ? 'active' : '' }}">
                                     <i class="fa fa-circle fa-regular nav-icon"></i>
                                     <p>Profil</p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="/backoffice/category-data/publication"
                                     class="nav-link {{ request()->is('backoffice/category-data/publication', 'backoffice/category-data/publication/*') ? 'active' : '' }}">
@@ -206,13 +206,13 @@
                                     <p>Berita</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="/backoffice/category-data/information"
                                     class="nav-link {{ request()->is('backoffice/category-data/information', 'backoffice/category-data/information/*') ? 'active' : '' }}">
                                     <i class="fa fa-circle fa-regular nav-icon"></i>
                                     <p>Informasi</p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="/backoffice/category-data/highlight"
                                     class="nav-link {{ request()->is('backoffice/category-data/highlight', 'backoffice/category-data/highlight/*') ? 'active' : '' }}">
@@ -220,13 +220,13 @@
                                     <p>Sorot</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="/backoffice/category-data/setting"
                                     class="nav-link {{ request()->is('backoffice/category-data/setting', 'backoffice/category-data/setting/*') ? 'active' : '' }}">
                                     <i class="fa fa-circle fa-regular nav-icon"></i>
                                     <p>Peraturan</p>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 @endif

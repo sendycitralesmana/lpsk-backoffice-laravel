@@ -63,7 +63,8 @@ class PublicationController extends Controller
     {
         try {
             $publication = $this->publicationRepository->delete($id);
-            return redirect()->back()->with('success', 'Publikasi telah dihapus');
+            // return redirect()->back()->with('success', 'Publikasi telah dihapus');
+            return redirect('/backoffice/publication')->with('success', 'Publikasi telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }

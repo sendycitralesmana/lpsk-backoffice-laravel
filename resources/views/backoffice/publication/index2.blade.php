@@ -165,6 +165,13 @@
                                             alt="" style="width: 60%; height: 240px">
                                     </div>
                                     @endif
+                                    @if ( $publication->status == "DINAIKAN" )
+                                        <p class="badge badge-success">{{ $publication->status }}</p>
+                                    @elseif ( $publication->status == "DIAJUKAN" )
+                                        <p class="badge badge-warning">{{ $publication->status }}</p>
+                                    @else
+                                        <p class="badge badge-danger">{{ $publication->status }}</p>
+                                    @endif
                                     <h4 class="mt-2">
                                         <b>{{ $publication->title }}</b>
                                     </h4>

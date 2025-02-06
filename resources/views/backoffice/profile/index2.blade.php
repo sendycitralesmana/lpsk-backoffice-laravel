@@ -33,7 +33,7 @@
                                 </h3>
                             </div>
     
-                            <div class="pl-4">
+                            {{-- <div class="pl-4">
     
                             </div>
                             <div class="input-group input-group-sm">
@@ -51,7 +51,7 @@
                                 <button type="submit" class="btn btn-success btn-sm">
                                     <i class="fas fa-search"></i>
                                 </button>
-                            </div>
+                            </div> --}}
     
                             @if ($search || $category_id)
                                 <div class="input-group ml-2">

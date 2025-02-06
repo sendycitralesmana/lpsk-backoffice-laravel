@@ -55,6 +55,11 @@
                         <button class="btn btn-tool" data-toggle="modal" data-target="#edit-{{ $publication->id }}" title="Ubah">
                             <i class="fa fa-edit"></i>
                         </button>
+                        @if ( $publication->document_url )
+                            {{-- <button class="btn btn-tool" data-toggle="modal" data-target="#download-{{ $publication->id }}" title="Download">
+                                <i class="fa fa-download"></i>
+                            </button> --}}
+                        @endif
                         @include('backoffice.publication.modal.edit')
                         <button class="btn btn-tool" data-toggle="modal" data-target="#delete-{{ $publication->id }}" title="Hapus">
                             <i class="fa fa-trash"></i>
@@ -91,13 +96,20 @@
                     <div class="text-center">
                         @if ( $publication->cover != null )
                             <img src="{{ Storage::disk('s3')->url($publication->cover) }}" class="img-fluid rounded" alt=""
-                                style="width: 70%; height: 580px">
+                                style="width: 50%; height: 500px">
                         @else
                             <img src="{{ asset('images/default_zz.webp') }}" class="img-fluid rounded" alt=""
-                                style="width: 70%; height: 580px">
+                                style="width: 50%; height: 500px">
                         @endif
                         
                     </div>
+                    @endif
+                    @if ( $publication->status == "DINAIKAN" )
+                        <p class="badge badge-success">{{ $publication->status }}</p>
+                    @elseif ( $publication->status == "DIAJUKAN" )
+                        <p class="badge badge-warning">{{ $publication->status }}</p>
+                    @else
+                        <p class="badge badge-danger">{{ $publication->status }}</p>
                     @endif
                     <h4 class="mt-2">
                         <b>{{ $publication->title }}</b>
@@ -105,22 +117,27 @@
                     @if ( $publication->publication_category_id != null )
                     <small> {{ $publication->publicationCategory->name }} </small>
                     @endif
+                    
                     <div class="mb-2">
                         <p> {!! html_entity_decode($publication->description) !!} </p>
                     </div>
                     @if ( $publication->document_url != null )
-                        <div class="text-center">
-                            <div class="card card-outline card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Berkas / Dokumen</h3>
-                                </div>
-                                <div class="card-body">
-                                    <a href="/backoffice/publication/{{ $publication->id }}/preview" class="btn btn-primary btn-sm" target="_blank">
-                                        <i class="fa fa-file"></i> Lihat {{ $publication->document_name }}
-                                    </a>
+                        
+                        @if ( pathinfo($publication->document_url)['extension'] == 'pdf' )
+                            <div class="text-center">
+                                <div class="card card-outline card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Berkas / Dokumen</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <a href="/backoffice/publication/{{ $publication->id }}/preview" class="btn btn-primary btn-sm" target="_blank">
+                                            <i class="fa fa-file"></i> Lihat {{ $publication->document_name }}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
+
                     @endif
 
                 </div>

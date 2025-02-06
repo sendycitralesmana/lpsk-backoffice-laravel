@@ -14,7 +14,7 @@
 
                     <div class="card card-outline card-primary">
                         <div class="card-body">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Kategori Profil <span class="text-danger">*</span></label>
                                 <select name="profile_category_id" class="form-control select2 @if($errors->has('profile_category_id')) is-invalid @endif" 
                                     required oninvalid="this.setCustomValidity('Kategori harus diisi')" oninput="this.setCustomValidity('')">
@@ -25,7 +25,7 @@
                                 @if($errors->has('profile_category_id'))
                                 <small class="help-block" style="color: red">{{ $errors->first('profile_category_id') }}</small>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label>Nama <span class="text-danger">*</span></label>
                                 <input type="text"  name="name" class="form-control @if($errors->has('name')) is-invalid @endif" value="{{ $profile->name }}"

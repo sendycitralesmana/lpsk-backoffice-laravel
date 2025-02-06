@@ -38,20 +38,6 @@
                     </div>
 
                     <div class="card-tools">
-
-
-                        {{-- @if ($errors->any())
-                        <script>
-                            jQuery(function() {
-                                    $('#tambah').modal('show');
-                                });
-                        </script>
-                        @endif --}}
-                        {{-- <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
-                            data-target="#edit-{{ $news->id }}" title="Ubah">
-                            <span><i class="fa fa-edit"></i></span>
-                        </button>
-                        @include('backoffice.news.modal.edit') --}}
                         <a href="/backoffice/news/{{ $news->id }}/edit" class="btn btn-tool btn-sm">
                             <span><i class="fa fa-edit"></i></span>
                         </a>
@@ -90,7 +76,7 @@
                     @if ( $news->cover != null )
                     <div class="text-center">
                         <img src="{{ Storage::disk('s3')->url($news->cover) }}" class="img-fluid rounded" alt=""
-                            style="width: 40%; height: 240px">
+                            style="width: 50%; height: 400px">
                     </div>
                     @endif
                     @if ( $news->status == "DINAIKAN" )
@@ -120,7 +106,7 @@
 
         </div>
 
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
 
             <div class="card card-outline card-primary">
                 <div class="card-header">
@@ -178,37 +164,11 @@
                             @endforeach
                         @endif
 
-                        {{-- @if ( $news->documents->count() > 0 )
-                            @foreach ($news->documents as $document)
-                                <div class="text-center">
-                                    <div class="d-flex justify-content-between">
-                                        <p class="text-left">{{ $document->name }}</p>
-                                        <div>
-                                            <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
-                                                data-target="#edit-document-{{ $document->id }}" title="Tambah">
-                                                <span><i class="fa fa-edit"></i></span>
-                                            </button>
-                                            
-                                            <button type="button" class="btn btn-tool btn-sm" data-toggle="modal"
-                                                data-target="#document-delete-{{ $document->id }}" title="Hapus">
-                                                <span><i class="fa fa-trash"></i></span>
-                                            </button>
-                                            
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <img src="{{ Storage::disk('s3')->url($document->url) }}" class="img-fluid rounded" alt=""
-                                            style="width: 100%; height: 240px">
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif --}}
                     </div>
 
                 </div>
             </div>
 
-            {{-- document modal --}}
             @foreach ($news->documents as $document)
                 @include('backoffice.news.modal.document.edit')
                 @include('backoffice.news.modal.document.delete')
@@ -276,7 +236,6 @@
                 </div>
             </div>
 
-            {{-- image modal --}}
             @foreach ($news->images as $image)
                 @include('backoffice.news.modal.image.edit')
                 @include('backoffice.news.modal.image.delete')
@@ -341,13 +300,12 @@
                 </div>
             </div>
 
-            {{-- video modal --}}
             @foreach ($news->videos as $video)
                 @include('backoffice.news.modal.video.edit')
                 @include('backoffice.news.modal.video.delete')
             @endforeach
 
-        </div>
+        </div> --}}
     </div>
 
 </section>

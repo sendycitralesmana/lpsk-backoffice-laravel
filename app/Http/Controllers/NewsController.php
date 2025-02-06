@@ -93,7 +93,8 @@ class NewsController extends Controller
     {
         try {
             $news = $this->newsRepository->delete($id);
-            return redirect()->back()->with('success', 'Berita telah dihapus');
+            // return redirect()->back()->with('success', 'Berita telah dihapus');
+            return redirect('/backoffice/news')->with('success', 'Berita telah dihapus');
         } catch (\Throwable $th) {
             return $th;
         }

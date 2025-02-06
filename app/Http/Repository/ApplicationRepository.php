@@ -75,6 +75,7 @@ class ApplicationRepository
         try {
             $application = new Application();
             $application->id = Str::uuid();
+            
             $application->application_category_id = $data->application_category_id;
             $application->title = $data->title;
             $application->description = $data->description;

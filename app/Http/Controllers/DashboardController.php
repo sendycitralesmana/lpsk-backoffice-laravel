@@ -11,6 +11,7 @@ use App\Models\RoadMap;
 use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -21,9 +22,22 @@ class DashboardController extends Controller
         $profiles = Profile::get();
         $roadmaps = RoadMap::get();
         $settings = Setting::get();
-        $publications = Publication::get();
-        $news = News::get();
         $informations = Information::get();
+
+        if (Auth::user()->role_id == 1) {
+            $publications = Publication::get();
+        } else {
+            $publications = Publication::where('user_id', Auth::user()->id)->get();
+        }
+
+        if (Auth::user()->role_id == 1) {
+            $news = News::get();
+        } else {
+            $news = News::where('user_id', Auth::user()->id)->get();
+        }
+
+        // $publications = Publication::get();
+        // $news = News::get();
 
         return view('backoffice.dashboard.index', compact('applications', 'services', 'profiles', 'roadmaps', 'settings', 'publications', 'news', 'informations'));
     }

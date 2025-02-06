@@ -38,13 +38,13 @@
                                     }}</small>
                                 @endif
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Deskripsi</label>
                                 <textarea name="description" rows="10" class="form-control @if($errors->has('description')) is-invalid @endif" placeholder="Deskripsi">{{ $publication->description }}</textarea>
                                 @if($errors->has('description'))
                                 <small class="help-block" style="color: red">{{ $errors->first('description') }}</small>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="foto">Berkas</label>
                                 {{-- @if ($publication->cover)
@@ -74,12 +74,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="foto">Sampul</label>
-                                    @if ($publication->cover)
+                                    {{-- @if ($publication->cover)
                                         <img src="{{ Storage::disk('s3')->url($publication->cover) }}" class="reviewCover rounded img-fluid mb-3 col-sm-5 d-block"
                                         style="width: 150px; height: 150px">
                                     @else
                                         <img class="reviewCover rounded img-fluid mb-3 col-sm-5">
-                                    @endif
+                                    @endif --}}
                                         <input type="file" accept="image/*" name="cover" class="form-control @if($errors->has('cover')) is-invalid @endif" id="reviewCover" onchange="previewCover()">
                                     @if($errors->has('cover'))
                                         <small class="help-block" style="color: red">{{ $errors->first('foto') }}</small>

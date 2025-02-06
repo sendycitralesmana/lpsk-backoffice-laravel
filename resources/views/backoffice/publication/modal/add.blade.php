@@ -38,24 +38,24 @@
                                     }}</small>
                                 @endif
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Deskripsi</label>
                                 <textarea name="description" rows="10" class="form-control @if($errors->has('description')) is-invalid @endif" placeholder="Deskripsi">{{ old('description') }}</textarea>
                                 @if($errors->has('description'))
                                 <small class="help-block" style="color: red">{{ $errors->first('description') }}</small>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label>Berkas</label>
-                                <img class="reviewCover img-fluid mb-3 col-sm-5">
-                                <input type="file" accept="" name="document_url" class="form-control @if($errors->has('document_url')) is-invalid @endif" id="reviewCover" onchange="()">
+                                {{-- <img class="reviewCover img-fluid mb-3 col-sm-5"> --}}
+                                <input type="file" accept="application/pdf" name="document_url" class="form-control @if($errors->has('document_url')) is-invalid @endif" id="reviewCover" onchange="()">
                                 @if($errors->has('title'))
                                 <small class="help-block" style="color: red">{{ $errors->first('document_url') }}</small>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label>Sampul</label>
-                                <img class="reviewCover img-fluid mb-3 col-sm-5">
+                                {{-- <img class="reviewCover img-fluid mb-3 col-sm-5"> --}}
                                 <input type="file" accept="image/*" name="cover"
                                     class="form-control @if($errors->has('cover')) is-invalid @endif"
                                     id="reviewCover" onchange="previewCover()">

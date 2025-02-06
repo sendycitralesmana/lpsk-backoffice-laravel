@@ -3,6 +3,7 @@
 namespace App\Http\Repository;
 
 use App\Models\Profile;
+use App\Models\ProfileCategory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -78,10 +79,13 @@ class ProfileRepository
     public function store($data)
     {
         try {
+            $pejabat = ProfileCategory::where('name', 'Pejabat')->first();
+
             $profile = new Profile();
             $profile->id = Str::uuid();
             $profile->slug = null;
-            $profile->profile_category_id = $data->profile_category_id;
+            // $profile->profile_category_id = $data->profile_category_id;
+            $profile->profile_category_id = $pejabat->id;
             $profile->name = $data->name;
             $profile->description = $data->description;
             if ($data->file('foto')) {
@@ -101,7 +105,7 @@ class ProfileRepository
         try {
             $profiles = Profile::where('id', '!=', $id)->get();
             $profile = Profile::find($id);
-            $profile->profile_category_id = $data->profile_category_id;
+            // $profile->profile_category_id = $data->profile_category_id;
             $profile->name = $data->name;
             $profile->description = $data->description;
             // foreach ($profiles as $profile) {
