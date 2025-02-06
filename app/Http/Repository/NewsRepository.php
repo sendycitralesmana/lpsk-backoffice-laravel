@@ -66,7 +66,11 @@ class NewsRepository
     public function getLatestArtikelApi()
     {
         try {
-            return News::orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->where('news_category_id', '1af5f17d-450a-44db-9b29-7c70e784f262')->limit(4)->get();
+            return News::orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->whereHas('newsCategory', function ($query) {
+                $query->where('slug', 'artikel');
+            })->limit(4)->get();
+
+
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -75,7 +79,9 @@ class NewsRepository
     public function getLatestInformasiApi()
     {
         try {
-            return News::orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->where('news_category_id', '41e5ecbd-7bc1-45f6-92e7-d95054068879')->limit(4)->get();
+            return News::orderBy('created_at', 'desc')->where('status', 'DINAIKAN')->whereHas('newsCategory', function ($query) {
+                $query->where('slug', 'informasi');
+            })->limit(4)->get();
         } catch (\Throwable $th) {
             throw $th;
         }
