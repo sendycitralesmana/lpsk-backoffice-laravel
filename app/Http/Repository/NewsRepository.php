@@ -41,6 +41,11 @@ class NewsRepository
                 });
             }
 
+            if ($request->cover) {
+                $news->where('cover', $request->cover);
+                // $news->where('cover', 'like', '%' . $request->cover . '%');
+            }
+
             $per_page = $request->per_page;
             if ($per_page) {
                 $news->paginate($per_page);

@@ -29,6 +29,11 @@ class PublicationRepository
                 });
             }
 
+            if ($request->cover) {
+                $publication->where('cover', $request->cover);
+                // $publication->where('cover', 'like', '%' . $request->cover . '%');
+            }
+
             $per_page = $request->per_page;
             if ($per_page) {
                 $publication->paginate($per_page);
