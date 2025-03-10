@@ -141,7 +141,7 @@
                                     @if ($user->foto)
                                     <img src="{{ Storage::disk('s3')->url($user->foto) }}" class="img-fluid rounded" style="width: 100px; height: 100px">
                                     @else
-                                    <img src="{{ asset('images/profile-default.jpg') }}" class="img-fluid rounded" style="width: 100px; height: 100px">
+                                    <img src="{{ asset('images/backoffice/profile-default.jpg') }}" class="img-fluid rounded" style="width: 100px; height: 100px">
                                     @endif
                                 </td>
                                 <td>{{ $user->name }}</td>

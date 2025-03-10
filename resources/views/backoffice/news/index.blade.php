@@ -124,7 +124,7 @@
                     </div>
                     @endif
 
-                    @if ($search || $category_id || $user_id || $status)
+                    {{-- @if ($search || $category_id || $user_id || $status)
                         <div class="search">
                             <div class="text-center">
                                 <span class="fa fa-search"></span> Hasil Pencarian dari:
@@ -143,7 +143,7 @@
                             </div>
                             <hr>
                         </div>
-                    @endif
+                    @endif --}}
 
                     <div class="row">
 
@@ -157,7 +157,7 @@
                                             @if ( $news->user->foto != null )
                                                 <img src="{{ Storage::disk('s3')->url($news->user->foto) }}" alt="" class="img-circle rounded">
                                             @else
-                                                <img src="{{ asset('images/profile-default.jpg') }}" alt="" class="img-circle rounded">
+                                                <img src="{{ asset('images/backoffice/profile-default.jpg') }}" alt="" class="img-circle rounded">
                                             @endif
                                             <span class="username">
                                                 <p>{{ $news->user->name }}</p>

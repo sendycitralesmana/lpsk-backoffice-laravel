@@ -149,7 +149,7 @@
                                         @if ( $roadmap->user->foto != null )
                                         <img src="{{ Storage::disk('s3')->url($roadmap->user->foto) }}" alt="" class="img-circle rounded">
                                         @else
-                                        <img src="{{ asset('images/profile-default.jpg') }}" alt="" class="img-circle rounded">
+                                        <img src="{{ asset('images/backoffice/profile-default.jpg') }}" alt="" class="img-circle rounded">
                                         @endif
                                         <span class="username">
                                             <p>{{ $roadmap->user->name }}</p>

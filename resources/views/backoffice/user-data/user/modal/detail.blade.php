@@ -18,7 +18,7 @@
                                 class="gambarPreviewuser img-fluid d-block rounden" alt=""
                                 style="width: 150px; height: 150px; margin-left: auto; margin-right: auto">
                             @else
-                                <img src="{{ asset('images/profile-default.jpg') }}" class="gambarPreviewuser img-fluid mb-3 d-block rounded" alt=""
+                                <img src="{{ asset('images/backoffice/profile-default.jpg') }}" class="gambarPreviewuser img-fluid mb-3 d-block rounded" alt=""
                                 style="width: 150px; height: 150px; margin-left: auto; margin-right: auto">
                             @endif
                         </div>

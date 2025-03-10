@@ -4,7 +4,7 @@
     <a href="/backoffice/dashboard" class="brand-link">
         <div class="d-flex ">
             <div class="">
-                <img src="{{ asset('images/lpsk.png') }}" alt="AdminLTE Logo" class="brand-image"
+                <img src="{{ asset('images/backoffice/lpsk.png') }}" alt="AdminLTE Logo" class="brand-image"
                     style="opacity: .8; width: 100%">
             </div>
             {{-- <div class="ml-2">

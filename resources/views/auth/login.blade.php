@@ -29,7 +29,7 @@
     <div class="login-box">
         <div class="card">
             <div class="text-center">
-                <img src="{{asset('images/lpsk.png')}}" class="img-fluid rounded mt-4" alt="" style="height: 100%; width: 180px">
+                <img src="{{asset('images/backoffice/lpsk.png')}}" class="img-fluid rounded mt-4" alt="" style="height: 100%; width: 180px">
             </div>
             
             <div class="card-body login-card-body">

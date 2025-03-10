@@ -28,7 +28,7 @@
                         @if ( $news->user->foto != null )
                         <img src="{{ Storage::disk('s3')->url($news->user->foto) }}" alt="">
                         @else
-                        <img src="{{ asset('images/profile-default.jpg') }}" alt="">
+                        <img src="{{ asset('images/backoffice/profile-default.jpg') }}" alt="">
                         @endif
                         <span class="username">
                             <p>{{ $news->user->name }}</p>
